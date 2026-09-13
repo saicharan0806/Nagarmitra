@@ -1,5 +1,5 @@
-# CivicSync 🏛️
-### AI-Powered Municipal Civic Complaint Management System
+# Nagarmitra (CivicSync) 🌱🏛️
+### AI-Powered Municipal Civic Complaint Redressal & Automated Triage System
 
 CivicSync is a full-stack civic complaint management platform designed to automate urban municipal grievance redressal. It combines **React (Vite)**, **Python (Flask)**, a **YOLO/OpenCV AI Vision Classifier**, and a **MySQL** relational database to streamline problem reporting, automated triage, staff dispatch, and resolution verification.
 
