@@ -96,10 +96,10 @@ export default function App() {
     }
   });
 
-  // Opening splash screen state (runs only once per browser session)
+  // Opening splash screen state (runs only once when user opens the website)
   const [showSplash, setShowSplash] = useState(() => {
     try {
-      return !sessionStorage.getItem(SPLASH_SESSION_KEY);
+      return !localStorage.getItem(SPLASH_SESSION_KEY) && !sessionStorage.getItem(SPLASH_SESSION_KEY);
     } catch {
       return false;
     }
