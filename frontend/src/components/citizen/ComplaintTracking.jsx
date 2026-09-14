@@ -185,6 +185,27 @@ export default function ComplaintTracking({
           </div>
         </div>
 
+        {searchError && (
+          <div
+            style={{
+              background: '#fef2f2',
+              border: '1px solid #fecaca',
+              borderLeft: '4px solid #dc2626',
+              padding: '0.65rem 0.9rem',
+              borderRadius: '4px',
+              marginBottom: '1rem',
+              fontSize: '0.84rem',
+              color: '#b91c1c',
+              display: 'flex',
+              alignItems: 'center',
+              gap: '0.5rem',
+            }}
+          >
+            <span>⚠️</span>
+            <span>{searchError}</span>
+          </div>
+        )}
+
         {/* Quick Ticket Selector Chips */}
         <div style={{ display: 'flex', gap: '0.5rem', overflowX: 'auto', paddingBottom: '0.25rem' }}>
           {complaints.map((c) => (
