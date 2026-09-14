@@ -146,6 +146,9 @@ export default function App() {
   const [workerModule, setWorkerModule] = useState(
     initialRoute.tab === 'worker' && initialRoute.sub ? initialRoute.sub : 'assigned'
   );
+  const [systemModule, setSystemModule] = useState(
+    (initialRoute.tab === 'system' || initialRoute.tab === 'admin') && initialRoute.sub ? initialRoute.sub : 'overview'
+  );
 
   // Ref to track popstate to prevent double-pushing history
   const isPopStateRef = useRef(false);
@@ -156,6 +159,7 @@ export default function App() {
       if (tab === 'citizen') resolvedSub = 'reporting';
       if (tab === 'manager') resolvedSub = 'complaints';
       if (tab === 'worker') resolvedSub = 'assigned';
+      if (tab === 'system' || tab === 'admin') resolvedSub = 'overview';
     }
 
     setCurrentTab(tab);
@@ -167,6 +171,9 @@ export default function App() {
     }
     if (tab === 'worker') {
       setWorkerModule(resolvedSub || 'assigned');
+    }
+    if (tab === 'system' || tab === 'admin') {
+      setSystemModule(resolvedSub || 'overview');
     }
 
     const newUrl = getTabUrl(tab, resolvedSub);
