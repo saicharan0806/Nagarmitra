@@ -47,6 +47,20 @@ export default function UserProfile({
   const citizenId = currentUser?.id ? `NAGAR-2026-${String(currentUser.id).padStart(4, '0')}` : 'NAGAR-2026-0842';
   const roleName = (currentUser?.role || 'citizen').toUpperCase();
 
+  const getMembershipLabel = () => {
+    switch (currentUser?.role) {
+      case 'manager':
+        return 'Department Directorate Manager';
+      case 'worker':
+        return 'Certified Municipal Field Operative';
+      case 'admin':
+        return 'Municipal Executive Administrator';
+      case 'citizen':
+      default:
+        return 'Registered Citizen Portal Member';
+    }
+  };
+
   return (
     <div className="animate-fade-in" style={{ display: 'flex', flexDirection: 'column', gap: '1.5rem', maxWidth: '1000px', margin: '0 auto', width: '100%' }}>
       {/* Top Banner Navigation & Title */}
@@ -65,7 +79,7 @@ export default function UserProfile({
               <span className="profile-verified-badge">✓ Verified Identity</span>
             </div>
             <h1 className="profile-name">{fullName}</h1>
-            <p className="profile-email-text">{email} • Registered Citizen Portal Member</p>
+            <p className="profile-email-text">{email} • {getMembershipLabel()}</p>
           </div>
         </div>
 
