@@ -359,7 +359,7 @@ export default function Navbar({
                         <span className="govt-user-dropdown-email">{currentUser.email || 'citizen@nagarmitra.gov.in'}</span>
                         <div className="govt-user-dropdown-meta">
                           <span className="profile-role-badge-small">{currentUser.role}</span>
-                          <span className="profile-ward-small">{currentUser.ward || 'Ward 8 Downtown'}</span>
+                          <span className="profile-ward-small">{currentUser.ward || 'Ward 8 Ashok Nagar'}</span>
                         </div>
                       </div>
                     </div>
