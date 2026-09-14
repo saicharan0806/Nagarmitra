@@ -242,6 +242,7 @@ export default function CitizenDashboard({
           onAddFeedback={handleAddFeedback}
           preselectedComplaintId={selectedComplaintId}
           onNotification={onNotification}
+          currentUser={currentUser}
         />
       )}
 
