@@ -205,7 +205,7 @@ export default function ProofOfResolution({
               )}
             </div>
             <div className="field-comparison-footer">
-              <span>Operative: {task.assigned_worker_name || 'Marcus Vance'}</span>
+              <span>Operative: {task.assigned_worker_name || 'Ramesh Kumar'}</span>
               <span>
                 {proofPreview ? (
                   <button
