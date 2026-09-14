@@ -96,14 +96,16 @@ export default function ManagerNavBar({
       </div>
 
       {/* 5 Core Manager Triage Modules Navigation Bar */}
-      <div className="manager-tabs-bar">
+      <div className="manager-tabs-bar" role="tablist" aria-label="Manager Triage Modules">
         <button
           type="button"
+          role="tab"
+          aria-selected={activeTab === 'complaints'}
           className={`manager-tab-btn ${activeTab === 'complaints' ? 'active' : ''}`}
           onClick={() => onTabSwitch('complaints')}
         >
-          <span>📋</span>
-          <span>Complaint Management</span>
+          <span className="manager-tab-icon">📋</span>
+          <span className="manager-tab-text">Complaint Management</span>
           <span className="manager-tab-badge">
             {complaintsCount}
           </span>
@@ -111,11 +113,13 @@ export default function ManagerNavBar({
 
         <button
           type="button"
+          role="tab"
+          aria-selected={activeTab === 'ai'}
           className={`manager-tab-btn ${activeTab === 'ai' ? 'active' : ''}`}
           onClick={() => onTabSwitch('ai')}
         >
-          <span>🤖</span>
-          <span>AI Classification</span>
+          <span className="manager-tab-icon">🤖</span>
+          <span className="manager-tab-text">AI Classification</span>
           <span className="manager-tab-badge">
             {avgConfidence}% Conf
           </span>
@@ -123,23 +127,27 @@ export default function ManagerNavBar({
 
         <button
           type="button"
+          role="tab"
+          aria-selected={activeTab === 'priority'}
           className={`manager-tab-btn ${activeTab === 'priority' ? 'active' : ''}`}
           onClick={() => onTabSwitch('priority')}
         >
-          <span>⚡</span>
-          <span>Priority Management</span>
-          <span className="manager-tab-badge">
+          <span className="manager-tab-icon">⚡</span>
+          <span className="manager-tab-text">Priority Management</span>
+          <span className={`manager-tab-badge ${criticalCount > 0 ? 'manager-badge-critical' : ''}`}>
             {criticalCount} Critical
           </span>
         </button>
 
         <button
           type="button"
+          role="tab"
+          aria-selected={activeTab === 'departments'}
           className={`manager-tab-btn ${activeTab === 'departments' ? 'active' : ''}`}
           onClick={() => onTabSwitch('departments')}
         >
-          <span>🏛️</span>
-          <span>Department Management</span>
+          <span className="manager-tab-icon">🏛️</span>
+          <span className="manager-tab-text">Department Management</span>
           <span className="manager-tab-badge">
             {departmentsCount} Depts
           </span>
@@ -147,11 +155,13 @@ export default function ManagerNavBar({
 
         <button
           type="button"
+          role="tab"
+          aria-selected={activeTab === 'workers'}
           className={`manager-tab-btn ${activeTab === 'workers' ? 'active' : ''}`}
           onClick={() => onTabSwitch('workers')}
         >
-          <span>👷</span>
-          <span>Worker Assignment</span>
+          <span className="manager-tab-icon">👷</span>
+          <span className="manager-tab-text">Worker Assignment</span>
           <span className="manager-tab-badge">
             {totalWorkersCount} Operatives
           </span>
