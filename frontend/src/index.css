@@ -5593,4 +5593,203 @@ button, input, select, textarea {
   line-height: 1.5;
 }
 
+/* ====================================================================
+   Citizen Grievance Registry & Filter Pills (All, Pending, Resolved, etc.)
+   ==================================================================== */
+.civic-filter-toolbar {
+  background: #FFFFFF;
+  border: 1px solid #E2E8F0;
+  border-radius: 12px;
+  padding: 1rem 1.35rem;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 1rem;
+  box-shadow: 0 1px 3px rgba(11, 18, 32, 0.04);
+}
+
+.civic-filter-group {
+  display: flex;
+  gap: 0.5rem;
+  align-items: center;
+  flex-wrap: wrap;
+}
+
+.civic-filter-pill,
+.filter-pill {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.55rem;
+  padding: 0.55rem 1.05rem;
+  border-radius: 9999px;
+  border: 1px solid #E2E8F0;
+  background: #F8FAFC;
+  color: #475569;
+  font-family: var(--font-body, 'Plus Jakarta Sans', sans-serif);
+  font-size: 0.85rem;
+  font-weight: 600;
+  line-height: 1.25;
+  cursor: pointer;
+  transition: all 0.18s cubic-bezier(0.16, 1, 0.3, 1);
+  white-space: nowrap;
+  outline: none;
+  user-select: none;
+}
+
+.civic-filter-pill:hover,
+.filter-pill:hover {
+  background: #F1F5F9;
+  color: #0F172A;
+  border-color: #CBD5E1;
+  transform: translateY(-1px);
+}
+
+.civic-filter-pill.active,
+.filter-pill.active {
+  background: var(--color-accent, #16A34A);
+  color: #FFFFFF;
+  font-weight: 700;
+  border-color: var(--color-accent, #16A34A);
+  box-shadow: 0 2px 8px rgba(22, 163, 74, 0.28);
+}
+
+.civic-filter-pill:focus-visible,
+.filter-pill:focus-visible {
+  outline: 2px solid var(--color-accent, #16A34A);
+  outline-offset: 2px;
+}
+
+/* Status Indicator Dots */
+.civic-filter-dot {
+  width: 8px;
+  height: 8px;
+  border-radius: 9999px;
+  flex-shrink: 0;
+  transition: all 0.15s ease;
+}
+
+.civic-filter-dot.dot-all {
+  background: #64748B;
+}
+
+.civic-filter-dot.dot-pending {
+  background: #F59E0B;
+}
+
+.civic-filter-dot.dot-assigned {
+  background: #2563EB;
+}
+
+.civic-filter-dot.dot-in_progress {
+  background: #0284C7;
+}
+
+.civic-filter-dot.dot-resolved {
+  background: #16A34A;
+}
+
+.civic-filter-dot.dot-unread {
+  background: #DC2626;
+}
+
+.civic-filter-pill.active .civic-filter-dot {
+  background: #FFFFFF;
+  box-shadow: 0 0 0 2px rgba(255, 255, 255, 0.4);
+}
+
+.civic-filter-label {
+  letter-spacing: -0.01em;
+}
+
+/* Counter Badge */
+.civic-filter-count {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  padding: 0.15rem 0.55rem;
+  border-radius: 9999px;
+  font-size: 0.74rem;
+  font-weight: 700;
+  line-height: 1;
+  background: #E2E8F0;
+  color: #334155;
+  transition: all 0.18s ease;
+}
+
+.civic-filter-pill.active .civic-filter-count,
+.filter-pill.active .civic-filter-count {
+  background: rgba(255, 255, 255, 0.28);
+  color: #FFFFFF;
+}
+
+/* Search Bar in Filter Toolbar */
+.civic-filter-search-wrap {
+  position: relative;
+  display: flex;
+  align-items: center;
+  min-width: 270px;
+  max-width: 350px;
+}
+
+.civic-filter-search-icon {
+  position: absolute;
+  left: 12px;
+  font-size: 0.9rem;
+  color: #94A3B8;
+  pointer-events: none;
+}
+
+.civic-filter-search-input {
+  width: 100%;
+  padding: 0.55rem 2.2rem 0.55rem 2.35rem;
+  border: 1px solid #CBD5E1;
+  border-radius: 8px;
+  font-size: 0.86rem;
+  font-family: var(--font-body, 'Plus Jakarta Sans', sans-serif);
+  outline: none;
+  background: #FFFFFF;
+  color: #0F172A;
+  transition: all 0.15s ease;
+}
+
+.civic-filter-search-input:focus {
+  border-color: #16A34A;
+  box-shadow: 0 0 0 3px rgba(22, 163, 74, 0.12);
+}
+
+.civic-filter-search-clear {
+  position: absolute;
+  right: 10px;
+  background: transparent;
+  border: none;
+  color: #94A3B8;
+  cursor: pointer;
+  font-size: 0.85rem;
+  padding: 2px 6px;
+  border-radius: 4px;
+}
+
+.civic-filter-search-clear:hover {
+  color: #0F172A;
+  background: #F1F5F9;
+}
+
+/* History Card Elevation */
+.history-card {
+  background: #FFFFFF;
+  border: 1px solid #E2E8F0;
+  border-radius: 12px;
+  padding: 1.45rem 1.65rem;
+  box-shadow: 0 1px 3px rgba(11, 18, 32, 0.04);
+  transition: all 0.2s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.history-card:hover {
+  border-color: #CBD5E1;
+  box-shadow: 0 6px 18px rgba(11, 18, 32, 0.07);
+  transform: translateY(-1px);
+}
+
+
 
