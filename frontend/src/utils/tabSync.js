@@ -42,6 +42,18 @@ export function getStoredComplaints(fallbackComplaints = []) {
     const raw = localStorage.getItem(STORAGE_KEY_COMPLAINTS);
     if (!raw) return fallbackComplaints;
     const parsed = JSON.parse(raw);
+    // Auto-migrate if stored complaints contain old non-Indian demo data
+    if (
+      Array.isArray(parsed) &&
+      parsed.some(
+        (c) =>
+          c.assigned_worker_name === 'Marcus Vance' ||
+          (c.address && (c.address.includes('Main Street') || c.address.includes('Pine Avenue')))
+      )
+    ) {
+      localStorage.setItem(STORAGE_KEY_COMPLAINTS, JSON.stringify(fallbackComplaints));
+      return fallbackComplaints;
+    }
     return Array.isArray(parsed) && parsed.length > 0 ? parsed : fallbackComplaints;
   } catch (err) {
     console.warn('[Nagarmitra TabSync] Failed to read stored complaints:', err);
