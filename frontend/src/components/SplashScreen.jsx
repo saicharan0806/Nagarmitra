@@ -1,4 +1,4 @@
-﻿import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect } from 'react';
 
 export const SPLASH_SESSION_KEY = 'nagarmitra_splash_shown';
 
@@ -11,8 +11,9 @@ export default function SplashScreen({ onComplete }) {
   const [isFadingOut, setIsFadingOut] = useState(false);
 
   useEffect(() => {
-    // Record in sessionStorage immediately so subsequent reloads or navigations do not re-trigger
+    // Record in both localStorage and sessionStorage immediately so subsequent pages/tabs do not re-trigger
     try {
+      localStorage.setItem(SPLASH_SESSION_KEY, 'true');
       sessionStorage.setItem(SPLASH_SESSION_KEY, 'true');
     } catch {
       // ignore storage restriction if cookies/storage disabled
