@@ -568,6 +568,8 @@ export default function App() {
                   onNotification={showNotification}
                   onSwitchTab={handleSwitchTab}
                   onResetComplaints={handleResetComplaints}
+                  initialSection={systemModule}
+                  onSectionChange={(sec) => handleSwitchTab('system', sec)}
                 />
               ) : (
                 <AccessDenied
@@ -585,6 +587,7 @@ export default function App() {
                 <AnalyticsDashboard
                   complaints={complaints}
                   onSwitchTab={handleSwitchTab}
+                  onNotification={showNotification}
                 />
               ) : (
                 <AccessDenied
