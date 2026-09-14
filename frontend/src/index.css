@@ -3862,3 +3862,132 @@ button, input, select, textarea {
     font-size: 1.95rem;
   }
 }
+
+/* ====================================================================
+   Nagarmitra Opening Splash Animation
+   ==================================================================== */
+.nagarmitra-splash-overlay {
+  position: fixed;
+  inset: 0;
+  width: 100vw;
+  height: 100vh;
+  background-color: #0B1220;
+  z-index: 999999;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+  overflow: hidden;
+  user-select: none;
+  opacity: 1;
+  visibility: visible;
+  transition: opacity 0.5s cubic-bezier(0.4, 0, 0.2, 1), visibility 0.5s ease;
+}
+
+.nagarmitra-splash-overlay.fading-out {
+  opacity: 0;
+  visibility: hidden;
+  pointer-events: none;
+}
+
+.nagarmitra-splash-content {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  padding: 1.5rem;
+  max-width: 90vw;
+}
+
+.nagarmitra-splash-seal {
+  width: 76px;
+  height: 76px;
+  border-radius: 18px;
+  background: var(--color-accent, #16A34A);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 2.35rem;
+  box-shadow: 0 10px 30px rgba(22, 163, 74, 0.35);
+  margin-bottom: 1.25rem;
+  opacity: 0;
+  transform: translateY(12px) scale(0.88);
+  animation: splashLogoIn 0.6s cubic-bezier(0.16, 1, 0.3, 1) 0.15s forwards;
+}
+
+.nagarmitra-splash-title {
+  font-family: var(--font-heading, 'Outfit', sans-serif);
+  font-size: 2.5rem;
+  font-weight: 800;
+  color: #FFFFFF;
+  letter-spacing: -0.025em;
+  line-height: 1.1;
+  margin: 0 0 0.5rem 0;
+  opacity: 0;
+  transform: translateY(10px);
+  animation: splashTextIn 0.45s cubic-bezier(0.16, 1, 0.3, 1) 0.45s forwards;
+}
+
+.nagarmitra-splash-tagline {
+  font-family: var(--font-body, 'Plus Jakarta Sans', sans-serif);
+  font-size: 1rem;
+  font-weight: 500;
+  color: #94A3B8;
+  letter-spacing: 0.01em;
+  margin: 0;
+  opacity: 0;
+  transform: translateY(8px);
+  animation: splashTextIn 0.4s cubic-bezier(0.16, 1, 0.3, 1) 0.75s forwards;
+}
+
+@keyframes splashLogoIn {
+  0% {
+    opacity: 0;
+    transform: translateY(12px) scale(0.88);
+  }
+  100% {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+  }
+}
+
+@keyframes splashTextIn {
+  0% {
+    opacity: 0;
+    transform: translateY(10px);
+  }
+  100% {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@media (max-width: 640px) {
+  .nagarmitra-splash-seal {
+    width: 64px;
+    height: 64px;
+    font-size: 1.95rem;
+    border-radius: 14px;
+    margin-bottom: 1rem;
+  }
+  .nagarmitra-splash-title {
+    font-size: 2rem;
+  }
+  .nagarmitra-splash-tagline {
+    font-size: 0.88rem;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .nagarmitra-splash-seal,
+  .nagarmitra-splash-title,
+  .nagarmitra-splash-tagline {
+    animation: none !important;
+    opacity: 1 !important;
+    transform: none !important;
+  }
+  .nagarmitra-splash-overlay {
+    transition: opacity 0.2s ease, visibility 0.2s ease !important;
+  }
+}
