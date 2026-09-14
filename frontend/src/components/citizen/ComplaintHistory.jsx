@@ -1,10 +1,10 @@
-import React, { useState, useMemo } from 'react';
+import React, { useState, useMemo, useEffect } from 'react';
 
 /**
  * ComplaintHistory Component
  * --------------------------
  * Complete historical registry of complaints filed by citizens, with summary
- * metrics, status filter pills, keyword search, and fast navigation to tracking/feedback.
+ * metrics, status filter pills, keyword search, client-side pagination, and fast navigation to tracking/feedback.
  */
 export default function ComplaintHistory({
   complaints = [],
@@ -13,6 +13,8 @@ export default function ComplaintHistory({
 }) {
   const [historyFilter, setHistoryFilter] = useState('all');
   const [historySearch, setHistorySearch] = useState('');
+  const [currentPage, setCurrentPage] = useState(1);
+  const pageSize = 5;
 
   const filteredHistory = useMemo(() => {
     return complaints.filter((c) => {
@@ -32,6 +34,17 @@ export default function ComplaintHistory({
       return matchesFilter && matchesSearch;
     });
   }, [complaints, historyFilter, historySearch]);
+
+  // Reset to page 1 on filter or search change
+  useEffect(() => {
+    setCurrentPage(1);
+  }, [historyFilter, historySearch]);
+
+  const totalPages = Math.ceil(filteredHistory.length / pageSize) || 1;
+  const paginatedHistory = useMemo(() => {
+    const start = (currentPage - 1) * pageSize;
+    return filteredHistory.slice(start, start + pageSize);
+  }, [filteredHistory, currentPage, pageSize]);
 
   const pendingCount = complaints.filter((c) => c.status === 'pending').length;
   const inProgressCount = complaints.filter((c) => c.status === 'assigned' || c.status === 'in_progress').length;
