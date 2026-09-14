@@ -299,6 +299,9 @@ export default function App() {
       if (!isRouteAllowed(currentUser.role, currentTab)) {
         const targetTab = getDefaultRedirectForRole(currentUser.role);
         setCurrentTab(targetTab);
+        try {
+          window.history.replaceState({ tab: targetTab, sub: null }, '', getTabUrl(targetTab));
+        } catch {}
         showNotification(`Access Restricted: Automatically redirected to your authorized ${targetTab.toUpperCase()} portal.`);
       }
     }
