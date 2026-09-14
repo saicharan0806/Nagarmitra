@@ -30,20 +30,23 @@ export default function CitizenNotifications({
           </div>
         </div>
 
-        <div style={{ display: 'flex', gap: '0.5rem', alignItems: 'center' }}>
+        <div className="civic-filter-group" style={{ display: 'flex', gap: '0.5rem', alignItems: 'center' }}>
           <button
             type="button"
-            className={`filter-pill ${notifFilter === 'all' ? 'active' : ''}`}
+            className={`civic-filter-pill ${notifFilter === 'all' ? 'active' : ''}`}
             onClick={() => setNotifFilter('all')}
           >
-            All ({notifications.length})
+            <span className="civic-filter-label">All</span>
+            <span className="civic-filter-count">{notifications.length}</span>
           </button>
           <button
             type="button"
-            className={`filter-pill ${notifFilter === 'unread' ? 'active' : ''}`}
+            className={`civic-filter-pill pill-unread ${notifFilter === 'unread' ? 'active' : ''}`}
             onClick={() => setNotifFilter('unread')}
           >
-            Unread ({unreadCount})
+            <span className="civic-filter-dot dot-unread" />
+            <span className="civic-filter-label">Unread</span>
+            <span className="civic-filter-count">{unreadCount}</span>
           </button>
           {unreadCount > 0 && (
             <button
