@@ -18,6 +18,7 @@ export default function AccessDenied({
       case 'worker':
         return { tab: 'worker', label: 'Field Operations' };
       case 'admin':
+        return { tab: 'system', label: 'System Management' };
       case 'manager':
         return { tab: 'manager', label: 'Manager Triage' };
       case 'citizen':
