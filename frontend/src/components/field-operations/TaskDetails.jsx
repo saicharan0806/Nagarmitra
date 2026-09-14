@@ -30,7 +30,7 @@ export default function TaskDetails({
   }
 
   const mapLink = `https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(
-    task.address || '40.7128,-74.0060'
+    task.address || '17.3850,78.4867'
   )}`;
 
   return (
@@ -113,7 +113,7 @@ export default function TaskDetails({
             <div className="field-address-box">
               <div className="field-address-text">
                 <span className="field-loc-icon">📍</span>
-                <span>{task.address || '452 Main Street, Downtown Central Ward 8'}</span>
+                <span>{task.address || 'Plot 42, Hitec City Main Road, Madhapur, Ward 8, Hyderabad'}</span>
               </div>
               <a
                 href={mapLink}
@@ -125,8 +125,8 @@ export default function TaskDetails({
               </a>
             </div>
             <div className="field-coordinates-row">
-              <span>Latitude: <strong>40.7128° N</strong></span>
-              <span>Longitude: <strong>74.0060° W</strong></span>
+              <span>Latitude: <strong>17.3850° N</strong></span>
+              <span>Longitude: <strong>78.4867° E</strong></span>
               <span>Accuracy: <strong>± 3.2m</strong></span>
             </div>
           </div>
@@ -212,7 +212,7 @@ export default function TaskDetails({
                 </div>
                 <div className="field-timeline-info">
                   <strong>Field Operative Assigned</strong>
-                  <small>Dispatched to {task.assigned_worker_name || 'Marcus Vance (ROADS-W01)'}</small>
+                  <small>Dispatched to {task.assigned_worker_name || 'Ramesh Kumar (ROADS-W01)'}</small>
                 </div>
               </div>
               <div className={`field-timeline-step ${task.status === 'in_progress' ? 'active' : task.status === 'resolved' ? 'completed' : ''}`}>
