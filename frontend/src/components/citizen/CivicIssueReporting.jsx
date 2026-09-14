@@ -197,7 +197,31 @@ export default function CivicIssueReporting({
 
   const [aiScanResult, setAiScanResult] = useState(null);
   const [isScanning, setIsScanning] = useState(false);
+  const [showMapPicker, setShowMapPicker] = useState(false);
   const fileInputRef = useRef(null);
+
+  // Handle live voice dictation appending to description
+  const handleVoiceTranscript = (text, isFinal) => {
+    setFormData((prev) => {
+      const existing = prev.description ? prev.description.trim() : '';
+      if (!existing) return { ...prev, description: text };
+      if (existing.endsWith(text) || text.startsWith(existing)) return prev;
+      return {
+        ...prev,
+        description: `${existing} ${text}`.trim(),
+      };
+    });
+  };
+
+  // Handle map pin location selection
+  const handleMapLocationSelect = ({ lat, lng, address }) => {
+    setFormData((prev) => ({
+      ...prev,
+      latitude: lat,
+      longitude: lng,
+      address: address,
+    }));
+  };
 
   const handleImageChange = (e) => {
     const file = e.target.files[0];
