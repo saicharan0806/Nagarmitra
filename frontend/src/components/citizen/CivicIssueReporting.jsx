@@ -439,13 +439,21 @@ export default function CivicIssueReporting({
           </div>
 
           <div className="govt-form-group">
-            <label className="form-label" style={{ fontWeight: 700, fontSize: '0.88rem', color: '#111827' }}>
-              Detailed Description & Hazards <span style={{ color: '#DC2626' }}>*</span>
-            </label>
+            <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', flexWrap: 'wrap', gap: '0.5rem', marginBottom: '0.35rem' }}>
+              <label className="form-label" style={{ fontWeight: 700, fontSize: '0.88rem', color: '#111827', margin: 0 }}>
+                Detailed Description & Hazards <span style={{ color: '#DC2626' }}>*</span>
+              </label>
+              {/* Native Multilingual Voice-to-Text Complaint Dictation */}
+              <VoiceDictation
+                onTranscript={handleVoiceTranscript}
+                onNotification={onNotification}
+                targetField="description"
+              />
+            </div>
             <textarea
               className="form-textarea"
               rows="3"
-              placeholder="Describe severity, approximate dimensions, water accumulation, traffic obstruction, or public safety risk..."
+              placeholder="Describe severity, approximate dimensions, water accumulation, traffic obstruction, or speak using the Voice Dictate button above..."
               value={formData.description}
               onChange={(e) => setFormData({ ...formData, description: e.target.value })}
               required
@@ -453,14 +461,40 @@ export default function CivicIssueReporting({
           </div>
 
           <div className="govt-form-group">
-            <label className="form-label" style={{ fontWeight: 700, fontSize: '0.88rem', color: '#111827' }}>
-              Incident Location & Landmark <span style={{ color: '#DC2626' }}>*</span>
-            </label>
+            <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '0.35rem' }}>
+              <label className="form-label" style={{ fontWeight: 700, fontSize: '0.88rem', color: '#111827', margin: 0 }}>
+                Incident Location & Landmark <span style={{ color: '#DC2626' }}>*</span>
+              </label>
+              {/* Interactive Map Toggle Button */}
+              <button
+                type="button"
+                onClick={() => setShowMapPicker((prev) => !prev)}
+                style={{
+                  background: showMapPicker ? 'rgba(22, 163, 74, 0.1)' : '#FFFFFF',
+                  border: `1px solid ${showMapPicker ? 'var(--color-accent, #16A34A)' : '#CBD5E1'}`,
+                  color: showMapPicker ? 'var(--color-accent, #16A34A)' : '#111827',
+                  fontSize: '0.78rem',
+                  fontWeight: 600,
+                  padding: '0.22rem 0.65rem',
+                  borderRadius: '9999px',
+                  cursor: 'pointer',
+                  display: 'inline-flex',
+                  alignItems: 'center',
+                  gap: '0.35rem',
+                  transition: 'all 0.15s ease',
+                }}
+                title={showMapPicker ? 'Collapse interactive map' : 'Open map to pinpoint exact location on street'}
+              >
+                <span>🗺️</span>
+                <span>{showMapPicker ? 'Hide Map Picker' : 'Pin on Map'}</span>
+              </button>
+            </div>
+
             <div style={{ display: 'flex', gap: '0.5rem' }}>
               <input
                 type="text"
                 className="form-input"
-                placeholder="Street name, landmark or building number"
+                placeholder="Street name, landmark, ward or building number"
                 value={formData.address}
                 onChange={(e) => setFormData({ ...formData, address: e.target.value })}
                 required
@@ -470,16 +504,39 @@ export default function CivicIssueReporting({
                 className="btn btn-secondary"
                 style={{ whiteSpace: 'nowrap', fontSize: '0.82rem', padding: '0 1rem' }}
                 onClick={() => {
-                  setFormData((prev) => ({
-                    ...prev,
-                    address: '452 Main Street, Downtown Ward 8 (Lat: 40.7128° N, Lon: 74.0060° W)',
-                  }));
-                  if (onNotification) onNotification('📍 GPS coordinates auto-detected from device telemetry!');
+                  setShowMapPicker(true);
+                  if (navigator.geolocation) {
+                    navigator.geolocation.getCurrentPosition(
+                      (pos) => {
+                        const { latitude, longitude } = pos.coords;
+                        setFormData((prev) => ({
+                          ...prev,
+                          latitude: latitude.toFixed(5),
+                          longitude: longitude.toFixed(5),
+                          address: `GPS Locked (${latitude.toFixed(5)}° N, ${longitude.toFixed(5)}° E)`,
+                        }));
+                        if (onNotification) onNotification('📍 GPS coordinates auto-detected from device telemetry!');
+                      },
+                      () => {
+                        if (onNotification) onNotification('📍 Positioned on map. You can drag the pin.');
+                      }
+                    );
+                  }
                 }}
               >
                 📍 Auto-GPS
               </button>
             </div>
+
+            {/* Interactive Leaflet OpenStreetMap Pin Picker */}
+            {showMapPicker && (
+              <CivicMapPicker
+                initialLat={formData.latitude}
+                initialLng={formData.longitude}
+                onLocationSelect={handleMapLocationSelect}
+                onNotification={onNotification}
+              />
+            )}
           </div>
 
           {/* Photo Evidence & AI Vision Pre-scan */}
