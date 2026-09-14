@@ -181,21 +181,6 @@ export default function StatusUpdates({
             </div>
           </button>
         </div>
-
-        {/* Optional Custom Field Note */}
-        <div style={{ marginTop: '1.5rem', paddingTop: '1.25rem', borderTop: '1px solid #e2e8f0' }}>
-          <label className="govt-label" htmlFor="operative-notes">
-            <span>Operative Field Log Notes (Optional)</span>
-          </label>
-          <textarea
-            id="operative-notes"
-            rows="2"
-            className="govt-textarea"
-            placeholder="Add specific context (e.g., 'Compacted 30kg cold patch mix on lane 2. Traffic flowing smoothly.')..."
-            value={operativeNotes}
-            onChange={(e) => setOperativeNotes(e.target.value)}
-          />
-        </div>
       </div>
 
       {/* Activity Timeline Audit Log */}
