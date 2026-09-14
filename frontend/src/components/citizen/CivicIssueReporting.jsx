@@ -793,6 +793,27 @@ export default function CivicIssueReporting({
             )
           )}
 
+          {formError && (
+            <div
+              style={{
+                background: '#fef2f2',
+                border: '1px solid #fecaca',
+                borderLeft: '4px solid #dc2626',
+                padding: '0.75rem 1rem',
+                borderRadius: '4px',
+                marginBottom: '1rem',
+                fontSize: '0.85rem',
+                color: '#b91c1c',
+                display: 'flex',
+                alignItems: 'center',
+                gap: '0.5rem',
+              }}
+            >
+              <span>⚠️</span>
+              <span>{formError}</span>
+            </div>
+          )}
+
           <button
             type="submit"
             className="govt-btn-primary"
