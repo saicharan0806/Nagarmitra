@@ -189,11 +189,11 @@ export default function HomePage({ currentUser, onSwitchTab }) {
             </div>
             <button
               type="button"
-              className="govt-btn-primary"
+              className={(!currentUser || currentUser.role === 'citizen') ? 'govt-btn-primary' : 'govt-btn-secondary'}
               style={{ width: '100%', height: '48px', justifyContent: 'center', fontSize: '1rem' }}
               onClick={() => onSwitchTab('citizen', 'reporting')}
             >
-              Report an Issue Now
+              {(!currentUser || currentUser.role === 'citizen') ? 'Report an Issue Now' : 'Citizen Portal (Restricted)'}
             </button>
           </div>
 
@@ -217,7 +217,7 @@ export default function HomePage({ currentUser, onSwitchTab }) {
               className="govt-btn-secondary"
               style={{ width: '100%', height: '48px', justifyContent: 'center', fontSize: '1rem' }}
             >
-              View My Reports Timeline
+              {(!currentUser || currentUser.role === 'citizen') ? 'View My Reports Timeline' : 'Track Grievances (Restricted)'}
             </button>
           </div>
 
@@ -238,10 +238,10 @@ export default function HomePage({ currentUser, onSwitchTab }) {
             <button
               type="button"
               onClick={() => onSwitchTab('manager')}
-              className="govt-btn-secondary"
+              className={currentUser?.role === 'manager' ? 'govt-btn-primary' : 'govt-btn-secondary'}
               style={{ width: '100%', height: '48px', justifyContent: 'center', fontSize: '1rem' }}
             >
-              Open Manager Triage
+              {currentUser?.role === 'manager' ? 'Open Manager Triage →' : 'Manager Triage (Restricted)'}
             </button>
           </div>
 
@@ -262,12 +262,38 @@ export default function HomePage({ currentUser, onSwitchTab }) {
             <button
               type="button"
               onClick={() => onSwitchTab('worker')}
-              className="govt-btn-secondary"
+              className={currentUser?.role === 'worker' ? 'govt-btn-primary' : 'govt-btn-secondary'}
               style={{ width: '100%', height: '48px', justifyContent: 'center', fontSize: '1rem' }}
             >
-              Open Worker Queue
+              {currentUser?.role === 'worker' ? 'Open Worker Queue →' : 'Worker Queue (Restricted)'}
             </button>
           </div>
+
+          {/* Card 5: Municipal Administrator Console (Rendered when Admin) */}
+          {currentUser?.role === 'admin' && (
+            <div className="govt-cta-card" style={{ borderTop: '4px solid #0B1220' }}>
+              <div>
+                <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '0.75rem' }}>
+                  <span style={{ fontSize: '1.75rem' }}>🛡️</span>
+                  <span className="profile-role-badge-small" style={{ background: '#0B1220', color: '#ffffff' }}>
+                    Municipal Admin Clearance
+                  </span>
+                </div>
+                <h3 className="govt-cta-title">System Governance Console</h3>
+                <p className="govt-cta-desc">
+                  Oversee portal user accounts, municipal directorate budgets, field worker rosters, and global complaint lifecycle oversight.
+                </p>
+              </div>
+              <button
+                type="button"
+                onClick={() => onSwitchTab('system')}
+                className="govt-btn-primary"
+                style={{ width: '100%', height: '48px', justifyContent: 'center', fontSize: '1rem', background: '#0B1220' }}
+              >
+                Open System Management →
+              </button>
+            </div>
+          )}
         </div>
       </section>
 
