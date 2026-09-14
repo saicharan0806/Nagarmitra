@@ -795,6 +795,110 @@ button, input, select, textarea {
   color: var(--eco-primary-dark);
 }
 
+.govt-alert-warning {
+  background-color: #fffbeb;
+  border: 1px solid #fde68a;
+  color: #92400e;
+}
+
+/* Institutional Role Recommendation Banner */
+.govt-role-advisory {
+  background: #f8fafc;
+  border: 1px solid #e2e8f0;
+  border-left: 4px solid #f59e0b;
+  border-radius: 6px;
+  padding: 0.85rem 1rem;
+  margin-bottom: 1.25rem;
+  font-size: 0.82rem;
+  line-height: 1.45;
+  color: #334155;
+}
+
+.govt-role-advisory-title {
+  display: flex;
+  align-items: center;
+  gap: 0.4rem;
+  font-weight: 700;
+  font-size: 0.86rem;
+  color: #b45309;
+  margin-bottom: 0.35rem;
+}
+
+.govt-role-advisory-body {
+  font-size: 0.8rem;
+  color: #475569;
+}
+
+.govt-role-advisory-body strong {
+  color: #0f172a;
+}
+
+.govt-role-advisory-item {
+  margin-top: 0.3rem;
+  display: flex;
+  align-items: flex-start;
+  gap: 0.35rem;
+}
+
+.govt-demo-accounts-wrap {
+  margin-top: 1.25rem;
+  padding-top: 1rem;
+  border-top: 1px dashed #cbd5e1;
+}
+
+.govt-demo-accounts-title {
+  font-size: 0.76rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  color: #64748b;
+  margin-bottom: 0.6rem;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.govt-demo-grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 0.5rem;
+}
+
+.govt-demo-btn {
+  background: #ffffff;
+  border: 1px solid #e2e8f0;
+  border-radius: 6px;
+  padding: 0.5rem 0.6rem;
+  text-align: left;
+  cursor: pointer;
+  transition: all 0.15s ease-in-out;
+  display: flex;
+  flex-direction: column;
+}
+
+.govt-demo-btn:hover {
+  border-color: #16a34a;
+  background: #f0fdf4;
+}
+
+.govt-demo-btn-role {
+  font-size: 0.72rem;
+  font-weight: 700;
+  color: #16a34a;
+  text-transform: uppercase;
+  letter-spacing: 0.03em;
+}
+
+.govt-demo-btn-name {
+  font-size: 0.8rem;
+  font-weight: 600;
+  color: #1e293b;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+
 .govt-disclaimer {
   max-width: 520px;
   margin-top: 1.25rem;
