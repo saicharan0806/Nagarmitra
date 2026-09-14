@@ -121,6 +121,8 @@ export default function Navbar({
                           onClick={(e) => handleNavClick(e, 'manager')}
                           className={`govt-nav-tab ${currentTab === 'manager' ? 'active' : ''}`}
                           title="Municipal Departmental Manager Triage"
+                          aria-haspopup="menu"
+                          aria-expanded={managerMenuOpen}
                         >
                           <span>Manager Triage</span>
                           {pendingCount > 0 && (
@@ -130,6 +132,7 @@ export default function Navbar({
                           )}
                           <span
                             className="govt-nav-chevron"
+                            aria-label="Toggle Manager Triage dropdown menu"
                             onClick={(e) => {
                               e.preventDefault();
                               e.stopPropagation();
@@ -142,12 +145,13 @@ export default function Navbar({
 
                         {/* Manager Triage Dropdown Menu exposing the 5 modules */}
                         {managerMenuOpen && (
-                          <div className="govt-nav-dropdown-menu">
+                          <div className="govt-nav-dropdown-menu" role="menu" aria-label="Manager Triage Modules">
                             <div className="govt-nav-dropdown-header">
                               Manager Triage Modules
                             </div>
                             <a
                               href={getTabUrl('manager', 'complaints')}
+                              role="menuitem"
                               className={`govt-nav-dropdown-item ${currentTab === 'manager' && managerModule === 'complaints' ? 'active' : ''}`}
                               onClick={(e) => {
                                 setManagerMenuOpen(false);
@@ -163,6 +167,7 @@ export default function Navbar({
 
                             <a
                               href={getTabUrl('manager', 'ai')}
+                              role="menuitem"
                               className={`govt-nav-dropdown-item ${currentTab === 'manager' && managerModule === 'ai' ? 'active' : ''}`}
                               onClick={(e) => {
                                 setManagerMenuOpen(false);
@@ -178,6 +183,7 @@ export default function Navbar({
 
                             <a
                               href={getTabUrl('manager', 'priority')}
+                              role="menuitem"
                               className={`govt-nav-dropdown-item ${currentTab === 'manager' && managerModule === 'priority' ? 'active' : ''}`}
                               onClick={(e) => {
                                 setManagerMenuOpen(false);
@@ -193,6 +199,7 @@ export default function Navbar({
 
                             <a
                               href={getTabUrl('manager', 'departments')}
+                              role="menuitem"
                               className={`govt-nav-dropdown-item ${currentTab === 'manager' && managerModule === 'departments' ? 'active' : ''}`}
                               onClick={(e) => {
                                 setManagerMenuOpen(false);
@@ -208,6 +215,7 @@ export default function Navbar({
 
                             <a
                               href={getTabUrl('manager', 'workers')}
+                              role="menuitem"
                               className={`govt-nav-dropdown-item ${currentTab === 'manager' && managerModule === 'workers' ? 'active' : ''}`}
                               onClick={(e) => {
                                 setManagerMenuOpen(false);
@@ -239,10 +247,13 @@ export default function Navbar({
                           onClick={(e) => handleNavClick(e, 'worker')}
                           className={`govt-nav-tab ${currentTab === 'worker' ? 'active' : ''}`}
                           title="Municipal Field Operatives Console"
+                          aria-haspopup="menu"
+                          aria-expanded={workerMenuOpen}
                         >
                           <span>Field Operations</span>
                           <span
                             className="govt-nav-chevron"
+                            aria-label="Toggle Field Operations dropdown menu"
                             onClick={(e) => {
                               e.preventDefault();
                               e.stopPropagation();
@@ -255,12 +266,13 @@ export default function Navbar({
 
                         {/* Field Operations Dropdown Menu exposing the 4 modules */}
                         {workerMenuOpen && (
-                          <div className="govt-nav-dropdown-menu">
+                          <div className="govt-nav-dropdown-menu" role="menu" aria-label="Field Operations Modules">
                             <div className="govt-nav-dropdown-header">
                               Field Operations Modules
                             </div>
                             <a
                               href={getTabUrl('worker', 'assigned')}
+                              role="menuitem"
                               className={`govt-nav-dropdown-item ${currentTab === 'worker' && workerModule === 'assigned' ? 'active' : ''}`}
                               onClick={(e) => {
                                 setWorkerMenuOpen(false);
@@ -276,6 +288,7 @@ export default function Navbar({
 
                             <a
                               href={getTabUrl('worker', 'details')}
+                              role="menuitem"
                               className={`govt-nav-dropdown-item ${currentTab === 'worker' && workerModule === 'details' ? 'active' : ''}`}
                               onClick={(e) => {
                                 setWorkerMenuOpen(false);
@@ -291,6 +304,7 @@ export default function Navbar({
 
                             <a
                               href={getTabUrl('worker', 'status')}
+                              role="menuitem"
                               className={`govt-nav-dropdown-item ${currentTab === 'worker' && workerModule === 'status' ? 'active' : ''}`}
                               onClick={(e) => {
                                 setWorkerMenuOpen(false);
@@ -306,6 +320,7 @@ export default function Navbar({
 
                             <a
                               href={getTabUrl('worker', 'proof')}
+                              role="menuitem"
                               className={`govt-nav-dropdown-item ${currentTab === 'worker' && workerModule === 'proof' ? 'active' : ''}`}
                               onClick={(e) => {
                                 setWorkerMenuOpen(false);
