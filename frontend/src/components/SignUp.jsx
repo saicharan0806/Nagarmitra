@@ -34,6 +34,7 @@ export default function SignUp({ onRegisterSuccess, onSwitchToSignIn }) {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [role, setRole] = useState('citizen');
+  const [employeeCode, setEmployeeCode] = useState('');
   const [agreeTerms, setAgreeTerms] = useState(true);
   const [loading, setLoading] = useState(false);
   const [errorMsg, setErrorMsg] = useState(null);
