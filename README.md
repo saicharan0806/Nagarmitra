@@ -131,10 +131,10 @@ mysql -u root -p < database/schema.sql
 
 | Role | Name | Email | Default Status |
 |---|---|---|---|
-| **Citizen** | David Patel | `citizen.david@example.com` | Active |
-| **Manager** | Sarah Jenkins | `manager@civisync.gov` | Active |
-| **Worker** | Marcus Vance | `worker.roads@civisync.gov` | Available (`ROADS-W01`) |
-| **Admin** | System Administrator | `admin@civisync.gov` | Active |
+| **Citizen** | Aarav Sharma | `aarav@citizen.nagarmitra.gov.in` | Active |
+| **Manager** | Eng. Rajesh Patel | `rajesh.patel@roads.nagarmitra.gov.in` | Active |
+| **Worker** | Ramesh Kumar | `ramesh.kumar@worker.nagarmitra.gov.in` | Available (`ROADS-W01`) |
+| **Admin** | Municipal Administrator | `admin@nagarmitra.gov.in` | Active |
 
 ---
 
