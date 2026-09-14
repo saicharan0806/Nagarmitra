@@ -363,6 +363,8 @@ export default function Navbar({
                   onClick={(e) => handleNavClick(e, 'profile')}
                   className={`govt-nav-user-btn ${currentTab === 'profile' ? 'active' : ''}`}
                   title="Click to view and manage your profile"
+                  aria-haspopup="menu"
+                  aria-expanded={userMenuOpen}
                 >
                   <span className="govt-user-avatar-mini">
                     {(currentUser.full_name || 'U').charAt(0).toUpperCase()}
@@ -376,6 +378,7 @@ export default function Navbar({
                   </span>
                   <span
                     className="govt-nav-chevron"
+                    aria-label="Toggle user profile menu"
                     onClick={(e) => {
                       e.preventDefault();
                       e.stopPropagation();
@@ -388,7 +391,7 @@ export default function Navbar({
 
                 {/* Profile & User Role Dropdown Menu */}
                 {userMenuOpen && (
-                  <div className="govt-user-dropdown-menu">
+                  <div className="govt-user-dropdown-menu" role="menu" aria-label="User Account Menu">
                     {/* User Summary Header */}
                     <div className="govt-user-dropdown-profile">
                       <div className="govt-user-dropdown-avatar">
