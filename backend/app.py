@@ -206,15 +206,15 @@ def list_complaints():
             {
                 "id": 1,
                 "tracking_id": "CIVIC-2026-00101",
-                "title": "Deep Pothole at Main St Intersection",
-                "description": "Large pothole in the right lane damaging vehicle suspensions.",
+                "title": "Severe Bitumen Pothole on Outer Ring Road",
+                "description": "Deep crater-like pothole damaging car suspensions and causing hazardous sudden swerving during peak hours.",
                 "category": "pothole",
                 "ai_predicted_category": "pothole",
                 "ai_confidence": 95.4,
                 "severity": "high",
                 "status": "assigned",
                 "department_name": "Roads & Infrastructure",
-                "address": "452 Main Street, Downtown",
+                "address": "Near Pillar 142, Outer Ring Road Junction, Gachibowli, Hyderabad, Ward 8",
                 "created_at": "2026-09-10T10:30:00"
             }
         ]), 200
@@ -306,7 +306,7 @@ def get_complaint_timeline(complaint_id):
         return jsonify([
             {"action": "created", "note": "Complaint submitted via portal", "created_at": "2026-09-10T10:30:00"},
             {"action": "ai_classified", "note": "AI matched category with 95% confidence", "created_at": "2026-09-10T10:31:00"},
-            {"action": "assigned", "note": "Assigned to Marcus Vance", "created_at": "2026-09-11T09:00:00"}
+            {"action": "assigned", "note": "Assigned to Ramesh Kumar", "created_at": "2026-09-11T09:00:00"}
         ]), 200
 
 
@@ -394,8 +394,8 @@ def get_available_workers():
         return jsonify([w.to_dict() for w in workers]), 200
     except Exception:
         return jsonify([
-            {"id": 1, "user_name": "Marcus Vance", "department_name": "Roads & Infrastructure", "badge_number": "ROADS-W01", "status": "available"},
-            {"id": 2, "user_name": "Elena Gomez", "department_name": "Sanitation & Waste", "badge_number": "SAN-W02", "status": "available"}
+            {"id": 1, "user_name": "Ramesh Kumar", "department_name": "Roads & Infrastructure", "badge_number": "ROADS-W01", "status": "available"},
+            {"id": 2, "user_name": "Sunita Devi", "department_name": "Sanitation & Waste", "badge_number": "SAN-W02", "status": "available"}
         ]), 200
 
 
@@ -414,12 +414,12 @@ def get_worker_tasks():
             {
                 "id": 1,
                 "tracking_id": "CIVIC-2026-00101",
-                "title": "Deep Pothole at Main St Intersection",
-                "description": "Large pothole in the right lane damaging vehicle suspensions.",
+                "title": "Severe Bitumen Pothole on Outer Ring Road",
+                "description": "Deep crater-like pothole damaging car suspensions and causing hazardous sudden swerving during peak hours.",
                 "category": "pothole",
                 "severity": "high",
                 "status": "assigned",
-                "address": "452 Main Street, Downtown",
+                "address": "Near Pillar 142, Outer Ring Road Junction, Gachibowli, Hyderabad, Ward 8",
                 "image_url": "https://images.unsplash.com/photo-1515162816999-a0c47dc192f7?w=600"
             }
         ]), 200
