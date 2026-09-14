@@ -13,6 +13,7 @@ import AboutPage from './components/AboutPage.jsx';
 import HowItWorksPage from './components/HowItWorksPage.jsx';
 import UserProfile from './components/UserProfile.jsx';
 import AccessDenied from './components/AccessDenied.jsx';
+import SplashScreen, { SPLASH_SESSION_KEY } from './components/SplashScreen.jsx';
 import { isRouteAllowed, getDefaultRedirectForRole } from './utils/roleConfig.js';
 import { parseUrlParams, getTabUrl } from './utils/navigation.js';
 import {
