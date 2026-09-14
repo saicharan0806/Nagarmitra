@@ -94,14 +94,27 @@ export default function SystemManagement({
         </div>
       </div>
 
-      {/* 4 Section Navigation Tabs */}
+      {/* 5 Section Navigation Tabs */}
       <div className="admin-nav-tabs">
         <a
+          href={getTabUrl('system', 'overview')}
+          className={`admin-nav-btn ${activeSection === 'overview' ? 'active' : ''}`}
+          onClick={(e) => {
+            e.preventDefault();
+            handleSelectSection('overview');
+          }}
+        >
+          <span>⚡</span>
+          <span>Executive Overview</span>
+        </a>
+
+        <a
           href={getTabUrl('system', 'users')}
-          target="_blank"
-          rel="noopener noreferrer"
           className={`admin-nav-btn ${activeSection === 'users' ? 'active' : ''}`}
-          onClick={() => setActiveSection('users')}
+          onClick={(e) => {
+            e.preventDefault();
+            handleSelectSection('users');
+          }}
         >
           <span>👥</span>
           <span>User Management</span>
@@ -110,10 +123,11 @@ export default function SystemManagement({
 
         <a
           href={getTabUrl('system', 'departments')}
-          target="_blank"
-          rel="noopener noreferrer"
           className={`admin-nav-btn ${activeSection === 'departments' ? 'active' : ''}`}
-          onClick={() => setActiveSection('departments')}
+          onClick={(e) => {
+            e.preventDefault();
+            handleSelectSection('departments');
+          }}
         >
           <span>🏛️</span>
           <span>Department Management</span>
@@ -122,10 +136,11 @@ export default function SystemManagement({
 
         <a
           href={getTabUrl('system', 'workers')}
-          target="_blank"
-          rel="noopener noreferrer"
           className={`admin-nav-btn ${activeSection === 'workers' ? 'active' : ''}`}
-          onClick={() => setActiveSection('workers')}
+          onClick={(e) => {
+            e.preventDefault();
+            handleSelectSection('workers');
+          }}
         >
           <span>👷</span>
           <span>Field Worker Management</span>
@@ -134,16 +149,26 @@ export default function SystemManagement({
 
         <a
           href={getTabUrl('system', 'complaints')}
-          target="_blank"
-          rel="noopener noreferrer"
           className={`admin-nav-btn ${activeSection === 'complaints' ? 'active' : ''}`}
-          onClick={() => setActiveSection('complaints')}
+          onClick={(e) => {
+            e.preventDefault();
+            handleSelectSection('complaints');
+          }}
         >
           <span>📋</span>
           <span>Complaint Management</span>
           <span className="admin-tab-badge">{complaints.length}</span>
         </a>
       </div>
+
+      {/* SECTION 0: EXECUTIVE OVERVIEW */}
+      {activeSection === 'overview' && (
+        <AdminDashboard
+          complaints={complaints}
+          onSwitchTab={onSwitchTab}
+          onNotification={onNotification}
+        />
+      )}
 
       {/* SECTION 1: USER MANAGEMENT */}
       {activeSection === 'users' && (
