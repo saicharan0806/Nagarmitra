@@ -12,6 +12,10 @@ export default function ComplaintTracking({
   onSelectComplaint,
   onNotification,
   onRateResolution,
+  onSwitchTab,
+  onTabSwitch,
+  recentlyCreatedTicket = null,
+  onClearRecentTicket,
 }) {
   const [trackingSearch, setTrackingSearch] = useState('');
 
@@ -41,7 +45,105 @@ export default function ComplaintTracking({
   };
 
   return (
-    <div className="animate-fade-in" style={{ display: 'flex', flexDirection: 'column', gap: '1.5rem' }}>
+    <div className="animate-fade-in" style={{ display: 'flex', flexDirection: 'column', gap: '1.25rem' }}>
+      {/* Top Breadcrumb & Back Navigation Bar */}
+      <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', flexWrap: 'wrap', gap: '0.75rem' }}>
+        <button
+          type="button"
+          onClick={() => {
+            if (onSwitchTab) onSwitchTab('home');
+            else if (onTabSwitch) onTabSwitch('reporting');
+          }}
+          className="govt-btn-secondary"
+          style={{ display: 'inline-flex', alignItems: 'center', gap: '0.45rem', fontSize: '0.84rem', padding: '0.45rem 0.9rem' }}
+        >
+          <span>←</span>
+          <span>Back to Home</span>
+        </button>
+
+        <div style={{ display: 'flex', gap: '0.6rem', flexWrap: 'wrap' }}>
+          <button
+            type="button"
+            onClick={() => {
+              if (onTabSwitch) onTabSwitch('reporting');
+              else if (onSwitchTab) onSwitchTab('citizen', 'reporting');
+            }}
+            className="govt-btn-primary"
+            style={{ display: 'inline-flex', alignItems: 'center', gap: '0.4rem', fontSize: '0.84rem', padding: '0.45rem 0.95rem' }}
+          >
+            <span>✍️</span>
+            <span>Report Another Grievance</span>
+          </button>
+          <button
+            type="button"
+            onClick={() => {
+              if (onTabSwitch) onTabSwitch('history');
+              else if (onSwitchTab) onSwitchTab('citizen', 'history');
+            }}
+            className="govt-btn-secondary"
+            style={{ display: 'inline-flex', alignItems: 'center', gap: '0.4rem', fontSize: '0.84rem', padding: '0.45rem 0.95rem' }}
+          >
+            <span>📂</span>
+            <span>All Grievances</span>
+          </button>
+        </div>
+      </div>
+
+      {/* Confirmation Notification Card when a complaint was just filed */}
+      {recentlyCreatedTicket && (
+        <div
+          style={{
+            background: '#f0fdf4',
+            border: '1px solid #86efac',
+            borderLeft: '5px solid #16a34a',
+            borderRadius: '6px',
+            padding: '1.25rem 1.5rem',
+            display: 'flex',
+            justifyContent: 'space-between',
+            alignItems: 'center',
+            flexWrap: 'wrap',
+            gap: '1rem',
+          }}
+        >
+          <div>
+            <div style={{ display: 'flex', alignItems: 'center', gap: '0.5rem' }}>
+              <span style={{ fontSize: '1.3rem' }}>🎉</span>
+              <strong style={{ fontSize: '1.05rem', color: '#166534' }}>
+                Grievance Registered Successfully!
+              </strong>
+            </div>
+            <p style={{ margin: '0.35rem 0 0 0', fontSize: '0.86rem', color: '#15803d' }}>
+              Tracking ID: <strong>{recentlyCreatedTicket.tracking_id}</strong> • Routed to: <strong>{recentlyCreatedTicket.department_name}</strong>. Real-time milestones and status are displayed below.
+            </p>
+          </div>
+          <div style={{ display: 'flex', gap: '0.5rem', flexWrap: 'wrap' }}>
+            <button
+              type="button"
+              className="govt-btn-secondary"
+              onClick={() => {
+                if (onSwitchTab) onSwitchTab('home');
+                else if (onTabSwitch) onTabSwitch('reporting');
+              }}
+              style={{ fontSize: '0.82rem' }}
+            >
+              ← Return Home
+            </button>
+            <button
+              type="button"
+              className="govt-btn-primary"
+              onClick={() => {
+                if (onClearRecentTicket) onClearRecentTicket();
+                if (onTabSwitch) onTabSwitch('reporting');
+                else if (onSwitchTab) onSwitchTab('citizen', 'reporting');
+              }}
+              style={{ fontSize: '0.82rem' }}
+            >
+              ✍️ File Another
+            </button>
+          </div>
+        </div>
+      )}
+
       {/* Tracking Search & Selector Strip */}
       <div style={{ background: '#ffffff', border: '1px solid #cbd5e1', borderRadius: '6px', padding: '1.5rem', boxShadow: '0 1px 3px rgba(0,0,0,0.05)' }}>
         <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', flexWrap: 'wrap', gap: '1rem', marginBottom: '1rem' }}>
