@@ -259,6 +259,33 @@ export default function SignUp({ onRegisterSuccess, onSwitchToSignIn }) {
                   </button>
                 </div>
 
+                {/* Institutional Role Advisory & Recommendation Notice */}
+                <div className="govt-role-advisory" role="region" aria-label="Official Registration Role Advisory">
+                  <div className="govt-role-advisory-title">
+                    <span>🛡️ Official Role Separation & Registration Advisory</span>
+                  </div>
+                  <div className="govt-role-advisory-body">
+                    <div className="govt-role-advisory-item">
+                      <span style={{ color: '#ca8a04' }}>•</span>
+                      <div>
+                        <strong>Citizen Registration (Recommended):</strong> Select <strong>Citizen</strong> if you are a local resident to file grievances (potholes, garbage, water issues) and track updates.
+                      </div>
+                    </div>
+                    <div className="govt-role-advisory-item">
+                      <span style={{ color: '#dc2626', fontWeight: 700 }}>•</span>
+                      <div>
+                        <strong>Permanent Role Lock:</strong> Accounts registered as a <strong>Citizen cannot be signed in as other roles</strong> (Field Worker, Dept Manager, or Admin).
+                      </div>
+                    </div>
+                    <div className="govt-role-advisory-item">
+                      <span style={{ color: '#16a34a' }}>•</span>
+                      <div>
+                        <strong>Municipal Operatives:</strong> Field Worker and Department Manager registrations require authorized municipal employee credentials.
+                      </div>
+                    </div>
+                  </div>
+                </div>
+
                 {/* Form */}
                 <form onSubmit={handleSubmit} noValidate>
                   {/* Full Name */}
