@@ -16,6 +16,7 @@ import AccessDenied from './components/AccessDenied.jsx';
 import SplashScreen, { SPLASH_SESSION_KEY } from './components/SplashScreen.jsx';
 import { isRouteAllowed, getDefaultRedirectForRole } from './utils/roleConfig.js';
 import { parseUrlParams, getTabUrl } from './utils/navigation.js';
+import { recordUserRole } from './utils/authRoles.js';
 import {
   getStoredComplaints,
   persistComplaints,
