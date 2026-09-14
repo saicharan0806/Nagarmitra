@@ -3991,3 +3991,233 @@ button, input, select, textarea {
     transition: opacity 0.2s ease, visibility 0.2s ease !important;
   }
 }
+
+/* ====================================================================
+   Civic Map Picker (Leaflet OpenStreetMap)
+   ==================================================================== */
+.civic-map-picker-card {
+  border: 1px solid var(--color-border, #E2E8F0);
+  background: #FFFFFF;
+  border-radius: 8px;
+  overflow: hidden;
+  box-shadow: 0 2px 8px rgba(11, 18, 32, 0.05);
+  margin-top: 0.75rem;
+  animation: fadeIn 0.2s ease-out;
+}
+
+.civic-map-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 0.75rem 1rem;
+  background: #F8F9F6;
+  border-bottom: 1px solid var(--color-border, #E2E8F0);
+  gap: 0.75rem;
+}
+
+.civic-map-title-row {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.civic-map-icon {
+  font-size: 1.25rem;
+}
+
+.civic-map-locate-btn {
+  background: var(--color-accent, #16A34A);
+  color: #FFFFFF;
+  border: none;
+  padding: 0.35rem 0.85rem;
+  border-radius: 4px;
+  font-weight: 600;
+  font-size: 0.78rem;
+  cursor: pointer;
+  transition: all 0.15s ease;
+  white-space: nowrap;
+  display: inline-flex;
+  align-items: center;
+  gap: 0.3rem;
+}
+
+.civic-map-locate-btn:hover:not(:disabled) {
+  background: var(--color-accent-hover, #15803D);
+  transform: translateY(-1px);
+}
+
+.civic-map-locate-btn:disabled {
+  opacity: 0.65;
+  cursor: not-allowed;
+}
+
+.civic-map-canvas {
+  width: 100%;
+  height: 240px;
+  z-index: 10;
+}
+
+.civic-map-footer {
+  display: flex;
+  flex-direction: column;
+  gap: 0.35rem;
+  padding: 0.75rem 1rem;
+  background: #F8F9F6;
+  border-top: 1px solid var(--color-border, #E2E8F0);
+}
+
+.civic-map-coords-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.4rem;
+  font-size: 0.75rem;
+  font-weight: 700;
+  color: var(--color-accent, #16A34A);
+  background: rgba(22, 163, 74, 0.1);
+  padding: 0.15rem 0.5rem;
+  border-radius: 4px;
+  border: 1px solid rgba(22, 163, 74, 0.2);
+  width: fit-content;
+}
+
+.civic-map-address-text {
+  font-size: 0.78rem;
+  color: var(--color-text, #111827);
+  line-height: 1.35;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+/* Custom Marker Pin */
+.civic-leaflet-marker {
+  background: transparent !important;
+  border: none !important;
+}
+
+.civic-pin-anchor {
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.civic-pin-badge {
+  font-size: 2rem;
+  filter: drop-shadow(0 2px 4px rgba(0, 0, 0, 0.3));
+  position: relative;
+  z-index: 2;
+  cursor: grab;
+}
+
+.civic-pin-pulse {
+  position: absolute;
+  bottom: 0px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 16px;
+  height: 8px;
+  background: rgba(22, 163, 74, 0.5);
+  border-radius: 50%;
+  animation: markerPulse 1.8s infinite;
+  z-index: 1;
+}
+
+@keyframes markerPulse {
+  0% {
+    transform: translateX(-50%) scale(1);
+    opacity: 0.8;
+  }
+  70% {
+    transform: translateX(-50%) scale(2.6);
+    opacity: 0;
+  }
+  100% {
+    transform: translateX(-50%) scale(1);
+    opacity: 0;
+  }
+}
+
+/* ====================================================================
+   Voice-to-Text Complaint Dictation
+   ==================================================================== */
+.civic-voice-dictation-wrap {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+  margin-bottom: 0.45rem;
+}
+
+.civic-voice-lang-chips {
+  display: flex;
+  align-items: center;
+  gap: 0.35rem;
+}
+
+.civic-voice-lang-pill {
+  font-size: 0.72rem;
+  padding: 0.2rem 0.55rem;
+  border: 1px solid var(--color-border-input, #CBD5E1);
+  background: #FFFFFF;
+  border-radius: 9999px;
+  cursor: pointer;
+  font-weight: 600;
+  color: var(--color-text-secondary, #64748B);
+  transition: all 0.15s ease;
+}
+
+.civic-voice-lang-pill:hover {
+  border-color: var(--color-accent, #16A34A);
+  color: var(--color-accent, #16A34A);
+}
+
+.civic-voice-lang-pill.active {
+  background: var(--color-accent, #16A34A);
+  color: #FFFFFF;
+  border-color: var(--color-accent, #16A34A);
+  box-shadow: 0 1px 3px rgba(22, 163, 74, 0.2);
+}
+
+.civic-voice-mic-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.4rem;
+  padding: 0.3rem 0.85rem;
+  border: 1px solid var(--color-border-input, #CBD5E1);
+  background: #FFFFFF;
+  border-radius: 9999px;
+  font-size: 0.78rem;
+  font-weight: 600;
+  cursor: pointer;
+  color: var(--color-text, #111827);
+  transition: all 0.15s ease;
+  position: relative;
+}
+
+.civic-voice-mic-btn:hover {
+  background: #F8F9F6;
+  border-color: var(--color-accent, #16A34A);
+  color: var(--color-accent, #16A34A);
+}
+
+.civic-voice-mic-btn.listening {
+  background: #FEF2F2;
+  color: #DC2626;
+  border-color: #F87171;
+  animation: micListenPulse 1.2s infinite;
+}
+
+@keyframes micListenPulse {
+  0% {
+    box-shadow: 0 0 0 0 rgba(220, 38, 38, 0.4);
+  }
+  70% {
+    box-shadow: 0 0 0 8px rgba(220, 38, 38, 0);
+  }
+  100% {
+    box-shadow: 0 0 0 0 rgba(220, 38, 38, 0);
+  }
+}
+
