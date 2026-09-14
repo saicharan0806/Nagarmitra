@@ -146,39 +146,82 @@ export default function App() {
     initialRoute.tab === 'worker' && initialRoute.sub ? initialRoute.sub : 'assigned'
   );
 
-  const handleSwitchTab = (tab, subTab = null) => {
+  // Ref to track popstate to prevent double-pushing history
+  const isPopStateRef = useRef(false);
+
+  const handleSwitchTab = (tab, subTab = null, replace = false) => {
+    let resolvedSub = subTab;
+    if (!resolvedSub) {
+      if (tab === 'citizen') resolvedSub = 'reporting';
+      if (tab === 'manager') resolvedSub = 'complaints';
+      if (tab === 'worker') resolvedSub = 'assigned';
+    }
+
     setCurrentTab(tab);
-    if (tab === 'citizen' && subTab) {
-      setCitizenSubTab(subTab);
+    if (tab === 'citizen') {
+      setCitizenSubTab(resolvedSub || 'reporting');
     }
-    if (tab === 'manager' && subTab) {
-      setManagerModule(subTab);
+    if (tab === 'manager') {
+      setManagerModule(resolvedSub || 'complaints');
     }
-    if (tab === 'worker' && subTab) {
-      setWorkerModule(subTab);
+    if (tab === 'worker') {
+      setWorkerModule(resolvedSub || 'assigned');
+    }
+
+    const newUrl = getTabUrl(tab, resolvedSub);
+    const currentPathAndSearch = window.location.pathname + window.location.search;
+
+    if (!isPopStateRef.current && currentPathAndSearch !== newUrl) {
+      const stateObj = { tab, sub: resolvedSub };
+      if (replace) {
+        window.history.replaceState(stateObj, '', newUrl);
+      } else {
+        window.history.pushState(stateObj, '', newUrl);
+      }
     }
   };
 
-  // Sync URL in address bar when tab state changes
+  // Anchor initial history state so browser Back never closes or leaves the site prematurely
   useEffect(() => {
-    let sub = null;
-    if (currentTab === 'citizen') sub = citizenSubTab;
-    if (currentTab === 'manager') sub = managerModule;
-    if (currentTab === 'worker') sub = workerModule;
-    const newUrl = getTabUrl(currentTab, sub);
-    window.history.replaceState(null, '', newUrl);
-  }, [currentTab, citizenSubTab, managerModule, workerModule]);
+    const { tab, sub, auth } = parseUrlParams();
+    let initialSub = sub;
+    if (!initialSub) {
+      if (currentTab === 'citizen') initialSub = citizenSubTab;
+      if (currentTab === 'manager') initialSub = managerModule;
+      if (currentTab === 'worker') initialSub = workerModule;
+    }
 
-  // Handle browser back/forward buttons
+    // If loaded on an inner route directly, anchor 'home' as the base so Back returns home
+    if (tab && tab !== 'home' && window.history.length <= 1) {
+      window.history.replaceState({ tab: 'home', sub: null }, '', getTabUrl('home'));
+      window.history.pushState({ tab, sub: initialSub }, '', window.location.href);
+    } else if (!window.history.state) {
+      window.history.replaceState({ tab: currentTab, sub: initialSub, auth }, '', window.location.href);
+    }
+  }, []);
+
+  // Handle browser back/forward buttons (popstate)
   useEffect(() => {
-    const handlePopState = () => {
-      const { tab, sub, auth } = parseUrlParams();
-      if (tab) setCurrentTab(tab);
-      if (tab === 'citizen' && sub) setCitizenSubTab(sub);
-      if (tab === 'manager' && sub) setManagerModule(sub);
-      if (tab === 'worker' && sub) setWorkerModule(sub);
-      if (auth) setAuthView(auth);
+    const handlePopState = (e) => {
+      isPopStateRef.current = true;
+      const parsed = parseUrlParams();
+      const state = e.state;
+
+      const targetTab = (state && state.tab) || parsed.tab || 'home';
+      const targetSub = (state && state.sub) || parsed.sub || null;
+      const targetAuth = (state && state.auth) || parsed.auth || null;
+
+      setCurrentTab(targetTab);
+      if (targetTab === 'citizen') setCitizenSubTab(targetSub || 'reporting');
+      if (targetTab === 'manager') setManagerModule(targetSub || 'complaints');
+      if (targetTab === 'worker') setWorkerModule(targetSub || 'assigned');
+      if (targetAuth) setAuthView(targetAuth);
+
+      setTimeout(() => {
+        isPopStateRef.current = false;
+      }, 60);
     };
+
     window.addEventListener('popstate', handlePopState);
     return () => window.removeEventListener('popstate', handlePopState);
   }, []);
