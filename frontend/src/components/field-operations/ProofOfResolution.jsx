@@ -23,6 +23,7 @@ export default function ProofOfResolution({
   const [hoursSpent, setHoursSpent] = useState('1.5');
   const [certifiedDeclaration, setCertifiedDeclaration] = useState(false);
   const [isSubmitting, setIsSubmitting] = useState(false);
+  const [formError, setFormError] = useState('');
   const [isResolvedSuccess, setIsResolvedSuccess] = useState(
     task?.status === 'resolved'
   );
@@ -54,6 +55,7 @@ export default function ProofOfResolution({
     if (file) {
       setProofImageFile(file);
       setProofPreview(URL.createObjectURL(file));
+      setFormError('');
     }
   };
 
@@ -66,6 +68,7 @@ export default function ProofOfResolution({
         ? 'https://images.unsplash.com/photo-1517649763962-0c623266ddc0?w=600'
         : 'https://images.unsplash.com/photo-1590486803833-1c5dc8ddd4c8?w=600';
     setProofPreview(demoUrl);
+    setFormError('');
   };
 
   // Submit Final Proof
@@ -73,15 +76,20 @@ export default function ProofOfResolution({
     e.preventDefault();
 
     if (!proofPreview) {
-      alert('Please upload or select a verification photograph showing the completed repair.');
+      const msg = 'Please upload or select a verification photograph showing the completed repair.';
+      setFormError(msg);
+      if (onNotification) onNotification(`⚠️ ${msg}`);
       return;
     }
 
     if (!certifiedDeclaration) {
-      alert('Please check the municipal compliance certification declaration before submitting.');
+      const msg = 'Please check the municipal compliance certification declaration before submitting.';
+      setFormError(msg);
+      if (onNotification) onNotification(`⚠️ ${msg}`);
       return;
     }
 
+    setFormError('');
     setIsSubmitting(true);
     try {
       const updated = {
