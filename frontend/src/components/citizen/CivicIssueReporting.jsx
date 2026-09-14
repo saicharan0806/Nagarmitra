@@ -182,6 +182,7 @@ export default function CivicIssueReporting({
   onComplaintCreated,
   onNotification,
   onTabSwitch,
+  onSwitchTab,
   complaintsCount = 0,
 }) {
   const [formData, setFormData] = useState({
@@ -374,7 +375,27 @@ export default function CivicIssueReporting({
   };
 
   return (
-    <div className="animate-fade-in" style={{ display: 'grid', gridTemplateColumns: '1.35fr 1fr', gap: '1.75rem' }}>
+    <div className="animate-fade-in" style={{ display: 'flex', flexDirection: 'column', gap: '1.25rem' }}>
+      {/* Top Breadcrumb & Return Action */}
+      <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', flexWrap: 'wrap', gap: '0.75rem' }}>
+        <button
+          type="button"
+          onClick={() => {
+            if (onSwitchTab) onSwitchTab('home');
+            else if (onTabSwitch) onTabSwitch('history');
+          }}
+          className="govt-btn-secondary"
+          style={{ display: 'inline-flex', alignItems: 'center', gap: '0.45rem', fontSize: '0.84rem', padding: '0.45rem 0.9rem' }}
+        >
+          <span>←</span>
+          <span>Back to Home</span>
+        </button>
+        <div style={{ fontSize: '0.82rem', color: '#64748B' }}>
+          Municipal Citizen Services • Public Grievance Registration
+        </div>
+      </div>
+
+      <div style={{ display: 'grid', gridTemplateColumns: '1.35fr 1fr', gap: '1.75rem' }}>
       {/* Main Reporting Form */}
       <div style={{ background: '#ffffff', border: '1px solid #cbd5e1', borderRadius: '6px', padding: '2rem', boxShadow: '0 1px 3px rgba(0,0,0,0.05)' }}>
         <div style={{ display: 'flex', alignItems: 'center', gap: '0.6rem', marginBottom: '1.5rem', borderBottom: '1px solid #e2e8f0', paddingBottom: '1rem' }}>
