@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 import Navbar from './components/Navbar.jsx';
 import SignIn from './components/SignIn.jsx';
 import SignUp from './components/SignUp.jsx';
