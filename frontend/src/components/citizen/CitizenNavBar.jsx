@@ -98,10 +98,13 @@ export default function CitizenNavBar({
       <div className="citizen-tabs-bar">
         <a
           href={getTabUrl('citizen', 'reporting')}
-          target="_blank"
-          rel="noopener noreferrer"
           className={`citizen-tab-btn ${activeTab === 'reporting' ? 'active' : ''}`}
-          onClick={() => onTabSwitch('reporting')}
+          onClick={(e) => {
+            if (!e.ctrlKey && !e.metaKey && onTabSwitch) {
+              e.preventDefault();
+              onTabSwitch('reporting');
+            }
+          }}
         >
           <span>✍️</span>
           <span>Civic Issue Reporting</span>
@@ -109,10 +112,13 @@ export default function CitizenNavBar({
 
         <a
           href={getTabUrl('citizen', 'tracking')}
-          target="_blank"
-          rel="noopener noreferrer"
           className={`citizen-tab-btn ${activeTab === 'tracking' ? 'active' : ''}`}
-          onClick={() => onTabSwitch('tracking')}
+          onClick={(e) => {
+            if (!e.ctrlKey && !e.metaKey && onTabSwitch) {
+              e.preventDefault();
+              onTabSwitch('tracking');
+            }
+          }}
         >
           <span>🔍</span>
           <span>Complaint Tracking</span>
@@ -125,10 +131,13 @@ export default function CitizenNavBar({
 
         <a
           href={getTabUrl('citizen', 'history')}
-          target="_blank"
-          rel="noopener noreferrer"
           className={`citizen-tab-btn ${activeTab === 'history' ? 'active' : ''}`}
-          onClick={() => onTabSwitch('history')}
+          onClick={(e) => {
+            if (!e.ctrlKey && !e.metaKey && onTabSwitch) {
+              e.preventDefault();
+              onTabSwitch('history');
+            }
+          }}
         >
           <span>📂</span>
           <span>Complaint History</span>
@@ -139,10 +148,13 @@ export default function CitizenNavBar({
 
         <a
           href={getTabUrl('citizen', 'feedback')}
-          target="_blank"
-          rel="noopener noreferrer"
           className={`citizen-tab-btn ${activeTab === 'feedback' ? 'active' : ''}`}
-          onClick={() => onTabSwitch('feedback')}
+          onClick={(e) => {
+            if (!e.ctrlKey && !e.metaKey && onTabSwitch) {
+              e.preventDefault();
+              onTabSwitch('feedback');
+            }
+          }}
         >
           <span>⭐</span>
           <span>Feedback & Ratings</span>
@@ -153,10 +165,13 @@ export default function CitizenNavBar({
 
         <a
           href={getTabUrl('citizen', 'notifications')}
-          target="_blank"
-          rel="noopener noreferrer"
           className={`citizen-tab-btn ${activeTab === 'notifications' ? 'active' : ''}`}
-          onClick={() => onTabSwitch('notifications')}
+          onClick={(e) => {
+            if (!e.ctrlKey && !e.metaKey && onTabSwitch) {
+              e.preventDefault();
+              onTabSwitch('notifications');
+            }
+          }}
         >
           <span>🔔</span>
           <span>Notifications</span>
