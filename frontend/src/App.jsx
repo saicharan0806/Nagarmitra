@@ -317,6 +317,9 @@ export default function App() {
     setCurrentUser(user);
     try {
       localStorage.setItem('nagarmitra_user', JSON.stringify(user));
+      if (user && user.email && user.role) {
+        recordUserRole(user.email, user.role);
+      }
     } catch {}
     broadcastTabEvent(SYNC_EVENTS.USER_AUTH, user);
     setCurrentTab('home');
