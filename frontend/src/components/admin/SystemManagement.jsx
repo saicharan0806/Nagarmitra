@@ -19,11 +19,11 @@ export default function SystemManagement({
 
   // Mock System Users Roster
   const [usersList, setUsersList] = useState([
-    { id: 101, name: 'Aarav Sharma', email: 'aarav@citizen.nagarmitra.gov.in', role: 'citizen', ward: 'Ward 8 Downtown', status: 'active', joined: '2026-01-12' },
-    { id: 102, name: 'Eng. Rajesh Patel', email: 'rajesh.patel@roads.nagarmitra.gov.in', role: 'manager', ward: 'Ward 8 Downtown', status: 'active', joined: '2025-11-04' },
-    { id: 103, name: 'Marcus Vance', email: 'marcus.vance@worker.nagarmitra.gov.in', role: 'worker', ward: 'Ward 8 Downtown', status: 'active', joined: '2025-08-19' },
-    { id: 104, name: 'Elena Gomez', email: 'elena.gomez@worker.nagarmitra.gov.in', role: 'worker', ward: 'Ward 3 Market Zone', status: 'active', joined: '2025-09-22' },
-    { id: 105, name: 'Dr. Sunita Rao', email: 'sunita.rao@sanitation.nagarmitra.gov.in', role: 'manager', ward: 'Ward 3 Market Zone', status: 'active', joined: '2025-10-15' },
+    { id: 101, name: 'Aarav Sharma', email: 'aarav@citizen.nagarmitra.gov.in', role: 'citizen', ward: 'Ward 8 Ashok Nagar', status: 'active', joined: '2026-01-12' },
+    { id: 102, name: 'Eng. Rajesh Patel', email: 'rajesh.patel@roads.nagarmitra.gov.in', role: 'manager', ward: 'Ward 8 Ashok Nagar', status: 'active', joined: '2025-11-04' },
+    { id: 103, name: 'Ramesh Kumar', email: 'ramesh.kumar@worker.nagarmitra.gov.in', role: 'worker', ward: 'Ward 8 Ashok Nagar', status: 'active', joined: '2025-08-19' },
+    { id: 104, name: 'Sunita Devi', email: 'sunita.devi@worker.nagarmitra.gov.in', role: 'worker', ward: 'Ward 3 Gandhi Market', status: 'active', joined: '2025-09-22' },
+    { id: 105, name: 'Dr. Sunita Rao', email: 'sunita.rao@sanitation.nagarmitra.gov.in', role: 'manager', ward: 'Ward 3 Gandhi Market', status: 'active', joined: '2025-10-15' },
     { id: 106, name: 'Municipal Administrator', email: 'admin@nagarmitra.gov.in', role: 'admin', ward: 'Citywide Oversight', status: 'active', joined: '2025-01-01' },
   ]);
 
@@ -38,12 +38,12 @@ export default function SystemManagement({
 
   // Field Workers Directory
   const [workersList, setWorkersList] = useState([
-    { id: 1, name: 'Marcus Vance', badge: 'ROADS-W01', dept: 'Roads & Infrastructure', ward: 'Ward 8 Downtown', phone: '+91 98201-11001', status: 'available', tasksActive: 1, rating: 4.9 },
-    { id: 2, name: 'Elena Gomez', badge: 'SAN-W02', dept: 'Sanitation & Waste Management', ward: 'Ward 3 Market Zone', phone: '+91 98201-11002', status: 'busy', tasksActive: 2, rating: 4.8 },
-    { id: 3, name: 'Tariq Al-Mansoor', badge: 'ELEC-W03', dept: 'Electrical & Lighting', ward: 'Ward 12 Metro Core', phone: '+91 98201-11003', status: 'busy', tasksActive: 1, rating: 4.7 },
-    { id: 4, name: 'Chloe Dubois', badge: 'WATER-W04', dept: 'Water Supply & Drainage', ward: 'Ward 4 Riverfront', phone: '+91 98201-11004', status: 'available', tasksActive: 0, rating: 4.9 },
-    { id: 5, name: 'Devendra Joshi', badge: 'ROADS-W05', dept: 'Roads & Infrastructure', ward: 'Ward 7 South Corridor', phone: '+91 98201-11005', status: 'available', tasksActive: 0, rating: 4.6 },
-    { id: 6, name: 'Meera Sen', badge: 'SAN-W06', dept: 'Sanitation & Waste Management', ward: 'Ward 2 Westside', phone: '+91 98201-11006', status: 'available', tasksActive: 1, rating: 4.8 },
+    { id: 1, name: 'Ramesh Kumar', badge: 'ROADS-W01', dept: 'Roads & Infrastructure', ward: 'Ward 8 Ashok Nagar', phone: '+91 98201-11001', status: 'available', tasksActive: 1, rating: 4.9 },
+    { id: 2, name: 'Sunita Devi', badge: 'SAN-W02', dept: 'Sanitation & Waste Management', ward: 'Ward 3 Gandhi Market', phone: '+91 98201-11002', status: 'busy', tasksActive: 2, rating: 4.8 },
+    { id: 3, name: 'Mohammed Tariq', badge: 'ELEC-W03', dept: 'Electrical & Lighting', ward: 'Ward 12 Shivaji Nagar', phone: '+91 98201-11003', status: 'busy', tasksActive: 1, rating: 4.7 },
+    { id: 4, name: 'Pooja Sharma', badge: 'WATER-W04', dept: 'Water Supply & Drainage', ward: 'Ward 4 Gomti Enclave', phone: '+91 98201-11004', status: 'available', tasksActive: 0, rating: 4.9 },
+    { id: 5, name: 'Devendra Joshi', badge: 'ROADS-W05', dept: 'Roads & Infrastructure', ward: 'Ward 7 South Ring Road', phone: '+91 98201-11005', status: 'available', tasksActive: 0, rating: 4.6 },
+    { id: 6, name: 'Meera Sen', badge: 'SAN-W06', dept: 'Sanitation & Waste Management', ward: 'Ward 2 Patel Nagar', phone: '+91 98201-11006', status: 'available', tasksActive: 1, rating: 4.8 },
   ]);
 
   const [userSearch, setUserSearch] = useState('');
