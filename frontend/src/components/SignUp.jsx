@@ -73,6 +73,9 @@ export default function SignUp({ onRegisterSuccess, onSwitchToSignIn }) {
     const existingBinding = bindings[email.trim().toLowerCase()];
     if (existingBinding === 'citizen' && role !== 'citizen') {
       setErrorMsg(`Access Denied: The email '${email.trim().toLowerCase()}' is already registered as a Citizen account. Under municipal role separation policy, citizen accounts cannot register as municipal workers or officials.`);
+      return;
+    }
+
     if (role !== 'citizen' && !employeeCode.trim()) {
       setErrorMsg(`Departmental Authorization Code is required to register as ${getRoleDisplayName(role)}. If you are a resident, please select the 'Citizen' role.`);
       return;
