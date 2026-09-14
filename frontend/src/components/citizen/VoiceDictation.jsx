@@ -1,4 +1,4 @@
-﻿import React, { useState, useEffect, useRef } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 
 /**
  * VoiceDictation Component
@@ -124,8 +124,23 @@ export default function VoiceDictation({
 
   if (!isSupported) {
     return (
-      <div className="civic-voice-unsupported" title="Voice dictation is not supported by your browser engine">
-        <span style={{ fontSize: '0.8rem', color: '#94A3B8' }}>🎙️ Speech input unavailable</span>
+      <div
+        className="civic-voice-unsupported"
+        style={{
+          display: 'inline-flex',
+          alignItems: 'center',
+          gap: '0.45rem',
+          padding: '0.35rem 0.75rem',
+          borderRadius: '4px',
+          background: '#f8fafc',
+          border: '1px dashed #cbd5e1',
+          fontSize: '0.78rem',
+          color: '#64748b',
+        }}
+        title="Voice dictation uses Web Speech API available in Google Chrome, Microsoft Edge, and Safari."
+      >
+        <span>🎙️</span>
+        <span>Voice dictation is not supported by this browser (supported in Chrome & Edge).</span>
       </div>
     );
   }
