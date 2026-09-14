@@ -140,19 +140,19 @@ CREATE TABLE `feedback` (
 
 -- Departments
 INSERT INTO `departments` (`id`, `name`, `code`, `description`, `contact_email`) VALUES
-(1, 'Roads & Infrastructure', 'ROADS', 'Maintenance of roads, potholes, pedestrian walkways and bridges', 'roads@civisync.city.gov'),
-(2, 'Sanitation & Waste Management', 'SANITATION', 'Garbage clearing, waste bin management, street sweeping', 'sanitation@civisync.city.gov'),
-(3, 'Electrical & Public Lighting', 'ELECTRICAL', 'Streetlights, electrical hazards, public grids', 'electrical@civisync.city.gov'),
-(4, 'Water Supply & Sewerage', 'WATER', 'Pipeline bursts, drainage overflow, water quality', 'water@civisync.city.gov'),
-(5, 'Parks & Environment', 'PARKS', 'Tree maintenance, fallen branches, public parks upkeep', 'parks@civisync.city.gov);
+(1, 'Roads & Infrastructure', 'ROADS', 'Maintenance of roads, potholes, pedestrian walkways and bridges', 'roads@nagarmitra.gov.in'),
+(2, 'Sanitation & Waste Management', 'SANITATION', 'Garbage clearing, waste bin management, street sweeping', 'sanitation@nagarmitra.gov.in'),
+(3, 'Electrical & Public Lighting', 'ELECTRICAL', 'Streetlights, electrical hazards, public grids', 'electrical@nagarmitra.gov.in'),
+(4, 'Water Supply & Sewerage', 'WATER', 'Pipeline bursts, drainage overflow, water quality', 'water@nagarmitra.gov.in'),
+(5, 'Parks & Environment', 'PARKS', 'Tree maintenance, fallen branches, public parks upkeep', 'parks@nagarmitra.gov.in');
 
 -- Seed Users (Passwords are hashed representations of 'password123')
 INSERT INTO `users` (`id`, `full_name`, `email`, `password_hash`, `phone`, `role`) VALUES
-(1, 'System Administrator', 'admin@civisync.gov', 'scrypt:32768:8:1$placeholder$hashadmin', '+1-555-0100', 'admin'),
-(2, 'Sarah Jenkins (Manager)', 'manager@civisync.gov', 'scrypt:32768:8:1$placeholder$hashmanager', '+1-555-0101', 'manager'),
-(3, 'Marcus Vance (Road Worker)', 'worker.roads@civisync.gov', 'scrypt:32768:8:1$placeholder$hashworker1', '+1-555-0102', 'worker'),
-(4, 'Elena Gomez (Sanitation Worker)', 'worker.waste@civisync.gov', 'scrypt:32768:8:1$placeholder$hashworker2', '+1-555-0103', 'worker'),
-(5, 'David Patel (Citizen)', 'citizen.david@example.com', 'scrypt:32768:8:1$placeholder$hashcitizen', '+1-555-0104', 'citizen');
+(1, 'Municipal Administrator', 'admin@nagarmitra.gov.in', 'scrypt:32768:8:1$placeholder$hashadmin', '+91 98201-11000', 'admin'),
+(2, 'Eng. Rajesh Patel (Manager)', 'rajesh.patel@roads.nagarmitra.gov.in', 'scrypt:32768:8:1$placeholder$hashmanager', '+91 98201-11001', 'manager'),
+(3, 'Ramesh Kumar (Road Worker)', 'ramesh.kumar@worker.nagarmitra.gov.in', 'scrypt:32768:8:1$placeholder$hashworker1', '+91 98201-11002', 'worker'),
+(4, 'Sunita Devi (Sanitation Worker)', 'sunita.devi@worker.nagarmitra.gov.in', 'scrypt:32768:8:1$placeholder$hashworker2', '+91 98201-11003', 'worker'),
+(5, 'Aarav Sharma (Citizen)', 'aarav@citizen.nagarmitra.gov.in', 'scrypt:32768:8:1$placeholder$hashcitizen', '+91 98765-43210', 'citizen');
 
 -- Seed Workers
 INSERT INTO `workers` (`id`, `user_id`, `department_id`, `designation`, `badge_number`, `status`, `skills`) VALUES
@@ -161,14 +161,14 @@ INSERT INTO `workers` (`id`, `user_id`, `department_id`, `designation`, `badge_n
 
 -- Seed Complaints
 INSERT INTO `complaints` (`id`, `tracking_id`, `title`, `description`, `category`, `ai_predicted_category`, `ai_confidence`, `severity`, `status`, `citizen_id`, `department_id`, `assigned_worker_id`, `latitude`, `longitude`, `address`, `landmark`, `image_url`, `created_at`) VALUES
-(1, 'CIVIC-2026-00101', 'Deep Pothole at Main St Intersection', 'Large pothole in the right lane damaging vehicle suspensions.', 'pothole', 'pothole', 95.40, 'high', 'assigned', 5, 1, 1, 40.712776, -74.005974, '452 Main Street, Downtown', 'Opposite City Center Library', 'https://images.unsplash.com/photo-1515162816999-a0c47dc192f7?w=600', NOW() - INTERVAL 2 DAY),
-(2, 'CIVIC-2026-00102', 'Overflowing Trash Bin near School', 'Public dumpsters overflowing into pedestrian walkway for 3 days.', 'garbage_dump', 'garbage_dump', 92.10, 'medium', 'pending', 5, 2, NULL, 40.728157, -73.994200, '88 Elm Road, Westside', 'Beside Lincoln Elementary School', 'https://images.unsplash.com/photo-1605600659908-0ef719419d41?w=600', NOW() - INTERVAL 4 HOUR),
-(3, 'CIVIC-2026-00103', 'Flickering and Broken Streetlamp', 'Street light completely blacked out at intersection causing night accidents.', 'street_light', 'street_light', 88.50, 'medium', 'in_progress', 5, 3, NULL, 40.748817, -73.985428, '104 Pine Avenue', 'Corner of 5th & Pine', 'https://images.unsplash.com/photo-1509198397868-475647b2a1e5?w=600', NOW() - INTERVAL 1 DAY);
+(1, 'CIVIC-2026-00101', 'Severe Bitumen Pothole on Outer Ring Road', 'Deep crater-like pothole damaging car suspensions and causing hazardous sudden swerving during peak hours.', 'pothole', 'pothole', 95.40, 'high', 'assigned', 5, 1, 1, 17.439930, 78.397040, 'Near Pillar 142, Outer Ring Road Junction, Gachibowli, Hyderabad, Ward 8', 'Opposite Cyber Towers', 'https://images.unsplash.com/photo-1515162816999-a0c47dc192f7?w=600', NOW() - INTERVAL 2 DAY),
+(2, 'CIVIC-2026-00102', 'Overflowing Community Waste Bins near Gandhi School', 'Municipal community dumpsters overflowing across the pedestrian footpath with foul odor and health hazard.', 'garbage_dump', 'garbage_dump', 92.10, 'medium', 'pending', 5, 2, NULL, 17.442100, 78.385000, 'Opposite Gandhi Senior Secondary School, Patel Nagar, Ward 3', 'Near Bus Stop', 'https://images.unsplash.com/photo-1605600659908-0ef719419d41?w=600', NOW() - INTERVAL 4 HOUR),
+(3, 'CIVIC-2026-00103', 'High-Voltage Streetlight Cable Sparking on Utility Pole', 'Exposed street lamp wiring sparking during evening rains, dangerous for pedestrians and commuters.', 'street_light', 'street_light', 88.50, 'critical', 'in_progress', 5, 3, NULL, 17.431200, 78.401200, 'Near Gate 2, Shivaji Market Road, Ward 12', 'Near Junction Circle', 'https://images.unsplash.com/photo-1509198397868-475647b2a1e5?w=600', NOW() - INTERVAL 1 DAY);
 
 -- Seed Logs
 INSERT INTO `complaint_logs` (`complaint_id`, `actor_id`, `action`, `note`) VALUES
 (1, 5, 'created', 'Complaint submitted via citizen web portal.'),
 (1, 1, 'ai_classified', 'AI classification confirmed pothole with 95.40% confidence.'),
-(1, 2, 'assigned', 'Manager assigned complaint to Marcus Vance (ROADS-W01).'),
+(1, 2, 'assigned', 'Manager assigned complaint to Ramesh Kumar (ROADS-W01).'),
 (2, 5, 'created', 'Complaint submitted via citizen web portal.'),
 (2, 1, 'ai_classified', 'AI classification tagged garbage_dump with 92.10% confidence.');
