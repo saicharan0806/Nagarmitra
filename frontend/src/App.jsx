@@ -480,7 +480,8 @@ export default function App() {
                   onAddComplaint={handleAddComplaint}
                   onNotification={showNotification}
                   initialSubTab={citizenSubTab}
-                  onSubTabChange={setCitizenSubTab}
+                  onSubTabChange={(sub) => handleSwitchTab('citizen', sub)}
+                  onSwitchTab={handleSwitchTab}
                 />
               ) : (
                 <AccessDenied
@@ -500,7 +501,8 @@ export default function App() {
                   onUpdateComplaint={handleUpdateComplaint}
                   onNotification={showNotification}
                   initialModule={managerModule}
-                  onModuleChange={setManagerModule}
+                  onModuleChange={(sub) => handleSwitchTab('manager', sub)}
+                  onSwitchTab={handleSwitchTab}
                 />
               ) : (
                 <AccessDenied
@@ -520,7 +522,8 @@ export default function App() {
                   onUpdateComplaint={handleUpdateComplaint}
                   onNotification={showNotification}
                   initialModule={workerModule}
-                  onModuleChange={setWorkerModule}
+                  onModuleChange={(sub) => handleSwitchTab('worker', sub)}
+                  onSwitchTab={handleSwitchTab}
                 />
               ) : (
                 <AccessDenied
