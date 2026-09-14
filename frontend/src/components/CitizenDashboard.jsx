@@ -1,4 +1,4 @@
-import React, { useState, useMemo } from 'react';
+import React, { useState, useEffect, useMemo } from 'react';
 import CitizenNavBar from './citizen/CitizenNavBar.jsx';
 import CivicIssueReporting from './citizen/CivicIssueReporting.jsx';
 import ComplaintTracking from './citizen/ComplaintTracking.jsx';
