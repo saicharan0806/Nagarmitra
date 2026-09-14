@@ -367,6 +367,7 @@ export default function SignUp({ onRegisterSuccess, onSwitchToSignIn }) {
                       <option value="manager">Department Manager (Triage & Work Dispatch)</option>
                       <option value="worker">Field Operative (On-Site Resolution & Proof)</option>
                       <option value="admin">Municipal Administrator (System Oversight)</option>
+                    </select>
                   </div>
 
                   {/* Department Employee Authorization Code for Non-Citizen Roles */}
