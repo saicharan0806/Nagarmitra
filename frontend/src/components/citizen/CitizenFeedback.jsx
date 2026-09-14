@@ -12,6 +12,7 @@ export default function CitizenFeedback({
   onAddFeedback,
   preselectedComplaintId = null,
   onNotification,
+  currentUser = null,
 }) {
   const [feedbackForm, setFeedbackForm] = useState({
     complaint_id: preselectedComplaintId || complaints.find((c) => c.status === 'resolved')?.id || (complaints[0] ? complaints[0].id : ''),
@@ -46,7 +47,7 @@ export default function CitizenFeedback({
       quality_rating: feedbackForm.quality_rating,
       worker_rating: feedbackForm.worker_rating,
       comments: feedbackForm.comments || 'Satisfied with municipal resolution.',
-      citizen_name: 'Shiva',
+      citizen_name: currentUser?.full_name || 'Verified Citizen',
       created_at: new Date().toISOString(),
       municipal_reply: 'Municipal Citizen Care Directorate: Your review has been recorded in the departmental public audit registry.',
     };
