@@ -20,15 +20,15 @@ export default function HowItWorksPage({ onSwitchTab, currentUser }) {
       points: [
         'Upload clear photographic evidence from any mobile or desktop browser',
         'Automatic GPS geo-location captures precise ward coordinates',
-        'Instant generation of a permanent municipal tracking ID (e.g., #NM-2026-8841)',
+        'Instant generation of a permanent municipal tracking ID (e.g., CIVIC-2026-88419)',
         'Option for anonymous or verified citizen submission',
       ],
       preview: {
         badge: 'TICKET GENERATED',
         badgeColor: '#16A34A',
-        title: 'Grievance #NM-2026-8841',
+        title: 'Grievance CIVIC-2026-88419',
         subtitle: 'Deep Pothole on Ward 12 Main Boulevard',
-        metadata: 'Reported by Citizen Shiva • GPS: 12.9716° N, 77.5946° E',
+        metadata: 'Reported by Citizen Aarav Sharma • GPS: 12.9716° N, 77.5946° E',
         status: 'Status: Pending AI Triage',
       },
     },
