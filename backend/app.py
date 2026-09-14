@@ -103,9 +103,34 @@ def login():
     if not email or not password:
         return jsonify({"message": "Email and password are required"}), 400
 
+    # Known demo account bindings
+    DEMO_ROLE_MAP = {
+        'priya.sharma@example.gov.in': 'citizen',
+        'citizen@nagarmitra.gov.in': 'citizen',
+        'ramesh.kumar@nagarmitra.gov.in': 'worker',
+        'worker@nagarmitra.gov.in': 'worker',
+        'rajesh.sharma@nagarmitra.gov.in': 'manager',
+        'manager@nagarmitra.gov.in': 'manager',
+        'admin@nagarmitra.gov.in': 'admin',
+    }
+
     try:
         user = User.query.filter_by(email=email).first()
-        if user and user.check_password(password):
+        if user:
+            if not user.check_password(password):
+                return jsonify({"message": "Invalid password. Please verify your credentials."}), 401
+
+            # Strict role check: registered citizen cannot sign in as other roles
+            if requested_role and user.role != requested_role:
+                if user.role == 'citizen':
+                    return jsonify({
+                        "message": f"Access Denied: This account is registered as a Citizen. Citizen accounts are restricted from accessing '{requested_role.title()}' or official departmental portals."
+                    }), 403
+                else:
+                    return jsonify({
+                        "message": f"Role mismatch: This account is registered as '{user.role.title()}'. Please select the matching role to sign in."
+                    }), 403
+
             return jsonify({
                 "message": "Authentication successful",
                 "user": user.to_dict(),
@@ -117,16 +142,31 @@ def login():
     except Exception:
         pass
 
-    # Demo fallback accounts
+    # Demo fallback accounts enforcement
+    bound_role = DEMO_ROLE_MAP.get(email)
+    if bound_role:
+        if requested_role and bound_role != requested_role:
+            if bound_role == 'citizen':
+                return jsonify({
+                    "message": f"Access Denied: The account '{email}' is registered as a Citizen. Citizens cannot access '{requested_role.title()}' or departmental portals."
+                }), 403
+            else:
+                return jsonify({
+                    "message": f"Role mismatch: '{email}' is an official '{bound_role.title()}' account. Please select the matching role."
+                }), 403
+        actual_role = bound_role
+    else:
+        actual_role = requested_role or 'citizen'
+
     return jsonify({
         "message": "Demo session authenticated",
         "user": {
             "id": 101,
             "full_name": email.split('@')[0].replace('.', ' ').title(),
             "email": email,
-            "role": requested_role or 'citizen'
+            "role": actual_role
         },
-        "role": requested_role or 'citizen',
+        "role": actual_role,
         "token": f"demo-jwt-{uuid.uuid4().hex[:8]}"
     }), 200
 
