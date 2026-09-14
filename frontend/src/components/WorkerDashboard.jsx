@@ -22,13 +22,13 @@ export default function WorkerDashboard({
 }) {
   // Current logged in field operative profile
   const workerProfile = {
-    name: 'Marcus Vance',
+    name: 'Ramesh Kumar',
     badge: 'ROADS-W01',
     department: 'Roads & Infrastructure',
     phone: '+91 98201-11001',
     rating: '4.9 ★',
     activeShift: 'Day Shift (08:00 - 17:00)',
-    ward: 'Downtown Ward 8',
+    ward: 'Ward 8 - Ashok Nagar',
   };
 
   // Active module tab: 'assigned' | 'details' | 'status' | 'proof'
