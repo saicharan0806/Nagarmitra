@@ -18,6 +18,7 @@ export default function ComplaintTracking({
   onClearRecentTicket,
 }) {
   const [trackingSearch, setTrackingSearch] = useState('');
+  const [searchError, setSearchError] = useState('');
 
   const selectedComplaint = useMemo(() => {
     return (
@@ -33,13 +34,14 @@ export default function ComplaintTracking({
       (c) => c.tracking_id.toLowerCase() === trackingSearch.trim().toLowerCase()
     );
     if (match) {
+      setSearchError('');
       if (onSelectComplaint) onSelectComplaint(match.id);
       if (onNotification) onNotification(`Found ticket ${match.tracking_id}!`);
     } else {
+      const msg = `No complaint found matching ID "${trackingSearch}".`;
+      setSearchError(msg);
       if (onNotification) {
-        onNotification(`No complaint found matching ID "${trackingSearch}".`);
-      } else {
-        alert(`No complaint found matching ID "${trackingSearch}".`);
+        onNotification(`⚠️ ${msg}`);
       }
     }
   };
