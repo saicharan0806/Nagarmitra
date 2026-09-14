@@ -1,5 +1,10 @@
 import React, { useState } from 'react';
 import CivicInfoPanel from './CivicInfoPanel.jsx';
+import {
+  getRegisteredRoleBindings,
+  recordUserRole,
+  getRoleDisplayName,
+} from '../utils/authRoles.js';
 
 /**
  * Official Indian Municipal Languages supported by Nagarmitra
