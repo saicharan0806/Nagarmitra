@@ -313,6 +313,9 @@ export default function App() {
 
   return (
     <div style={{ minHeight: '100vh', display: 'flex', flexDirection: 'column' }}>
+      {/* Opening Splash Animation (Once per session) */}
+      {showSplash && <SplashScreen onComplete={handleSplashComplete} />}
+
       {/* Toast Notification Banner */}
       {notification && (
         <div
