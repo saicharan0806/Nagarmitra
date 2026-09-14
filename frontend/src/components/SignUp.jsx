@@ -367,8 +367,31 @@ export default function SignUp({ onRegisterSuccess, onSwitchToSignIn }) {
                       <option value="manager">Department Manager (Triage & Work Dispatch)</option>
                       <option value="worker">Field Operative (On-Site Resolution & Proof)</option>
                       <option value="admin">Municipal Administrator (System Oversight)</option>
-                    </select>
                   </div>
+
+                  {/* Department Employee Authorization Code for Non-Citizen Roles */}
+                  {role !== 'citizen' && (
+                    <div className="govt-form-group">
+                      <label className="govt-label" htmlFor="emp-code-input">
+                        <span>
+                          Department Employee / Municipal Clearance Code
+                          <span className="govt-label-required">*</span>
+                        </span>
+                      </label>
+                      <input
+                        id="emp-code-input"
+                        type="text"
+                        className="govt-input"
+                        value={employeeCode}
+                        onChange={(e) => setEmployeeCode(e.target.value)}
+                        placeholder="e.g. MUNI-EMP-2026 or DEPT-AUTH-01"
+                        required
+                      />
+                      <span style={{ fontSize: '0.74rem', color: '#64748b', marginTop: '0.2rem', display: 'block' }}>
+                        Required for non-citizen roles to verify official municipal department assignment.
+                      </span>
+                    </div>
+                  )}
 
                   {/* Terms Agreement Checkbox */}
                   <div style={{ display: 'flex', alignItems: 'flex-start', gap: '0.6rem', marginTop: '0.25rem', marginBottom: '1.25rem' }}>
