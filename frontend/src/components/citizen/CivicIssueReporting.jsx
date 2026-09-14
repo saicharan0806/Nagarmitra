@@ -67,7 +67,7 @@ async function classifyCivicImageClient(file, previewUrl, title = '', descriptio
   const nonCivicMarkers = [
     'screenshot', 'screen', 'seat', 'desk', 'laptop', 'code', 'word',
     'document', 'doc', 'pdf', 'receipt', 'invoice', 'text', 'chart',
-    'slide', 'presentation', 'whatsapp image', 'capture'
+    'slide', 'presentation', 'capture'
   ];
   const hasNonCivicMarker = nonCivicMarkers.some((m) => filename.includes(m) || textHint.includes(m));
 
