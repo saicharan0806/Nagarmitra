@@ -125,6 +125,7 @@ export default function SignUp({ onRegisterSuccess, onSwitchToSignIn }) {
     // Fallback Registration Session
     setTimeout(() => {
       setLoading(false);
+      recordUserRole(email.trim().toLowerCase(), role);
       setSuccessMsg(`Registration complete. Welcome to Nagarmitra, ${fullName.trim()}.`);
       setTimeout(() => {
         onRegisterSuccess({
