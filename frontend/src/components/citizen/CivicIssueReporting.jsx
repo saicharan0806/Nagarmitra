@@ -851,5 +851,6 @@ export default function CivicIssueReporting({
         </div>
       </div>
     </div>
+  </div>
   );
 }
