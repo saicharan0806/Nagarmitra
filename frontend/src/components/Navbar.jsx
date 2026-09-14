@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { NAV_LINKS_BY_ROLE } from '../utils/roleConfig.js';
 import { getTabUrl } from '../utils/navigation.js';
 
@@ -22,6 +22,30 @@ export default function Navbar({
   const [managerMenuOpen, setManagerMenuOpen] = useState(false);
   const [workerMenuOpen, setWorkerMenuOpen] = useState(false);
   const [userMenuOpen, setUserMenuOpen] = useState(false);
+
+  // Close dropdowns on outside click or Escape key
+  useEffect(() => {
+    const handleGlobalClick = (e) => {
+      if (!e.target.closest('.govt-nav-dropdown-wrap') && !e.target.closest('.govt-nav-user-wrap')) {
+        setManagerMenuOpen(false);
+        setWorkerMenuOpen(false);
+        setUserMenuOpen(false);
+      }
+    };
+    const handleKeyDown = (e) => {
+      if (e.key === 'Escape') {
+        setManagerMenuOpen(false);
+        setWorkerMenuOpen(false);
+        setUserMenuOpen(false);
+      }
+    };
+    document.addEventListener('click', handleGlobalClick);
+    document.addEventListener('keydown', handleKeyDown);
+    return () => {
+      document.removeEventListener('click', handleGlobalClick);
+      document.removeEventListener('keydown', handleKeyDown);
+    };
+  }, []);
 
   const navLinks = currentUser?.role && NAV_LINKS_BY_ROLE[currentUser.role]
     ? NAV_LINKS_BY_ROLE[currentUser.role]
