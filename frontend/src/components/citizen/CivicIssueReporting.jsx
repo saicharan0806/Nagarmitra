@@ -199,6 +199,7 @@ export default function CivicIssueReporting({
   const [aiScanResult, setAiScanResult] = useState(null);
   const [isScanning, setIsScanning] = useState(false);
   const [showMapPicker, setShowMapPicker] = useState(false);
+  const [formError, setFormError] = useState('');
   const fileInputRef = useRef(null);
 
   // Handle live voice dictation appending to description
