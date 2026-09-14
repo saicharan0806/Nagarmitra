@@ -22,13 +22,25 @@ export default function CitizenDashboard({
   onNotification,
   initialSubTab = 'reporting',
   onSubTabChange,
+  onSwitchTab,
 }) {
   // Active module tab: 'reporting' | 'tracking' | 'history' | 'feedback' | 'notifications'
   const [activeTab, setActiveTab] = useState(initialSubTab);
+  const [recentlyCreatedTicket, setRecentlyCreatedTicket] = useState(null);
+
+  useEffect(() => {
+    if (initialSubTab && initialSubTab !== activeTab) {
+      setActiveTab(initialSubTab);
+    }
+  }, [initialSubTab]);
 
   const handleTabSwitch = (tab) => {
     setActiveTab(tab);
-    if (onSubTabChange) onSubTabChange(tab);
+    if (onSwitchTab) {
+      onSwitchTab('citizen', tab);
+    } else if (onSubTabChange) {
+      onSubTabChange(tab);
+    }
   };
 
   // Selected complaint for Live Tracking tab
@@ -46,13 +58,13 @@ export default function CitizenDashboard({
       id: 1,
       complaint_id: 1,
       tracking_id: 'CIVIC-2026-00101',
-      title: 'Deep Pothole at Main St Intersection',
+      title: 'Severe Bitumen Pothole on Outer Ring Road',
       rating: 5,
       speed_rating: 5,
       quality_rating: 5,
       worker_rating: 5,
       comments: 'The municipal road crew did an exceptional job leveling the bitumen asphalt. Resolved within 24 hours of filing.',
-      citizen_name: 'Shiva',
+      citizen_name: 'Aarav Sharma',
       created_at: new Date(Date.now() - 86400000).toISOString(),
       municipal_reply: 'Thank you for keeping our roads safe. The Roads & Infrastructure Department has formally archived this ticket.',
     },
@@ -60,7 +72,7 @@ export default function CitizenDashboard({
       id: 2,
       complaint_id: 2,
       tracking_id: 'CIVIC-2026-00088',
-      title: 'High-Voltage Cable Secured on Street Pole',
+      title: 'High-Voltage Streetlight Cable Sparking on Utility Pole',
       rating: 4,
       speed_rating: 4,
       quality_rating: 5,
@@ -139,6 +151,7 @@ export default function CitizenDashboard({
     };
     setNotifications((prev) => [newNotif, ...prev]);
 
+    setRecentlyCreatedTicket(newTicket);
     setSelectedComplaintId(newTicket.id);
     handleTabSwitch('tracking');
 
@@ -182,6 +195,7 @@ export default function CitizenDashboard({
           onComplaintCreated={handleComplaintCreated}
           onNotification={onNotification}
           onTabSwitch={handleTabSwitch}
+          onSwitchTab={onSwitchTab}
           complaintsCount={complaints.length}
         />
       )}
@@ -197,6 +211,10 @@ export default function CitizenDashboard({
             setSelectedComplaintId(complaintId);
             handleTabSwitch('feedback');
           }}
+          onSwitchTab={onSwitchTab}
+          onTabSwitch={handleTabSwitch}
+          recentlyCreatedTicket={recentlyCreatedTicket}
+          onClearRecentTicket={() => setRecentlyCreatedTicket(null)}
         />
       )}
 
