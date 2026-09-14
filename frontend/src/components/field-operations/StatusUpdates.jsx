@@ -10,7 +10,6 @@ export default function StatusUpdates({
   onNotification,
   onNavigateTab,
 }) {
-  const [operativeNotes, setOperativeNotes] = useState('');
   const [isSubmitting, setIsSubmitting] = useState(false);
 
   // Local log of field updates for this session
@@ -49,7 +48,7 @@ export default function StatusUpdates({
   const handleSetStatus = (newStatus, defaultNote) => {
     setIsSubmitting(true);
     try {
-      const noteToRecord = operativeNotes.trim() || defaultNote;
+      const noteToRecord = defaultNote;
       const updated = {
         ...task,
         status: newStatus === 'ready_for_proof' ? 'in_progress' : newStatus,
@@ -68,7 +67,6 @@ export default function StatusUpdates({
       };
 
       setActivityLog((prev) => [logEntry, ...prev]);
-      setOperativeNotes('');
 
       onNotification(`Status updated: Ticket ${task.tracking_id} is now ${newStatus.replace('_', ' ').toUpperCase()}.`);
 
