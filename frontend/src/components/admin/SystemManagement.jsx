@@ -1,9 +1,11 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { getTabUrl } from '../../utils/navigation.js';
+import AdminDashboard from '../AdminDashboard.jsx';
 
 /**
  * SystemManagement Component (Municipal Administrator)
- * Provides 4 Core System Governance Modules:
+ * Provides 5 Core System Governance Modules:
+ * 0. Executive Overview (Command Center Telemetry)
  * 1. User Management
  * 2. Department Management
  * 3. Field Worker Management
@@ -14,8 +16,24 @@ export default function SystemManagement({
   onUpdateComplaint,
   onNotification,
   onResetComplaints,
+  initialSection = 'overview',
+  onSectionChange,
+  onSwitchTab,
 }) {
-  const [activeSection, setActiveSection] = useState('users');
+  const [activeSection, setActiveSection] = useState(initialSection || 'overview');
+
+  useEffect(() => {
+    if (initialSection && initialSection !== activeSection) {
+      setActiveSection(initialSection);
+    }
+  }, [initialSection]);
+
+  const handleSelectSection = (sectionId) => {
+    setActiveSection(sectionId);
+    if (onSectionChange) {
+      onSectionChange(sectionId);
+    }
+  };
 
   // Mock System Users Roster
   const [usersList, setUsersList] = useState([
