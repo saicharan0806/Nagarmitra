@@ -13,10 +13,10 @@ export default function AdminDashboard({ complaints, onSwitchTab, onNotification
   const resolutionRate = totalTickets > 0 ? Math.round((resolvedTickets / totalTickets) * 100) : 0;
 
   const departments = [
-    { name: 'Roads & Infrastructure', lead: 'David K.', open: 8, slaRate: '94%', budget: '₹1.8 Cr' },
-    { name: 'Sanitation & Waste', lead: 'Ananya R.', open: 12, slaRate: '91%', budget: '₹2.4 Cr' },
-    { name: 'Electrical & Lighting', lead: 'Rajesh M.', open: 4, slaRate: '97%', budget: '₹95 L' },
-    { name: 'Water & Sewerage', lead: 'Fatima Z.', open: 7, slaRate: '88%', budget: '₹1.5 Cr' },
+    { name: 'Roads & Infrastructure', lead: 'Deepak Kumar', open: 8, slaRate: '94%', budget: '₹1.8 Cr' },
+    { name: 'Sanitation & Waste', lead: 'Ananya Reddy', open: 12, slaRate: '91%', budget: '₹2.4 Cr' },
+    { name: 'Electrical & Lighting', lead: 'Rajesh Mishra', open: 4, slaRate: '97%', budget: '₹95 L' },
+    { name: 'Water & Sewerage', lead: 'Fatima Zaidi', open: 7, slaRate: '88%', budget: '₹1.5 Cr' },
   ];
 
   return (
