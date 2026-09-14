@@ -23,6 +23,7 @@ export default function CitizenDashboard({
   initialSubTab = 'reporting',
   onSubTabChange,
   onSwitchTab,
+  currentUser,
 }) {
   // Active module tab: 'reporting' | 'tracking' | 'history' | 'feedback' | 'notifications'
   const [activeTab, setActiveTab] = useState(initialSubTab);
