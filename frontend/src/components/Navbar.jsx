@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+﻿import React, { useState } from 'react';
 import { NAV_LINKS_BY_ROLE } from '../utils/roleConfig.js';
 import { getTabUrl } from '../utils/navigation.js';
 
@@ -28,6 +28,13 @@ export default function Navbar({
         { id: 'home', label: 'Home' },
       ];
 
+  const handleNavClick = (e, tab, sub = null) => {
+    if (!e.ctrlKey && !e.metaKey && !e.shiftKey && onSwitchTab) {
+      e.preventDefault();
+      onSwitchTab(tab, sub);
+    }
+  };
+
   return (
     <header className="govt-navbar">
       {/* Main Clean Navigation Bar: Nagarmitra at Top-Left, Nav Bars at Top-Right */}
@@ -37,8 +44,7 @@ export default function Navbar({
           {/* Official Civic Seal Icon with Building & Leaf */}
           <a
             href={getTabUrl('home')}
-            target="_blank"
-            rel="noopener noreferrer"
+            onClick={(e) => handleNavClick(e, 'home')}
             className="govt-brand-seal"
             title="Nagarmitra Official Portal Home"
           >
@@ -48,8 +54,7 @@ export default function Navbar({
             <div className="govt-brand-header-row">
               <a
                 href={getTabUrl('home')}
-                target="_blank"
-                rel="noopener noreferrer"
+                onClick={(e) => handleNavClick(e, 'home')}
                 className="govt-brand-title"
                 title="Nagarmitra Home"
               >
@@ -57,8 +62,7 @@ export default function Navbar({
               </a>
               <a
                 href={getTabUrl('about')}
-                target="_blank"
-                rel="noopener noreferrer"
+                onClick={(e) => handleNavClick(e, 'about')}
                 className={`govt-brand-about-pill ${currentTab === 'about' ? 'active' : ''}`}
                 title="About Nagarmitra & Municipal Citizen Charter"
               >
@@ -89,8 +93,7 @@ export default function Navbar({
                       >
                         <a
                           href={getTabUrl('manager')}
-                          target="_blank"
-                          rel="noopener noreferrer"
+                          onClick={(e) => handleNavClick(e, 'manager')}
                           className={`govt-nav-tab ${currentTab === 'manager' ? 'active' : ''}`}
                           title="Municipal Departmental Manager Triage"
                         >
@@ -120,10 +123,11 @@ export default function Navbar({
                             </div>
                             <a
                               href={getTabUrl('manager', 'complaints')}
-                              target="_blank"
-                              rel="noopener noreferrer"
                               className={`govt-nav-dropdown-item ${currentTab === 'manager' && managerModule === 'complaints' ? 'active' : ''}`}
-                              onClick={() => setManagerMenuOpen(false)}
+                              onClick={(e) => {
+                                setManagerMenuOpen(false);
+                                handleNavClick(e, 'manager', 'complaints');
+                              }}
                             >
                               <span className="govt-nav-dropdown-icon">📋</span>
                               <div className="govt-nav-dropdown-text">
@@ -134,10 +138,11 @@ export default function Navbar({
 
                             <a
                               href={getTabUrl('manager', 'ai')}
-                              target="_blank"
-                              rel="noopener noreferrer"
                               className={`govt-nav-dropdown-item ${currentTab === 'manager' && managerModule === 'ai' ? 'active' : ''}`}
-                              onClick={() => setManagerMenuOpen(false)}
+                              onClick={(e) => {
+                                setManagerMenuOpen(false);
+                                handleNavClick(e, 'manager', 'ai');
+                              }}
                             >
                               <span className="govt-nav-dropdown-icon">🤖</span>
                               <div className="govt-nav-dropdown-text">
@@ -148,10 +153,11 @@ export default function Navbar({
 
                             <a
                               href={getTabUrl('manager', 'priority')}
-                              target="_blank"
-                              rel="noopener noreferrer"
                               className={`govt-nav-dropdown-item ${currentTab === 'manager' && managerModule === 'priority' ? 'active' : ''}`}
-                              onClick={() => setManagerMenuOpen(false)}
+                              onClick={(e) => {
+                                setManagerMenuOpen(false);
+                                handleNavClick(e, 'manager', 'priority');
+                              }}
                             >
                               <span className="govt-nav-dropdown-icon">⚡</span>
                               <div className="govt-nav-dropdown-text">
@@ -162,10 +168,11 @@ export default function Navbar({
 
                             <a
                               href={getTabUrl('manager', 'departments')}
-                              target="_blank"
-                              rel="noopener noreferrer"
                               className={`govt-nav-dropdown-item ${currentTab === 'manager' && managerModule === 'departments' ? 'active' : ''}`}
-                              onClick={() => setManagerMenuOpen(false)}
+                              onClick={(e) => {
+                                setManagerMenuOpen(false);
+                                handleNavClick(e, 'manager', 'departments');
+                              }}
                             >
                               <span className="govt-nav-dropdown-icon">🏛️</span>
                               <div className="govt-nav-dropdown-text">
@@ -176,10 +183,11 @@ export default function Navbar({
 
                             <a
                               href={getTabUrl('manager', 'workers')}
-                              target="_blank"
-                              rel="noopener noreferrer"
                               className={`govt-nav-dropdown-item ${currentTab === 'manager' && managerModule === 'workers' ? 'active' : ''}`}
-                              onClick={() => setManagerMenuOpen(false)}
+                              onClick={(e) => {
+                                setManagerMenuOpen(false);
+                                handleNavClick(e, 'manager', 'workers');
+                              }}
                             >
                               <span className="govt-nav-dropdown-icon">👷</span>
                               <div className="govt-nav-dropdown-text">
@@ -203,8 +211,7 @@ export default function Navbar({
                       >
                         <a
                           href={getTabUrl('worker')}
-                          target="_blank"
-                          rel="noopener noreferrer"
+                          onClick={(e) => handleNavClick(e, 'worker')}
                           className={`govt-nav-tab ${currentTab === 'worker' ? 'active' : ''}`}
                           title="Municipal Field Operatives Console"
                         >
@@ -229,10 +236,11 @@ export default function Navbar({
                             </div>
                             <a
                               href={getTabUrl('worker', 'assigned')}
-                              target="_blank"
-                              rel="noopener noreferrer"
                               className={`govt-nav-dropdown-item ${currentTab === 'worker' && workerModule === 'assigned' ? 'active' : ''}`}
-                              onClick={() => setWorkerMenuOpen(false)}
+                              onClick={(e) => {
+                                setWorkerMenuOpen(false);
+                                handleNavClick(e, 'worker', 'assigned');
+                              }}
                             >
                               <span className="govt-nav-dropdown-icon">📋</span>
                               <div className="govt-nav-dropdown-text">
@@ -243,10 +251,11 @@ export default function Navbar({
 
                             <a
                               href={getTabUrl('worker', 'details')}
-                              target="_blank"
-                              rel="noopener noreferrer"
                               className={`govt-nav-dropdown-item ${currentTab === 'worker' && workerModule === 'details' ? 'active' : ''}`}
-                              onClick={() => setWorkerMenuOpen(false)}
+                              onClick={(e) => {
+                                setWorkerMenuOpen(false);
+                                handleNavClick(e, 'worker', 'details');
+                              }}
                             >
                               <span className="govt-nav-dropdown-icon">🔍</span>
                               <div className="govt-nav-dropdown-text">
@@ -257,10 +266,11 @@ export default function Navbar({
 
                             <a
                               href={getTabUrl('worker', 'status')}
-                              target="_blank"
-                              rel="noopener noreferrer"
                               className={`govt-nav-dropdown-item ${currentTab === 'worker' && workerModule === 'status' ? 'active' : ''}`}
-                              onClick={() => setWorkerMenuOpen(false)}
+                              onClick={(e) => {
+                                setWorkerMenuOpen(false);
+                                handleNavClick(e, 'worker', 'status');
+                              }}
                             >
                               <span className="govt-nav-dropdown-icon">🔄</span>
                               <div className="govt-nav-dropdown-text">
@@ -271,10 +281,11 @@ export default function Navbar({
 
                             <a
                               href={getTabUrl('worker', 'proof')}
-                              target="_blank"
-                              rel="noopener noreferrer"
                               className={`govt-nav-dropdown-item ${currentTab === 'worker' && workerModule === 'proof' ? 'active' : ''}`}
-                              onClick={() => setWorkerMenuOpen(false)}
+                              onClick={(e) => {
+                                setWorkerMenuOpen(false);
+                                handleNavClick(e, 'worker', 'proof');
+                              }}
                             >
                               <span className="govt-nav-dropdown-icon">📸</span>
                               <div className="govt-nav-dropdown-text">
@@ -292,8 +303,7 @@ export default function Navbar({
                     <a
                       key={link.id}
                       href={getTabUrl(link.id)}
-                      target="_blank"
-                      rel="noopener noreferrer"
+                      onClick={(e) => handleNavClick(e, link.id)}
                       className={`govt-nav-tab ${currentTab === link.id ? 'active' : ''}`}
                     >
                       {link.label}
@@ -310,10 +320,9 @@ export default function Navbar({
               >
                 <a
                   href={getTabUrl('profile')}
-                  target="_blank"
-                  rel="noopener noreferrer"
+                  onClick={(e) => handleNavClick(e, 'profile')}
                   className={`govt-nav-user-btn ${currentTab === 'profile' ? 'active' : ''}`}
-                  title="Click to view and manage your profile in a new tab"
+                  title="Click to view and manage your profile"
                 >
                   <span className="govt-user-avatar-mini">
                     {(currentUser.full_name || 'U').charAt(0).toUpperCase()}
@@ -360,10 +369,11 @@ export default function Navbar({
                     {/* 1. Profile */}
                     <a
                       href={getTabUrl('profile')}
-                      target="_blank"
-                      rel="noopener noreferrer"
                       className={`govt-user-dropdown-item ${currentTab === 'profile' ? 'active' : ''}`}
-                      onClick={() => setUserMenuOpen(false)}
+                      onClick={(e) => {
+                        setUserMenuOpen(false);
+                        handleNavClick(e, 'profile');
+                      }}
                     >
                       <span className="govt-user-dropdown-icon">👤</span>
                       <div className="govt-user-dropdown-item-text">
@@ -375,10 +385,11 @@ export default function Navbar({
                     {/* 2. Account Information */}
                     <a
                       href={getTabUrl('profile')}
-                      target="_blank"
-                      rel="noopener noreferrer"
                       className="govt-user-dropdown-item"
-                      onClick={() => setUserMenuOpen(false)}
+                      onClick={(e) => {
+                        setUserMenuOpen(false);
+                        handleNavClick(e, 'profile');
+                      }}
                     >
                       <span className="govt-user-dropdown-icon">🛡️</span>
                       <div className="govt-user-dropdown-item-text">
@@ -391,10 +402,11 @@ export default function Navbar({
                     {currentUser.role === 'citizen' && (
                       <a
                         href={getTabUrl('citizen', 'history')}
-                        target="_blank"
-                        rel="noopener noreferrer"
                         className="govt-user-dropdown-item"
-                        onClick={() => setUserMenuOpen(false)}
+                        onClick={(e) => {
+                          setUserMenuOpen(false);
+                          handleNavClick(e, 'citizen', 'history');
+                        }}
                       >
                         <span className="govt-user-dropdown-icon">📂</span>
                         <div className="govt-user-dropdown-item-text">
@@ -407,10 +419,11 @@ export default function Navbar({
                     {currentUser.role === 'manager' && (
                       <a
                         href={getTabUrl('manager', 'complaints')}
-                        target="_blank"
-                        rel="noopener noreferrer"
                         className="govt-user-dropdown-item"
-                        onClick={() => setUserMenuOpen(false)}
+                        onClick={(e) => {
+                          setUserMenuOpen(false);
+                          handleNavClick(e, 'manager', 'complaints');
+                        }}
                       >
                         <span className="govt-user-dropdown-icon">📋</span>
                         <div className="govt-user-dropdown-item-text">
@@ -423,10 +436,11 @@ export default function Navbar({
                     {currentUser.role === 'worker' && (
                       <a
                         href={getTabUrl('worker', 'assigned')}
-                        target="_blank"
-                        rel="noopener noreferrer"
                         className="govt-user-dropdown-item"
-                        onClick={() => setUserMenuOpen(false)}
+                        onClick={(e) => {
+                          setUserMenuOpen(false);
+                          handleNavClick(e, 'worker', 'assigned');
+                        }}
                       >
                         <span className="govt-user-dropdown-icon">👷</span>
                         <div className="govt-user-dropdown-item-text">
@@ -439,10 +453,11 @@ export default function Navbar({
                     {currentUser.role === 'admin' && (
                       <a
                         href={getTabUrl('system')}
-                        target="_blank"
-                        rel="noopener noreferrer"
                         className="govt-user-dropdown-item"
-                        onClick={() => setUserMenuOpen(false)}
+                        onClick={(e) => {
+                          setUserMenuOpen(false);
+                          handleNavClick(e, 'system');
+                        }}
                       >
                         <span className="govt-user-dropdown-icon">⚙️</span>
                         <div className="govt-user-dropdown-item-text">
@@ -487,40 +502,39 @@ export default function Navbar({
             <div className="govt-nav-guest-row">
               <a
                 href={getTabUrl('home')}
-                target="_blank"
-                rel="noopener noreferrer"
+                onClick={(e) => handleNavClick(e, 'home')}
                 className={`govt-nav-guest-link ${currentTab === 'home' ? 'active' : ''}`}
               >
                 Home
               </a>
               <a
                 href={getTabUrl('citizen', 'reporting')}
-                target="_blank"
-                rel="noopener noreferrer"
-                className="govt-nav-guest-link"
+                onClick={(e) => handleNavClick(e, 'citizen', 'reporting')}
+                className={`govt-nav-guest-link ${currentTab === 'citizen' && citizenSubTab === 'reporting' ? 'active' : ''}`}
               >
                 Report Issue
               </a>
               <a
                 href={getTabUrl('citizen', 'tracking')}
-                target="_blank"
-                rel="noopener noreferrer"
-                className="govt-nav-guest-link"
+                onClick={(e) => handleNavClick(e, 'citizen', 'tracking')}
+                className={`govt-nav-guest-link ${currentTab === 'citizen' && citizenSubTab === 'tracking' ? 'active' : ''}`}
               >
                 Track Complaint
               </a>
               <a
                 href={getTabUrl('how-it-works')}
-                target="_blank"
-                rel="noopener noreferrer"
+                onClick={(e) => handleNavClick(e, 'how-it-works')}
                 className={`govt-nav-guest-link ${currentTab === 'how-it-works' ? 'active' : ''}`}
               >
                 How It Works
               </a>
               <a
                 href={getTabUrl(null, null, 'signin')}
-                target="_blank"
-                rel="noopener noreferrer"
+                onClick={(e) => {
+                  e.preventDefault();
+                  if (onSwitchAuthView) onSwitchAuthView('signin');
+                  if (onSwitchTab) onSwitchTab('home');
+                }}
                 className="govt-nav-guest-login"
               >
                 Login
@@ -541,8 +555,7 @@ export default function Navbar({
             <div className="govt-manager-subnav-links">
               <a
                 href={getTabUrl('manager', 'complaints')}
-                target="_blank"
-                rel="noopener noreferrer"
+                onClick={(e) => handleNavClick(e, 'manager', 'complaints')}
                 className={`govt-subnav-btn ${managerModule === 'complaints' ? 'active' : ''}`}
               >
                 <span>📋</span>
@@ -551,8 +564,7 @@ export default function Navbar({
 
               <a
                 href={getTabUrl('manager', 'ai')}
-                target="_blank"
-                rel="noopener noreferrer"
+                onClick={(e) => handleNavClick(e, 'manager', 'ai')}
                 className={`govt-subnav-btn ${managerModule === 'ai' ? 'active' : ''}`}
               >
                 <span>🤖</span>
@@ -561,8 +573,7 @@ export default function Navbar({
 
               <a
                 href={getTabUrl('manager', 'priority')}
-                target="_blank"
-                rel="noopener noreferrer"
+                onClick={(e) => handleNavClick(e, 'manager', 'priority')}
                 className={`govt-subnav-btn ${managerModule === 'priority' ? 'active' : ''}`}
               >
                 <span>⚡</span>
@@ -571,8 +582,7 @@ export default function Navbar({
 
               <a
                 href={getTabUrl('manager', 'departments')}
-                target="_blank"
-                rel="noopener noreferrer"
+                onClick={(e) => handleNavClick(e, 'manager', 'departments')}
                 className={`govt-subnav-btn ${managerModule === 'departments' ? 'active' : ''}`}
               >
                 <span>🏛️</span>
@@ -581,8 +591,7 @@ export default function Navbar({
 
               <a
                 href={getTabUrl('manager', 'workers')}
-                target="_blank"
-                rel="noopener noreferrer"
+                onClick={(e) => handleNavClick(e, 'manager', 'workers')}
                 className={`govt-subnav-btn ${managerModule === 'workers' ? 'active' : ''}`}
               >
                 <span>👷</span>
@@ -606,8 +615,7 @@ export default function Navbar({
             <div className="govt-manager-subnav-links">
               <a
                 href={getTabUrl('worker', 'assigned')}
-                target="_blank"
-                rel="noopener noreferrer"
+                onClick={(e) => handleNavClick(e, 'worker', 'assigned')}
                 className={`govt-subnav-btn ${workerModule === 'assigned' ? 'active' : ''}`}
               >
                 <span>📋</span>
@@ -616,8 +624,7 @@ export default function Navbar({
 
               <a
                 href={getTabUrl('worker', 'details')}
-                target="_blank"
-                rel="noopener noreferrer"
+                onClick={(e) => handleNavClick(e, 'worker', 'details')}
                 className={`govt-subnav-btn ${workerModule === 'details' ? 'active' : ''}`}
               >
                 <span>🔍</span>
@@ -626,8 +633,7 @@ export default function Navbar({
 
               <a
                 href={getTabUrl('worker', 'status')}
-                target="_blank"
-                rel="noopener noreferrer"
+                onClick={(e) => handleNavClick(e, 'worker', 'status')}
                 className={`govt-subnav-btn ${workerModule === 'status' ? 'active' : ''}`}
               >
                 <span>🔄</span>
@@ -636,8 +642,7 @@ export default function Navbar({
 
               <a
                 href={getTabUrl('worker', 'proof')}
-                target="_blank"
-                rel="noopener noreferrer"
+                onClick={(e) => handleNavClick(e, 'worker', 'proof')}
                 className={`govt-subnav-btn ${workerModule === 'proof' ? 'active' : ''}`}
               >
                 <span>📸</span>
