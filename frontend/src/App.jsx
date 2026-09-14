@@ -96,6 +96,19 @@ export default function App() {
     }
   });
 
+  // Opening splash screen state (runs only once per browser session)
+  const [showSplash, setShowSplash] = useState(() => {
+    try {
+      return !sessionStorage.getItem(SPLASH_SESSION_KEY);
+    } catch {
+      return false;
+    }
+  });
+
+  const handleSplashComplete = () => {
+    setShowSplash(false);
+  };
+
   // Initial route extracted from URL query params
   const initialRoute = parseUrlParams();
 
