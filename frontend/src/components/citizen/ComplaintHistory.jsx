@@ -35,33 +35,35 @@ export default function ComplaintHistory({
 
   const pendingCount = complaints.filter((c) => c.status === 'pending').length;
   const inProgressCount = complaints.filter((c) => c.status === 'assigned' || c.status === 'in_progress').length;
+  const assignedCount = complaints.filter((c) => c.status === 'assigned').length;
+  const inProgressSpecificCount = complaints.filter((c) => c.status === 'in_progress').length;
   const resolvedCount = complaints.filter((c) => c.status === 'resolved').length;
 
   return (
     <div className="animate-fade-in" style={{ display: 'flex', flexDirection: 'column', gap: '1.5rem' }}>
       {/* Summary Stat Tiles */}
       <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(200px, 1fr))', gap: '1rem' }}>
-        <div style={{ background: '#ffffff', border: '1px solid #cbd5e1', borderLeft: '4px solid #16A34A', borderRadius: '6px', padding: '1.25rem', boxShadow: '0 1px 3px rgba(0,0,0,0.05)' }}>
-          <div style={{ fontSize: '0.8rem', color: '#64748b', fontWeight: 600, textTransform: 'uppercase' }}>Total Reported</div>
+        <div style={{ background: '#ffffff', border: '1px solid #cbd5e1', borderLeft: '4px solid #16A34A', borderRadius: '8px', padding: '1.25rem', boxShadow: '0 1px 3px rgba(0,0,0,0.04)' }}>
+          <div style={{ fontSize: '0.8rem', color: '#64748b', fontWeight: 700, textTransform: 'uppercase', letterSpacing: '0.03em' }}>Total Reported</div>
           <div style={{ fontSize: '1.85rem', fontWeight: 800, color: '#111827', lineHeight: 1.1, marginTop: '0.35rem' }}>{complaints.length}</div>
         </div>
 
-        <div style={{ background: '#ffffff', border: '1px solid #cbd5e1', borderLeft: '4px solid #F4B740', borderRadius: '6px', padding: '1.25rem', boxShadow: '0 1px 3px rgba(0,0,0,0.05)' }}>
-          <div style={{ fontSize: '0.8rem', color: '#64748b', fontWeight: 600, textTransform: 'uppercase' }}>Pending Triage</div>
+        <div style={{ background: '#ffffff', border: '1px solid #cbd5e1', borderLeft: '4px solid #F4B740', borderRadius: '8px', padding: '1.25rem', boxShadow: '0 1px 3px rgba(0,0,0,0.04)' }}>
+          <div style={{ fontSize: '0.8rem', color: '#64748b', fontWeight: 700, textTransform: 'uppercase', letterSpacing: '0.03em' }}>Pending Triage</div>
           <div style={{ fontSize: '1.85rem', fontWeight: 800, color: '#F4B740', lineHeight: 1.1, marginTop: '0.35rem' }}>
             {pendingCount}
           </div>
         </div>
 
-        <div style={{ background: '#ffffff', border: '1px solid #cbd5e1', borderLeft: '4px solid #2563EB', borderRadius: '6px', padding: '1.25rem', boxShadow: '0 1px 3px rgba(0,0,0,0.05)' }}>
-          <div style={{ fontSize: '0.8rem', color: '#64748b', fontWeight: 600, textTransform: 'uppercase' }}>In Progress / Assigned</div>
+        <div style={{ background: '#ffffff', border: '1px solid #cbd5e1', borderLeft: '4px solid #2563EB', borderRadius: '8px', padding: '1.25rem', boxShadow: '0 1px 3px rgba(0,0,0,0.04)' }}>
+          <div style={{ fontSize: '0.8rem', color: '#64748b', fontWeight: 700, textTransform: 'uppercase', letterSpacing: '0.03em' }}>In Progress / Assigned</div>
           <div style={{ fontSize: '1.85rem', fontWeight: 800, color: '#2563EB', lineHeight: 1.1, marginTop: '0.35rem' }}>
             {inProgressCount}
           </div>
         </div>
 
-        <div style={{ background: '#ffffff', border: '1px solid #cbd5e1', borderLeft: '4px solid #16A34A', borderRadius: '6px', padding: '1.25rem', boxShadow: '0 1px 3px rgba(0,0,0,0.05)' }}>
-          <div style={{ fontSize: '0.8rem', color: '#64748b', fontWeight: 600, textTransform: 'uppercase' }}>Resolved & Verified</div>
+        <div style={{ background: '#ffffff', border: '1px solid #cbd5e1', borderLeft: '4px solid #16A34A', borderRadius: '8px', padding: '1.25rem', boxShadow: '0 1px 3px rgba(0,0,0,0.04)' }}>
+          <div style={{ fontSize: '0.8rem', color: '#64748b', fontWeight: 700, textTransform: 'uppercase', letterSpacing: '0.03em' }}>Resolved & Verified</div>
           <div style={{ fontSize: '1.85rem', fontWeight: 800, color: '#16A34A', lineHeight: 1.1, marginTop: '0.35rem' }}>
             {resolvedCount}
           </div>
@@ -69,55 +71,81 @@ export default function ComplaintHistory({
       </div>
 
       {/* Filters & Search Toolbar */}
-      <div style={{ background: '#ffffff', border: '1px solid #cbd5e1', borderRadius: '6px', padding: '1.25rem', display: 'flex', justifyContent: 'space-between', alignItems: 'center', flexWrap: 'wrap', gap: '1rem' }}>
+      <div className="civic-filter-toolbar">
         {/* Status Pills */}
-        <div style={{ display: 'flex', gap: '0.45rem', flexWrap: 'wrap' }}>
+        <div className="civic-filter-group" role="tablist" aria-label="Filter Complaints by Status">
           <button
             type="button"
-            className={`filter-pill ${historyFilter === 'all' ? 'active' : ''}`}
+            className={`civic-filter-pill ${historyFilter === 'all' ? 'active' : ''}`}
             onClick={() => setHistoryFilter('all')}
           >
-            All ({complaints.length})
+            <span className="civic-filter-dot dot-all" />
+            <span className="civic-filter-label">All</span>
+            <span className="civic-filter-count">{complaints.length}</span>
           </button>
+
           <button
             type="button"
-            className={`filter-pill ${historyFilter === 'pending' ? 'active' : ''}`}
+            className={`civic-filter-pill pill-pending ${historyFilter === 'pending' ? 'active' : ''}`}
             onClick={() => setHistoryFilter('pending')}
           >
-            Pending ({pendingCount})
+            <span className="civic-filter-dot dot-pending" />
+            <span className="civic-filter-label">Pending</span>
+            <span className="civic-filter-count">{pendingCount}</span>
           </button>
+
           <button
             type="button"
-            className={`filter-pill ${historyFilter === 'assigned' ? 'active' : ''}`}
+            className={`civic-filter-pill pill-assigned ${historyFilter === 'assigned' ? 'active' : ''}`}
             onClick={() => setHistoryFilter('assigned')}
           >
-            Assigned ({complaints.filter((c) => c.status === 'assigned').length})
+            <span className="civic-filter-dot dot-assigned" />
+            <span className="civic-filter-label">Assigned</span>
+            <span className="civic-filter-count">{assignedCount}</span>
           </button>
+
           <button
             type="button"
-            className={`filter-pill ${historyFilter === 'in_progress' ? 'active' : ''}`}
+            className={`civic-filter-pill pill-in_progress ${historyFilter === 'in_progress' ? 'active' : ''}`}
             onClick={() => setHistoryFilter('in_progress')}
           >
-            In Progress ({complaints.filter((c) => c.status === 'in_progress').length})
+            <span className="civic-filter-dot dot-in_progress" />
+            <span className="civic-filter-label">In Progress</span>
+            <span className="civic-filter-count">{inProgressSpecificCount}</span>
           </button>
+
           <button
             type="button"
-            className={`filter-pill ${historyFilter === 'resolved' ? 'active' : ''}`}
+            className={`civic-filter-pill pill-resolved ${historyFilter === 'resolved' ? 'active' : ''}`}
             onClick={() => setHistoryFilter('resolved')}
           >
-            Resolved ({resolvedCount})
+            <span className="civic-filter-dot dot-resolved" />
+            <span className="civic-filter-label">Resolved</span>
+            <span className="civic-filter-count">{resolvedCount}</span>
           </button>
         </div>
 
         {/* Keyword Search */}
-        <input
-          type="text"
-          className="form-input"
-          placeholder="Search title, tracking ID, or ward..."
-          value={historySearch}
-          onChange={(e) => setHistorySearch(e.target.value)}
-          style={{ maxWidth: '300px', fontSize: '0.85rem' }}
-        />
+        <div className="civic-filter-search-wrap">
+          <span className="civic-filter-search-icon">🔍</span>
+          <input
+            type="text"
+            className="civic-filter-search-input"
+            placeholder="Search title, tracking ID, or ward..."
+            value={historySearch}
+            onChange={(e) => setHistorySearch(e.target.value)}
+          />
+          {historySearch && (
+            <button
+              type="button"
+              className="civic-filter-search-clear"
+              onClick={() => setHistorySearch('')}
+              title="Clear search"
+            >
+              ✕
+            </button>
+          )}
+        </div>
       </div>
 
       {/* History Cards List */}
