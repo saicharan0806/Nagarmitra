@@ -223,6 +223,7 @@ export default function App() {
       if (targetTab === 'citizen') setCitizenSubTab(targetSub || 'reporting');
       if (targetTab === 'manager') setManagerModule(targetSub || 'complaints');
       if (targetTab === 'worker') setWorkerModule(targetSub || 'assigned');
+      if (targetTab === 'system' || targetTab === 'admin') setSystemModule(targetSub || 'overview');
       if (targetAuth) setAuthView(targetAuth);
 
       setTimeout(() => {
