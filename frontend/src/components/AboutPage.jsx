@@ -133,7 +133,7 @@ export default function AboutPage({ onSwitchTab, currentUser }) {
           </div>
           <div className="about-contact-item">
             <strong>Municipal Headquarters</strong>
-            <p>Nagarmitra Civic Center, Ward 8 Downtown, Metro Core</p>
+            <p>Nagarmitra Civic Bhavan, Ward 8 Ashok Nagar, Central Zone</p>
           </div>
           <div className="about-contact-item">
             <strong>Field Dispatch Operations</strong>
