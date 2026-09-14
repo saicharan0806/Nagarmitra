@@ -368,7 +368,7 @@ export default function HomePage({ currentUser, onSwitchTab }) {
               </span>
             </div>
             <div style={{ padding: '1.25rem' }}>
-              <div style={{ fontSize: '0.78rem', color: '#64748b' }}>WO #2026-RD-8841 • Ward 12 Main Blvd</div>
+              <div style={{ fontSize: '0.78rem', color: '#64748b' }}>WO #2026-RD-8841 • Outer Ring Road, Ward 12</div>
               <div style={{ fontSize: '1.05rem', fontWeight: 700, color: '#111827', marginTop: '0.35rem' }}>Deep Pothole Bitumen Restoration</div>
               <div style={{ fontSize: '0.86rem', color: '#64748B', marginTop: '0.45rem', lineHeight: 1.5 }}>Excavated damaged base, leveled with hot-mix asphalt, and compacted to road grade.</div>
               <div style={{ marginTop: '0.85rem', fontSize: '0.82rem', color: '#16A34A', fontWeight: 600 }}>Resolved in 18 hrs by Field Crew B-4</div>
@@ -387,7 +387,7 @@ export default function HomePage({ currentUser, onSwitchTab }) {
               </span>
             </div>
             <div style={{ padding: '1.25rem' }}>
-              <div style={{ fontSize: '0.78rem', color: '#64748b' }}>WO #2026-SN-4109 • Central Market Gate 3</div>
+              <div style={{ fontSize: '0.78rem', color: '#64748b' }}>WO #2026-SN-4109 • Gandhi Market Gate 3</div>
               <div style={{ fontSize: '1.05rem', fontWeight: 700, color: '#111827', marginTop: '0.35rem' }}>Illegal Commercial Dump Cleared</div>
               <div style={{ fontSize: '0.86rem', color: '#64748B', marginTop: '0.45rem', lineHeight: 1.5 }}>3.2 metric tons of mixed waste cleared, pavement sanitized, and extra bin deployed.</div>
               <div style={{ marginTop: '0.85rem', fontSize: '0.82rem', color: '#16A34A', fontWeight: 600 }}>Resolved in 6 hrs by Sanitation Rapid Team</div>
@@ -406,7 +406,7 @@ export default function HomePage({ currentUser, onSwitchTab }) {
               </span>
             </div>
             <div style={{ padding: '1.25rem' }}>
-              <div style={{ fontSize: '0.78rem', color: '#64748b' }}>WO #2026-EL-2940 • Pine Walkway Cross</div>
+              <div style={{ fontSize: '0.78rem', color: '#64748b' }}>WO #2026-EL-2940 • MG Road Junction, Ward 8</div>
               <div style={{ fontSize: '1.05rem', fontWeight: 700, color: '#111827', marginTop: '0.35rem' }}>Pedestrian Pathway Luminaire Fixed</div>
               <div style={{ fontSize: '0.86rem', color: '#64748B', marginTop: '0.45rem', lineHeight: 1.5 }}>Replaced water-damaged driver and installed 90W LED fixture with night sensor.</div>
               <div style={{ marginTop: '0.85rem', fontSize: '0.82rem', color: '#16A34A', fontWeight: 600 }}>Resolved in 14 hrs by Electrical Utility Team</div>
