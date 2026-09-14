@@ -66,6 +66,15 @@ export default function SignUp({ onRegisterSuccess, onSwitchToSignIn }) {
       return;
     }
 
+    // Role Segregation Enforcement:
+    // If this email was already registered as a Citizen, it cannot be registered as worker/manager/admin
+    const bindings = getRegisteredRoleBindings();
+    const existingBinding = bindings[email.trim().toLowerCase()];
+    if (existingBinding === 'citizen' && role !== 'citizen') {
+      setErrorMsg(`Access Denied: The email '${email.trim().toLowerCase()}' is already registered as a Citizen account. Under municipal role separation policy, citizen accounts cannot register as municipal workers or officials.`);
+      return;
+    }
+
     setLoading(true);
 
     const newUserPayload = {
@@ -87,6 +96,7 @@ export default function SignUp({ onRegisterSuccess, onSwitchToSignIn }) {
 
       if (res.ok) {
         const data = await res.json();
+        recordUserRole(newUserPayload.email, newUserPayload.role);
         setSuccessMsg('Registration submitted successfully. Redirecting to your dashboard...');
         setTimeout(() => {
           onRegisterSuccess(data.user || {
