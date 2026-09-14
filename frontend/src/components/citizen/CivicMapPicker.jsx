@@ -1,4 +1,4 @@
-﻿import React, { useEffect, useRef, useState } from 'react';
+import React, { useEffect, useRef, useState } from 'react';
 import L from 'leaflet';
 import 'leaflet/dist/leaflet.css';
 
@@ -83,6 +83,18 @@ export default function CivicMapPicker({
     }
   };
 
+  const debounceTimerRef = useRef(null);
+
+  const debouncedFetchAddress = (lat, lng, delay = 500) => {
+    if (debounceTimerRef.current) {
+      clearTimeout(debounceTimerRef.current);
+    }
+    setIsGeocoding(true);
+    debounceTimerRef.current = setTimeout(() => {
+      fetchAddress(lat, lng);
+    }, delay);
+  };
+
   // Initialize Leaflet Map instance
   useEffect(() => {
     if (!mapContainerRef.current) return;
@@ -114,22 +126,22 @@ export default function CivicMapPicker({
 
     marker.bindPopup('<b>📍 Grievance Location</b><br/>Drag pin or click map to adjust.').openPopup();
 
-    // Handle marker drag
+    // Handle marker drag with 500ms debounce to prevent Nominatim rate-limits
     marker.on('dragend', (e) => {
       const newPos = e.target.getLatLng();
       setCoords({ lat: newPos.lat, lng: newPos.lng });
-      fetchAddress(newPos.lat, newPos.lng);
+      debouncedFetchAddress(newPos.lat, newPos.lng, 500);
     });
 
-    // Handle click on map to move pin
+    // Handle click on map to move pin with 500ms debounce
     map.on('click', (e) => {
       const { lat, lng } = e.latlng;
       marker.setLatLng([lat, lng]);
       setCoords({ lat, lng });
-      fetchAddress(lat, lng);
+      debouncedFetchAddress(lat, lng, 500);
     });
 
-    // Initial address resolution
+    // Initial address resolution (immediate)
     fetchAddress(startLat, startLng);
 
     // Auto-fix Leaflet sizing glitches in dynamic modals/containers
@@ -139,6 +151,9 @@ export default function CivicMapPicker({
 
     return () => {
       clearTimeout(resizeTimer);
+      if (debounceTimerRef.current) {
+        clearTimeout(debounceTimerRef.current);
+      }
       map.remove();
     };
   }, []);
