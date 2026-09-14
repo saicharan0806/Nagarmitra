@@ -416,12 +416,13 @@ export default function App() {
         pendingCount={pendingCount}
         managerModule={managerModule}
         workerModule={workerModule}
+        citizenSubTab={citizenSubTab}
       />
 
       {/* Main Viewport Router: Gated by Authentication */}
       <main style={{ flex: 1, display: 'flex', flexDirection: 'column' }}>
         {!currentUser ? (
-          /* Unauthenticated View: Support About page viewing or SignIn / SignUp */
+          /* Unauthenticated View: Support About or How It Works page viewing or SignIn / SignUp */
           currentTab === 'about' ? (
             <div className="container" style={{ flex: 1, paddingTop: '2.5rem', paddingBottom: '4rem' }}>
               <AboutPage
@@ -433,6 +434,13 @@ export default function App() {
                     handleSwitchTab(tab);
                   }
                 }}
+              />
+            </div>
+          ) : currentTab === 'how-it-works' ? (
+            <div className="container" style={{ flex: 1, paddingTop: '2.5rem', paddingBottom: '4rem' }}>
+              <HowItWorksPage
+                currentUser={null}
+                onSwitchTab={handleSwitchTab}
               />
             </div>
           ) : authView === 'signin' ? (
