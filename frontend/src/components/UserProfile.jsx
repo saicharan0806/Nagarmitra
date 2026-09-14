@@ -14,8 +14,8 @@ export default function UserProfile({
   const [fullName, setFullName] = useState(currentUser?.full_name || 'Shiva');
   const [email] = useState(currentUser?.email || 'shiva@citizen.nagarmitra.gov.in');
   const [phone, setPhone] = useState(currentUser?.phone || '+91 98765-43210');
-  const [ward, setWard] = useState(currentUser?.ward || 'Ward 8 - Downtown Central');
-  const [address, setAddress] = useState(currentUser?.address || '452 Main Street, Ward 8');
+  const [ward, setWard] = useState(currentUser?.ward || 'Ward 8 - Ashok Nagar');
+  const [address, setAddress] = useState(currentUser?.address || 'Plot 42, Ashok Nagar Main Road, Ward 8');
   const [preferredLanguage, setPreferredLanguage] = useState(currentUser?.preferred_language || currentUser?.language || 'English');
   const [notificationPref, setNotificationPref] = useState(true);
   const [smsAlerts, setSmsAlerts] = useState(true);
@@ -170,13 +170,14 @@ export default function UserProfile({
                 onChange={(e) => setWard(e.target.value)}
                 disabled={!isEditing}
               >
-                <option value="Ward 1 - North Ridge">Ward 1 - North Ridge</option>
-                <option value="Ward 2 - Westside">Ward 2 - Westside</option>
-                <option value="Ward 3 - Market Zone">Ward 3 - Market Zone</option>
-                <option value="Ward 4 - Riverfront">Ward 4 - Riverfront</option>
-                <option value="Ward 7 - South Corridor">Ward 7 - South Corridor</option>
-                <option value="Ward 8 - Downtown Central">Ward 8 - Downtown Central</option>
-                <option value="Ward 12 - Metro Core">Ward 12 - Metro Core</option>
+                <option value="Ward 1 - Begumpet / Secunderabad">Ward 1 - Begumpet / Secunderabad</option>
+                <option value="Ward 2 - Patel Nagar">Ward 2 - Patel Nagar</option>
+                <option value="Ward 3 - Gandhi Market">Ward 3 - Gandhi Market</option>
+                <option value="Ward 4 - Gomti Enclave">Ward 4 - Gomti Enclave</option>
+                <option value="Ward 7 - South Ring Road">Ward 7 - South Ring Road</option>
+                <option value="Ward 8 - Ashok Nagar">Ward 8 - Ashok Nagar</option>
+                <option value="Ward 12 - Shivaji Nagar">Ward 12 - Shivaji Nagar</option>
+                <option value="Ward 18 - Jubilee Hills / Hitec City">Ward 18 - Jubilee Hills / Hitec City</option>
               </select>
             </div>
 
