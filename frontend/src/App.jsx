@@ -491,6 +491,7 @@ export default function App() {
             {currentTab === 'citizen' && (
               currentUser.role === 'citizen' ? (
                 <CitizenDashboard
+                  currentUser={currentUser}
                   complaints={complaints}
                   onAddComplaint={handleAddComplaint}
                   onNotification={showNotification}
