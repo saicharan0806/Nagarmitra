@@ -17,6 +17,7 @@ export default function Navbar({
   pendingCount = 0,
   managerModule = 'complaints',
   workerModule = 'assigned',
+  citizenSubTab = 'reporting',
 }) {
   const [managerMenuOpen, setManagerMenuOpen] = useState(false);
   const [workerMenuOpen, setWorkerMenuOpen] = useState(false);
