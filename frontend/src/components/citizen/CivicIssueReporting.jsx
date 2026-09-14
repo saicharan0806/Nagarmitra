@@ -1,5 +1,7 @@
 import React, { useState, useRef } from 'react';
 import { getCategoryLabel, getDepartmentForCategory } from '../../utils/civicHelpers.js';
+import CivicMapPicker from './CivicMapPicker.jsx';
+import VoiceDictation from './VoiceDictation.jsx';
 
 /**
  * Analyzes image pixel patterns via HTML5 Canvas to detect digital text / screenshots.
