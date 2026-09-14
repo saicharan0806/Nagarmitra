@@ -412,6 +412,7 @@ export default function Navbar({
                     {/* 1. Profile */}
                     <a
                       href={getTabUrl('profile')}
+                      role="menuitem"
                       className={`govt-user-dropdown-item ${currentTab === 'profile' ? 'active' : ''}`}
                       onClick={(e) => {
                         setUserMenuOpen(false);
@@ -428,6 +429,7 @@ export default function Navbar({
                     {/* 2. Account Information */}
                     <a
                       href={getTabUrl('profile')}
+                      role="menuitem"
                       className="govt-user-dropdown-item"
                       onClick={(e) => {
                         setUserMenuOpen(false);
@@ -445,6 +447,7 @@ export default function Navbar({
                     {currentUser.role === 'citizen' && (
                       <a
                         href={getTabUrl('citizen', 'history')}
+                        role="menuitem"
                         className="govt-user-dropdown-item"
                         onClick={(e) => {
                           setUserMenuOpen(false);
@@ -462,6 +465,7 @@ export default function Navbar({
                     {currentUser.role === 'manager' && (
                       <a
                         href={getTabUrl('manager', 'complaints')}
+                        role="menuitem"
                         className="govt-user-dropdown-item"
                         onClick={(e) => {
                           setUserMenuOpen(false);
@@ -479,6 +483,7 @@ export default function Navbar({
                     {currentUser.role === 'worker' && (
                       <a
                         href={getTabUrl('worker', 'assigned')}
+                        role="menuitem"
                         className="govt-user-dropdown-item"
                         onClick={(e) => {
                           setUserMenuOpen(false);
@@ -496,6 +501,7 @@ export default function Navbar({
                     {currentUser.role === 'admin' && (
                       <a
                         href={getTabUrl('system')}
+                        role="menuitem"
                         className="govt-user-dropdown-item"
                         onClick={(e) => {
                           setUserMenuOpen(false);
@@ -515,6 +521,7 @@ export default function Navbar({
                     {/* 4. Sign Out */}
                     <button
                       type="button"
+                      role="menuitem"
                       className="govt-user-dropdown-item"
                       onClick={() => {
                         setUserMenuOpen(false);
