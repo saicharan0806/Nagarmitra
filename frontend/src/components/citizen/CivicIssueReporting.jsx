@@ -328,9 +328,12 @@ export default function CivicIssueReporting({
   const handleSubmit = (e) => {
     e.preventDefault();
     if (!formData.title.trim() || !formData.description.trim()) {
-      alert('Please fill in the issue title and description.');
+      const msg = 'Please fill in both the issue title and detailed description before submitting.';
+      setFormError(msg);
+      if (onNotification) onNotification(`⚠️ ${msg}`);
       return;
     }
+    setFormError('');
 
     const randomNum = Math.floor(10000 + Math.random() * 90000);
     const trackingId = `CIVIC-2026-${randomNum}`;
