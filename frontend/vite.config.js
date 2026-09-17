@@ -45,5 +45,16 @@ export default defineConfig({
         }
       }
     }
+  },
+  build: {
+    rollupOptions: {
+      output: {
+        manualChunks: {
+          'vendor-react': ['react', 'react-dom'],
+          'vendor-leaflet': ['leaflet'],
+        }
+      }
+    },
+    chunkSizeWarningLimit: 600,
   }
 });
