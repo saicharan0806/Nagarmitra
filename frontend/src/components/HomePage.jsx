@@ -165,7 +165,6 @@ export default function HomePage({ currentUser, onSwitchTab }) {
               </div>
             </div>
           </div>
-          </div>
         </div>
       </section>
 
