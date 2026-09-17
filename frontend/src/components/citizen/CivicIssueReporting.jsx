@@ -136,12 +136,13 @@ export default function CivicIssueReporting({
     title: '',
     category: 'pothole',
     description: '',
-    address: 'Plot 42, Hitec City Main Road, Madhapur, Ward 18, Hyderabad',
-    latitude: '17.3850',
-    longitude: '78.4867',
+    address: '',
+    latitude: '',
+    longitude: '',
     imageFile: null,
     imagePreview: null,
   });
+  const [isDetectingLocation, setIsDetectingLocation] = useState(false);
 
   const [aiScanResult, setAiScanResult] = useState(null);
   const [isScanning, setIsScanning] = useState(false);
