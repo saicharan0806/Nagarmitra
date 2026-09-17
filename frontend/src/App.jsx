@@ -163,6 +163,7 @@ export default function App() {
   const [systemModule, setSystemModule] = useState(
     (initialRoute.tab === 'system' || initialRoute.tab === 'admin') && initialRoute.sub ? initialRoute.sub : 'overview'
   );
+  const [legalModal, setLegalModal] = useState(null); // 'privacy' | 'terms' | null
 
   // Ref to track popstate to prevent double-pushing history
   const isPopStateRef = useRef(false);
