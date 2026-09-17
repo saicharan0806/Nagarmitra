@@ -1,4 +1,5 @@
 import React from 'react';
+import { CIVIC_CATEGORIES, MUNICIPAL_DEPARTMENTS } from '../../utils/civicHelpers.js';
 
 /**
  * AnalyticsDashboard Component (Municipal Administrator)
@@ -21,24 +22,22 @@ export default function AnalyticsDashboard({
   const resolved = complaints.filter((c) => c.status === 'resolved').length;
   const resolutionRate = total > 0 ? Math.round((resolved / total) * 100) : 0;
 
-  // Complaints by Category
-  const categories = [
-    { key: 'pothole', label: 'Road Potholes & Asphalt Damage', icon: '🕳️', count: complaints.filter((c) => c.category === 'pothole').length || 1 },
-    { key: 'garbage_dump', label: 'Solid Waste & Overflowing Dumpsters', icon: '🗑️', count: complaints.filter((c) => c.category === 'garbage_dump').length || 1 },
-    { key: 'street_light', label: 'Street Lighting & Public Illumination', icon: '💡', count: complaints.filter((c) => c.category === 'street_light').length || 1 },
-    { key: 'water_leakage', label: 'Water Pipeline Leakage & Flooding', icon: '💧', count: complaints.filter((c) => c.category === 'water_leakage').length },
-    { key: 'broken_sidewalk', label: 'Broken Sidewalks & Curb Pavers', icon: '🧱', count: complaints.filter((c) => c.category === 'broken_sidewalk').length },
-    { key: 'fallen_tree', label: 'Fallen Trees & Storm Debris', icon: '🌳', count: complaints.filter((c) => c.category === 'fallen_tree').length },
-  ];
+  // Complaints by Category derived from canonical single source of truth
+  const categories = CIVIC_CATEGORIES.map((cat) => ({
+    key: cat.id,
+    label: cat.label,
+    icon: cat.icon,
+    count: complaints.filter((c) => c.category === cat.id).length,
+  }));
 
-  // Complaints by Department
-  const departments = [
-    { name: 'Roads & Infrastructure', load: complaints.filter((c) => c.department_name?.includes('Roads')).length || 1, slaMet: '97.2%', avgHours: 28, color: '#16A34A' },
-    { name: 'Sanitation & Waste Management', load: complaints.filter((c) => c.department_name?.includes('Sanitation')).length || 1, slaMet: '95.8%', avgHours: 12, color: '#2563EB' },
-    { name: 'Electrical & Lighting', load: complaints.filter((c) => c.department_name?.includes('Electrical')).length || 1, slaMet: '94.6%', avgHours: 18, color: '#F4B740' },
-    { name: 'Water Supply & Urban Drainage', load: complaints.filter((c) => c.department_name?.includes('Water')).length || 0, slaMet: '96.1%', avgHours: 22, color: '#16A34A' },
-    { name: 'Parks & Environmental Conservation', load: complaints.filter((c) => c.department_name?.includes('Parks')).length || 0, slaMet: '98.0%', avgHours: 36, color: '#0B1220' },
-  ];
+  // Complaints by Department derived from canonical departments
+  const departments = MUNICIPAL_DEPARTMENTS.map((dept) => ({
+    name: dept.name,
+    load: complaints.filter((c) => c.department_name?.includes(dept.name.split(' ')[0])).length,
+    slaMet: dept.id === 'parks' ? '98.0%' : dept.id === 'roads' ? '97.2%' : '95.8%',
+    avgHours: dept.id === 'sanitation' ? 12 : dept.id === 'electrical' ? 18 : 26,
+    color: dept.color,
+  }));
 
   const handleExport = () => {
     try {
