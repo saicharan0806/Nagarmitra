@@ -146,12 +146,18 @@ export default function HomePage({ currentUser, onSwitchTab }) {
 
           {/* Right Column (Approx 52%): Large Centered Hero Visual */}
           <div className="civic-hero-right">
-            <div className="civic-hero-visual-card">
-              <img
-                src="/smart_city_hero.jpg"
-                alt="Smart City Civic Issue Reporting & Resolution"
-                className="civic-hero-img"
-              />
+              <picture>
+                <source srcSet="/smart_city_hero.webp" type="image/webp" />
+                <img
+                  src="/smart_city_hero.jpg"
+                  alt="Smart City Civic Issue Reporting & Resolution"
+                  className="civic-hero-img"
+                  width="650"
+                  height="480"
+                  fetchPriority="high"
+                  decoding="async"
+                />
+              </picture>
               <div className="civic-hero-badge-overlay">
                 <span style={{ fontWeight: 700 }}>🌱 Eco-Friendly Community Initiative</span>
                 <span style={{ opacity: 0.9 }}>• Environmental Welfare, Urban Greening & Sustainable Care</span>
@@ -387,6 +393,10 @@ export default function HomePage({ currentUser, onSwitchTab }) {
               <img
                 src="https://images.unsplash.com/photo-1590486803833-1c5dc8ddd4c8?w=600"
                 alt="Restored asphalt roadway"
+                loading="lazy"
+                decoding="async"
+                width="600"
+                height="180"
                 style={{ width: '100%', height: '100%', objectFit: 'cover' }}
               />
               <span style={{ position: 'absolute', top: '10px', right: '10px', background: '#16A34A', color: '#ffffff', fontSize: '0.74rem', fontWeight: 700, padding: '0.25rem 0.6rem', borderRadius: '4px' }}>
@@ -406,6 +416,10 @@ export default function HomePage({ currentUser, onSwitchTab }) {
               <img
                 src="https://images.unsplash.com/photo-1605600659908-0ef719419d41?w=600"
                 alt="Clean municipal waste zone"
+                loading="lazy"
+                decoding="async"
+                width="600"
+                height="180"
                 style={{ width: '100%', height: '100%', objectFit: 'cover' }}
               />
               <span style={{ position: 'absolute', top: '10px', right: '10px', background: '#16A34A', color: '#ffffff', fontSize: '0.74rem', fontWeight: 700, padding: '0.25rem 0.6rem', borderRadius: '4px' }}>
@@ -425,6 +439,10 @@ export default function HomePage({ currentUser, onSwitchTab }) {
               <img
                 src="https://images.unsplash.com/photo-1509198397868-475647b2a1e5?w=600"
                 alt="Restored pedestrian street illumination"
+                loading="lazy"
+                decoding="async"
+                width="600"
+                height="180"
                 style={{ width: '100%', height: '100%', objectFit: 'cover' }}
               />
               <span style={{ position: 'absolute', top: '10px', right: '10px', background: '#16A34A', color: '#ffffff', fontSize: '0.74rem', fontWeight: 700, padding: '0.25rem 0.6rem', borderRadius: '4px' }}>
