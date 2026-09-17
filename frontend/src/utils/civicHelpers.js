@@ -2,10 +2,81 @@
  * Shared Civic Helpers for Nagarmitra
  * -----------------------------------
  * Standard label formatting, departmental routing,
- * and priority metadata formatting across Citizen and Manager portals.
+ * priority metadata formatting, and canonical civic taxonomies across all portals.
  */
 
+// Canonical List of Civic Issue Categories
+export const CIVIC_CATEGORIES = [
+  {
+    id: 'pothole',
+    label: 'Pothole & Road Damage',
+    dept: 'Roads & Infrastructure',
+    severity: 'high',
+    icon: '🕳️',
+    keywords: ['pothole', 'crater', 'asphalt', 'cracked road', 'tar', 'road damage', 'pit', 'street hole'],
+  },
+  {
+    id: 'garbage_dump',
+    label: 'Garbage Dump & Waste Overflow',
+    dept: 'Sanitation & Waste Management',
+    severity: 'medium',
+    icon: '🗑️',
+    keywords: ['garbage', 'trash', 'waste', 'dump', 'dustbin', 'bin', 'litter', 'filth', 'rubbish', 'dumpster'],
+  },
+  {
+    id: 'street_light',
+    label: 'Broken Street Light',
+    dept: 'Electrical & Energy',
+    severity: 'medium',
+    icon: '💡',
+    keywords: ['street light', 'light', 'lamp', 'pole', 'dark', 'bulb', 'wire', 'wiring', 'cable', 'transformer'],
+  },
+  {
+    id: 'water_leakage',
+    label: 'Water Pipe Leakage & Flooding',
+    dept: 'Water Supply & Sewerage',
+    severity: 'high',
+    icon: '💧',
+    keywords: ['water', 'pipe', 'leak', 'burst', 'flood', 'drain', 'sewage', 'drainage', 'manhole', 'gutter'],
+  },
+  {
+    id: 'fallen_tree',
+    label: 'Fallen Tree / Blocked Road',
+    dept: 'Parks & Horticulture',
+    severity: 'critical',
+    icon: '🌳',
+    keywords: ['tree', 'branch', 'fallen', 'trunk', 'timber', 'horticulture', 'bush'],
+  },
+  {
+    id: 'broken_sidewalk',
+    label: 'Damaged Sidewalk & Pavers',
+    dept: 'Roads & Infrastructure',
+    severity: 'low',
+    icon: '🧱',
+    keywords: ['sidewalk', 'paver', 'footpath', 'curb', 'pedestrian walk'],
+  },
+  {
+    id: 'illegal_parking',
+    label: 'Illegal Parking & Encroachment',
+    dept: 'Traffic & Enforcement',
+    severity: 'low',
+    icon: '🚗',
+    keywords: ['parking', 'vehicle', 'car', 'bike', 'scooter', 'encroachment', 'blocked driveway'],
+  },
+];
+
+// Canonical List of Municipal Directorates
+export const MUNICIPAL_DEPARTMENTS = [
+  { id: 'roads', name: 'Roads & Infrastructure', lead: 'Eng. Rajesh Patel', phone: 'Ext. 401', color: '#16A34A' },
+  { id: 'sanitation', name: 'Sanitation & Waste Management', lead: 'Dr. Sunita Rao', phone: 'Ext. 402', color: '#2563EB' },
+  { id: 'electrical', name: 'Electrical & Public Lighting', lead: 'Vikram Seth', phone: 'Ext. 403', color: '#F4B740' },
+  { id: 'water', name: 'Water Supply & Urban Drainage', lead: 'Priya Nair', phone: 'Ext. 404', color: '#16A34A' },
+  { id: 'parks', name: 'Parks & Environmental Conservation', lead: 'Amit Verma', phone: 'Ext. 405', color: '#0B1220' },
+];
+
 export function getCategoryLabel(category) {
+  const found = CIVIC_CATEGORIES.find((c) => c.id === category);
+  if (found) return found.label;
   const map = {
     pothole: 'Pothole & Road Damage',
     garbage_dump: 'Garbage Accumulation & Overflow',
@@ -19,6 +90,8 @@ export function getCategoryLabel(category) {
 }
 
 export function getDepartmentForCategory(category) {
+  const found = CIVIC_CATEGORIES.find((c) => c.id === category);
+  if (found) return found.dept;
   switch (category) {
     case 'pothole':
     case 'broken_sidewalk':
@@ -52,3 +125,4 @@ export function getPriorityMeta(severity = 'medium') {
       return { label: '🟡 Medium', className: 'badge-priority-medium', text: 'MEDIUM' };
   }
 }
+
