@@ -22,14 +22,21 @@ export default function Navbar({
   const [managerMenuOpen, setManagerMenuOpen] = useState(false);
   const [workerMenuOpen, setWorkerMenuOpen] = useState(false);
   const [userMenuOpen, setUserMenuOpen] = useState(false);
+  const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
 
   // Close dropdowns on outside click or Escape key
   useEffect(() => {
     const handleGlobalClick = (e) => {
-      if (!e.target.closest('.govt-nav-dropdown-wrap') && !e.target.closest('.govt-nav-user-wrap')) {
+      if (
+        !e.target.closest('.govt-nav-dropdown-wrap') &&
+        !e.target.closest('.govt-nav-user-wrap') &&
+        !e.target.closest('.govt-hamburger-btn') &&
+        !e.target.closest('.govt-mobile-drawer')
+      ) {
         setManagerMenuOpen(false);
         setWorkerMenuOpen(false);
         setUserMenuOpen(false);
+        setMobileMenuOpen(false);
       }
     };
     const handleKeyDown = (e) => {
@@ -37,6 +44,7 @@ export default function Navbar({
         setManagerMenuOpen(false);
         setWorkerMenuOpen(false);
         setUserMenuOpen(false);
+        setMobileMenuOpen(false);
       }
     };
     document.addEventListener('click', handleGlobalClick);
@@ -56,6 +64,7 @@ export default function Navbar({
   const handleNavClick = (e, tab, sub = null) => {
     if (!e.ctrlKey && !e.metaKey && !e.shiftKey && onSwitchTab) {
       e.preventDefault();
+      setMobileMenuOpen(false);
       onSwitchTab(tab, sub);
     }
   };
@@ -592,7 +601,374 @@ export default function Navbar({
             </div>
           )}
         </nav>
+
+        {/* Mobile Hamburger Toggle Button (Shown on mobile/tablet viewports) */}
+        <button
+          type="button"
+          className={`govt-hamburger-btn ${mobileMenuOpen ? 'open' : ''}`}
+          onClick={() => setMobileMenuOpen((prev) => !prev)}
+          aria-label={mobileMenuOpen ? 'Close navigation menu' : 'Open navigation menu'}
+          aria-expanded={mobileMenuOpen}
+        >
+          <span className="govt-hamburger-bar" />
+          <span className="govt-hamburger-bar" />
+          <span className="govt-hamburger-bar" />
+        </button>
       </div>
+
+      {/* Responsive Mobile Navigation Collapsible Drawer */}
+      {mobileMenuOpen && (
+        <div className="govt-mobile-drawer" role="dialog" aria-label="Mobile Navigation Menu">
+          {currentUser ? (
+            <div className="govt-mobile-drawer-content">
+              {/* Authenticated User Identity Lockup */}
+              <div className="govt-mobile-user-card">
+                <div className="govt-mobile-user-avatar">
+                  {(currentUser.full_name || 'U').charAt(0).toUpperCase()}
+                </div>
+                <div className="govt-mobile-user-details">
+                  <div className="govt-mobile-user-name">{currentUser.full_name}</div>
+                  <div className="govt-mobile-user-email">{currentUser.email || 'citizen@nagarmitra.gov.in'}</div>
+                  <div className="govt-mobile-user-badges">
+                    <span className="profile-role-badge-small">{currentUser.role}</span>
+                    <span className="profile-ward-small">{currentUser.ward || 'Ward 8 Ashok Nagar'}</span>
+                  </div>
+                </div>
+              </div>
+
+              {/* Main Navigation Portals */}
+              <div className="govt-mobile-section-label">Navigation & Portals</div>
+              <div className="govt-mobile-links-list">
+                {navLinks.map((link) => (
+                  <a
+                    key={link.id}
+                    href={getTabUrl(link.id)}
+                    className={`govt-mobile-nav-link ${currentTab === link.id ? 'active' : ''}`}
+                    onClick={(e) => {
+                      setMobileMenuOpen(false);
+                      handleNavClick(e, link.id);
+                    }}
+                  >
+                    <span className="govt-mobile-link-icon">
+                      {link.id === 'home' ? '🏠' : link.id === 'citizen' ? '👤' : link.id === 'manager' ? '👔' : link.id === 'worker' ? '👷' : '⚙️'}
+                    </span>
+                    <span className="govt-mobile-link-text">{link.label}</span>
+                    {link.id === 'manager' && pendingCount > 0 && (
+                      <span className="govt-badge-counter">{pendingCount}</span>
+                    )}
+                  </a>
+                ))}
+              </div>
+
+              {/* Manager Triage Sub-Modules */}
+              {currentUser.role === 'manager' && (
+                <div className="govt-mobile-submodule-group">
+                  <div className="govt-mobile-section-label">Manager Triage Modules</div>
+                  <a
+                    href={getTabUrl('manager', 'complaints')}
+                    className={`govt-mobile-sub-link ${currentTab === 'manager' && managerModule === 'complaints' ? 'active' : ''}`}
+                    onClick={(e) => {
+                      setMobileMenuOpen(false);
+                      handleNavClick(e, 'manager', 'complaints');
+                    }}
+                  >
+                    <span>📋</span>
+                    <span>Complaint Management</span>
+                  </a>
+                  <a
+                    href={getTabUrl('manager', 'ai')}
+                    className={`govt-mobile-sub-link ${currentTab === 'manager' && managerModule === 'ai' ? 'active' : ''}`}
+                    onClick={(e) => {
+                      setMobileMenuOpen(false);
+                      handleNavClick(e, 'manager', 'ai');
+                    }}
+                  >
+                    <span>🤖</span>
+                    <span>AI Classification</span>
+                  </a>
+                  <a
+                    href={getTabUrl('manager', 'priority')}
+                    className={`govt-mobile-sub-link ${currentTab === 'manager' && managerModule === 'priority' ? 'active' : ''}`}
+                    onClick={(e) => {
+                      setMobileMenuOpen(false);
+                      handleNavClick(e, 'manager', 'priority');
+                    }}
+                  >
+                    <span>⚡</span>
+                    <span>Priority Management</span>
+                  </a>
+                  <a
+                    href={getTabUrl('manager', 'departments')}
+                    className={`govt-mobile-sub-link ${currentTab === 'manager' && managerModule === 'departments' ? 'active' : ''}`}
+                    onClick={(e) => {
+                      setMobileMenuOpen(false);
+                      handleNavClick(e, 'manager', 'departments');
+                    }}
+                  >
+                    <span>🏛️</span>
+                    <span>Department Management</span>
+                  </a>
+                  <a
+                    href={getTabUrl('manager', 'workers')}
+                    className={`govt-mobile-sub-link ${currentTab === 'manager' && managerModule === 'workers' ? 'active' : ''}`}
+                    onClick={(e) => {
+                      setMobileMenuOpen(false);
+                      handleNavClick(e, 'manager', 'workers');
+                    }}
+                  >
+                    <span>👷</span>
+                    <span>Worker Assignment</span>
+                  </a>
+                </div>
+              )}
+
+              {/* Field Operations Sub-Modules */}
+              {currentUser.role === 'worker' && (
+                <div className="govt-mobile-submodule-group">
+                  <div className="govt-mobile-section-label">Field Operations Modules</div>
+                  <a
+                    href={getTabUrl('worker', 'assigned')}
+                    className={`govt-mobile-sub-link ${currentTab === 'worker' && workerModule === 'assigned' ? 'active' : ''}`}
+                    onClick={(e) => {
+                      setMobileMenuOpen(false);
+                      handleNavClick(e, 'worker', 'assigned');
+                    }}
+                  >
+                    <span>📋</span>
+                    <span>Assigned Complaints</span>
+                  </a>
+                  <a
+                    href={getTabUrl('worker', 'details')}
+                    className={`govt-mobile-sub-link ${currentTab === 'worker' && workerModule === 'details' ? 'active' : ''}`}
+                    onClick={(e) => {
+                      setMobileMenuOpen(false);
+                      handleNavClick(e, 'worker', 'details');
+                    }}
+                  >
+                    <span>🔍</span>
+                    <span>Task Details</span>
+                  </a>
+                  <a
+                    href={getTabUrl('worker', 'status')}
+                    className={`govt-mobile-sub-link ${currentTab === 'worker' && workerModule === 'status' ? 'active' : ''}`}
+                    onClick={(e) => {
+                      setMobileMenuOpen(false);
+                      handleNavClick(e, 'worker', 'status');
+                    }}
+                  >
+                    <span>🔄</span>
+                    <span>Status Updates</span>
+                  </a>
+                  <a
+                    href={getTabUrl('worker', 'proof')}
+                    className={`govt-mobile-sub-link ${currentTab === 'worker' && workerModule === 'proof' ? 'active' : ''}`}
+                    onClick={(e) => {
+                      setMobileMenuOpen(false);
+                      handleNavClick(e, 'worker', 'proof');
+                    }}
+                  >
+                    <span>📸</span>
+                    <span>Proof of Resolution</span>
+                  </a>
+                </div>
+              )}
+
+              {/* Citizen Grievance Sub-Modules */}
+              {currentUser.role === 'citizen' && (
+                <div className="govt-mobile-submodule-group">
+                  <div className="govt-mobile-section-label">Citizen Services</div>
+                  <a
+                    href={getTabUrl('citizen', 'reporting')}
+                    className={`govt-mobile-sub-link ${currentTab === 'citizen' && citizenSubTab === 'reporting' ? 'active' : ''}`}
+                    onClick={(e) => {
+                      setMobileMenuOpen(false);
+                      handleNavClick(e, 'citizen', 'reporting');
+                    }}
+                  >
+                    <span>✍️</span>
+                    <span>Report Issue</span>
+                  </a>
+                  <a
+                    href={getTabUrl('citizen', 'tracking')}
+                    className={`govt-mobile-sub-link ${currentTab === 'citizen' && citizenSubTab === 'tracking' ? 'active' : ''}`}
+                    onClick={(e) => {
+                      setMobileMenuOpen(false);
+                      handleNavClick(e, 'citizen', 'tracking');
+                    }}
+                  >
+                    <span>🔍</span>
+                    <span>Track Complaint</span>
+                  </a>
+                  <a
+                    href={getTabUrl('citizen', 'history')}
+                    className={`govt-mobile-sub-link ${currentTab === 'citizen' && citizenSubTab === 'history' ? 'active' : ''}`}
+                    onClick={(e) => {
+                      setMobileMenuOpen(false);
+                      handleNavClick(e, 'citizen', 'history');
+                    }}
+                  >
+                    <span>📂</span>
+                    <span>Complaint History</span>
+                  </a>
+                  <a
+                    href={getTabUrl('citizen', 'feedback')}
+                    className={`govt-mobile-sub-link ${currentTab === 'citizen' && citizenSubTab === 'feedback' ? 'active' : ''}`}
+                    onClick={(e) => {
+                      setMobileMenuOpen(false);
+                      handleNavClick(e, 'citizen', 'feedback');
+                    }}
+                  >
+                    <span>⭐</span>
+                    <span>Rate Resolution</span>
+                  </a>
+                  <a
+                    href={getTabUrl('citizen', 'notifications')}
+                    className={`govt-mobile-sub-link ${currentTab === 'citizen' && citizenSubTab === 'notifications' ? 'active' : ''}`}
+                    onClick={(e) => {
+                      setMobileMenuOpen(false);
+                      handleNavClick(e, 'citizen', 'notifications');
+                    }}
+                  >
+                    <span>🔔</span>
+                    <span>Notifications</span>
+                  </a>
+                </div>
+              )}
+
+              {/* Profile & Statutory Links */}
+              <div className="govt-mobile-section-label">Account & Information</div>
+              <div className="govt-mobile-links-list">
+                <a
+                  href={getTabUrl('profile')}
+                  className={`govt-mobile-nav-link ${currentTab === 'profile' ? 'active' : ''}`}
+                  onClick={(e) => {
+                    setMobileMenuOpen(false);
+                    handleNavClick(e, 'profile');
+                  }}
+                >
+                  <span className="govt-mobile-link-icon">👤</span>
+                  <span className="govt-mobile-link-text">Profile & Ward Settings</span>
+                </a>
+                <a
+                  href={getTabUrl('about')}
+                  className={`govt-mobile-nav-link ${currentTab === 'about' ? 'active' : ''}`}
+                  onClick={(e) => {
+                    setMobileMenuOpen(false);
+                    handleNavClick(e, 'about');
+                  }}
+                >
+                  <span className="govt-mobile-link-icon">📜</span>
+                  <span className="govt-mobile-link-text">Citizen Charter & SLA</span>
+                </a>
+                <a
+                  href={getTabUrl('how-it-works')}
+                  className={`govt-mobile-nav-link ${currentTab === 'how-it-works' ? 'active' : ''}`}
+                  onClick={(e) => {
+                    setMobileMenuOpen(false);
+                    handleNavClick(e, 'how-it-works');
+                  }}
+                >
+                  <span className="govt-mobile-link-icon">ℹ️</span>
+                  <span className="govt-mobile-link-text">How It Works</span>
+                </a>
+              </div>
+
+              {/* Sign Out Button (Strictly Single Line) */}
+              <div className="govt-mobile-signout-wrap">
+                <button
+                  type="button"
+                  className="govt-mobile-signout-btn"
+                  onClick={() => {
+                    setMobileMenuOpen(false);
+                    onSignOut();
+                  }}
+                >
+                  <span>🚪</span>
+                  <span>Sign Out</span>
+                </button>
+              </div>
+            </div>
+          ) : (
+            /* Unauthenticated Guest Mobile Drawer */
+            <div className="govt-mobile-drawer-content">
+              <div className="govt-mobile-section-label">Municipal Navigation</div>
+              <div className="govt-mobile-links-list">
+                <a
+                  href={getTabUrl('home')}
+                  className={`govt-mobile-nav-link ${currentTab === 'home' ? 'active' : ''}`}
+                  onClick={(e) => {
+                    setMobileMenuOpen(false);
+                    handleNavClick(e, 'home');
+                  }}
+                >
+                  <span className="govt-mobile-link-icon">🏠</span>
+                  <span className="govt-mobile-link-text">Home</span>
+                </a>
+                <a
+                  href={getTabUrl('citizen', 'reporting')}
+                  className={`govt-mobile-nav-link ${currentTab === 'citizen' && citizenSubTab === 'reporting' ? 'active' : ''}`}
+                  onClick={(e) => {
+                    setMobileMenuOpen(false);
+                    handleNavClick(e, 'citizen', 'reporting');
+                  }}
+                >
+                  <span className="govt-mobile-link-icon">✍️</span>
+                  <span className="govt-mobile-link-text">Report Issue</span>
+                </a>
+                <a
+                  href={getTabUrl('citizen', 'tracking')}
+                  className={`govt-mobile-nav-link ${currentTab === 'citizen' && citizenSubTab === 'tracking' ? 'active' : ''}`}
+                  onClick={(e) => {
+                    setMobileMenuOpen(false);
+                    handleNavClick(e, 'citizen', 'tracking');
+                  }}
+                >
+                  <span className="govt-mobile-link-icon">🔍</span>
+                  <span className="govt-mobile-link-text">Track Complaint</span>
+                </a>
+                <a
+                  href={getTabUrl('how-it-works')}
+                  className={`govt-mobile-nav-link ${currentTab === 'how-it-works' ? 'active' : ''}`}
+                  onClick={(e) => {
+                    setMobileMenuOpen(false);
+                    handleNavClick(e, 'how-it-works');
+                  }}
+                >
+                  <span className="govt-mobile-link-icon">ℹ️</span>
+                  <span className="govt-mobile-link-text">How It Works</span>
+                </a>
+                <a
+                  href={getTabUrl('about')}
+                  className={`govt-mobile-nav-link ${currentTab === 'about' ? 'active' : ''}`}
+                  onClick={(e) => {
+                    setMobileMenuOpen(false);
+                    handleNavClick(e, 'about');
+                  }}
+                >
+                  <span className="govt-mobile-link-icon">📜</span>
+                  <span className="govt-mobile-link-text">Citizen Charter</span>
+                </a>
+              </div>
+
+              <div className="govt-mobile-signout-wrap">
+                <button
+                  type="button"
+                  className="govt-nav-guest-login"
+                  style={{ width: '100%', height: '46px', whiteSpace: 'nowrap' }}
+                  onClick={(e) => {
+                    e.preventDefault();
+                    setMobileMenuOpen(false);
+                    if (onSwitchAuthView) onSwitchAuthView('signin');
+                    if (onSwitchTab) onSwitchTab('home');
+                  }}
+                >
+                  Login / Citizen Access
+                </button>
+              </div>
+            </div>
+          )}
+        </div>
+      )}
     </header>
   );
 }

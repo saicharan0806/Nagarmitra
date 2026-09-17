@@ -323,6 +323,11 @@ button, input, select, textarea {
   border-radius: 6px;
   cursor: pointer;
   transition: all 0.15s ease;
+  white-space: nowrap;
+  flex-shrink: 0;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
 }
 
 .govt-nav-signout-btn:hover {
@@ -434,17 +439,258 @@ button, input, select, textarea {
   }
 }
 
+/* Hamburger Button: Strictly hidden on desktop, enabled via media queries */
+.govt-hamburger-btn {
+  display: none;
+  flex-direction: column;
+  justify-content: space-around;
+  width: 42px;
+  height: 42px;
+  background: #FFFFFF;
+  border: 1px solid var(--color-border);
+  border-radius: 8px;
+  padding: 9px 8px;
+  cursor: pointer;
+  flex-shrink: 0;
+  transition: all 0.2s cubic-bezier(0.16, 1, 0.3, 1);
+  box-shadow: 0 1px 3px rgba(11, 18, 32, 0.05);
+}
+
+.govt-hamburger-btn:hover {
+  background: #F8FAFC;
+  border-color: var(--color-accent);
+}
+
+.govt-hamburger-bar {
+  width: 100%;
+  height: 2.2px;
+  background-color: var(--color-primary);
+  border-radius: 9999px;
+  transition: all 0.22s ease-in-out;
+  transform-origin: center;
+}
+
+.govt-hamburger-btn.open .govt-hamburger-bar:nth-child(1) {
+  transform: translateY(7px) rotate(45deg);
+}
+
+.govt-hamburger-btn.open .govt-hamburger-bar:nth-child(2) {
+  opacity: 0;
+  transform: scaleX(0);
+}
+
+.govt-hamburger-btn.open .govt-hamburger-bar:nth-child(3) {
+  transform: translateY(-7px) rotate(-45deg);
+}
+
+/* Mobile Collapsible Navigation Drawer */
+.govt-mobile-drawer {
+  position: absolute;
+  top: 100%;
+  left: 0;
+  width: 100%;
+  max-height: calc(100vh - 68px);
+  overflow-y: auto;
+  overflow-x: hidden;
+  background: #FFFFFF;
+  border-bottom: 2px solid var(--color-border);
+  box-shadow: 0 14px 32px rgba(11, 18, 32, 0.16);
+  z-index: 9999;
+  animation: mobileDrawerSlide 0.22s cubic-bezier(0.16, 1, 0.3, 1);
+  -webkit-overflow-scrolling: touch;
+}
+
+@keyframes mobileDrawerSlide {
+  from {
+    opacity: 0;
+    transform: translateY(-10px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.govt-mobile-drawer-content {
+  padding: 1.2rem 1.25rem 2.25rem 1.25rem;
+  display: flex;
+  flex-direction: column;
+  gap: 0.85rem;
+}
+
+.govt-mobile-user-card {
+  display: flex;
+  align-items: center;
+  gap: 0.85rem;
+  padding: 0.95rem 1.1rem;
+  background: #F8FAFC;
+  border: 1px solid #E2E8F0;
+  border-radius: 10px;
+}
+
+.govt-mobile-user-avatar {
+  width: 44px;
+  height: 44px;
+  border-radius: 50%;
+  background: var(--color-accent);
+  color: #FFFFFF;
+  font-weight: 800;
+  font-size: 1.2rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+  box-shadow: 0 2px 8px rgba(22, 163, 74, 0.25);
+}
+
+.govt-mobile-user-details {
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+  min-width: 0;
+}
+
+.govt-mobile-user-name {
+  font-weight: 700;
+  font-size: 0.98rem;
+  color: #0F172A;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.govt-mobile-user-email {
+  font-size: 0.78rem;
+  color: #64748B;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.govt-mobile-user-badges {
+  display: flex;
+  gap: 0.4rem;
+  margin-top: 0.35rem;
+  flex-wrap: wrap;
+}
+
+.govt-mobile-section-label {
+  font-size: 0.72rem;
+  font-weight: 800;
+  text-transform: uppercase;
+  color: #64748B;
+  letter-spacing: 0.05em;
+  margin-top: 0.4rem;
+}
+
+.govt-mobile-links-list {
+  display: flex;
+  flex-direction: column;
+  gap: 0.4rem;
+}
+
+.govt-mobile-nav-link {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  padding: 0.75rem 1rem;
+  border-radius: 8px;
+  font-size: 0.95rem;
+  font-weight: 600;
+  color: #1E293B;
+  background: #F8FAFC;
+  border: 1px solid #E2E8F0;
+  text-decoration: none;
+  transition: all 0.15s ease;
+  min-height: 46px;
+  touch-action: manipulation;
+}
+
+.govt-mobile-nav-link:hover,
+.govt-mobile-nav-link.active {
+  background: rgba(22, 163, 74, 0.1);
+  border-color: var(--color-accent);
+  color: var(--color-accent);
+}
+
+.govt-mobile-link-icon {
+  font-size: 1.15rem;
+  display: flex;
+  align-items: center;
+  flex-shrink: 0;
+}
+
+.govt-mobile-link-text {
+  flex: 1;
+}
+
+.govt-mobile-submodule-group {
+  display: flex;
+  flex-direction: column;
+  gap: 0.35rem;
+  padding: 0.75rem;
+  background: #F1F5F9;
+  border-radius: 8px;
+  border: 1px solid #E2E8F0;
+}
+
+.govt-mobile-sub-link {
+  display: flex;
+  align-items: center;
+  gap: 0.6rem;
+  padding: 0.6rem 0.85rem;
+  border-radius: 6px;
+  font-size: 0.88rem;
+  font-weight: 600;
+  color: #334155;
+  text-decoration: none;
+  transition: all 0.15s ease;
+  min-height: 42px;
+  touch-action: manipulation;
+}
+
+.govt-mobile-sub-link:hover,
+.govt-mobile-sub-link.active {
+  background: #FFFFFF;
+  color: var(--color-accent);
+  font-weight: 700;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.05);
+}
+
+.govt-mobile-signout-wrap {
+  margin-top: 0.5rem;
+  padding-top: 0.75rem;
+  border-top: 1px solid #E2E8F0;
+}
+
+.govt-mobile-signout-btn {
+  width: 100%;
+  height: 48px;
+  border-radius: 8px;
+  background: #FEF2F2;
+  border: 1.5px solid #F87171;
+  color: #DC2626;
+  font-size: 0.95rem;
+  font-weight: 700;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+  cursor: pointer;
+  white-space: nowrap;
+  transition: all 0.15s ease;
+  touch-action: manipulation;
+}
+
+.govt-mobile-signout-btn:hover {
+  background: #DC2626;
+  color: #FFFFFF;
+}
+
 @media (max-width: 880px) {
   .govt-navbar-inner {
-    flex-wrap: wrap;
-    padding: 0.65rem 1rem;
+    padding: 0.65rem 1.25rem;
     gap: 0.75rem;
-  }
-  .govt-nav-wrap {
-    width: 100%;
-    margin-left: 0;
-    overflow-x: auto;
-    padding-bottom: 0.25rem;
   }
 }
 
@@ -3041,6 +3287,151 @@ button, input, select, textarea {
    ADMIN SYSTEM MANAGEMENT & ANALYTICS STYLES
    ========================================================================== */
 
+/* Admin Command Banner & Navigation Tabs */
+.admin-header-banner {
+  background: #0B1220;
+  padding: 2rem 2.25rem;
+  border-radius: 10px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 1.25rem;
+  box-shadow: 0 4px 14px rgba(11, 18, 32, 0.2);
+  width: 100%;
+}
+
+.admin-header-title {
+  font-size: 1.85rem;
+  font-weight: 800;
+  color: #FFFFFF;
+  letter-spacing: -0.02em;
+  margin: 0.25rem 0 0.35rem 0;
+  line-height: 1.2;
+}
+
+.admin-header-sub {
+  color: #94A3B8;
+  font-size: 0.9rem;
+  margin: 0;
+  line-height: 1.5;
+}
+
+.admin-header-badge {
+  background: rgba(22, 163, 74, 0.15);
+  border: 1px solid rgba(22, 163, 74, 0.3);
+  color: #16A34A;
+  font-size: 0.78rem;
+  font-weight: 700;
+  padding: 0.35rem 0.85rem;
+  border-radius: 9999px;
+  display: inline-flex;
+  align-items: center;
+}
+
+.admin-nav-tabs {
+  display: flex;
+  gap: 0.5rem;
+  border-bottom: 2px solid var(--color-border-input, #CBD5E1);
+  padding-bottom: 0.5rem;
+  overflow-x: auto;
+  scrollbar-width: thin;
+  -webkit-overflow-scrolling: touch;
+  width: 100%;
+}
+
+.admin-nav-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  padding: 0.6rem 1.1rem;
+  background: #ffffff;
+  border: 1px solid var(--color-border-input, #CBD5E1);
+  border-radius: 6px;
+  font-size: 0.88rem;
+  font-weight: 600;
+  color: var(--color-text-secondary, #64748B);
+  cursor: pointer;
+  transition: all 0.15s ease;
+  white-space: nowrap;
+  flex-shrink: 0;
+  text-decoration: none;
+}
+
+.admin-nav-btn:hover {
+  background: #F1F5F9;
+  border-color: var(--color-accent, #16A34A);
+  color: var(--color-accent, #16A34A);
+}
+
+.admin-nav-btn.active {
+  background: #0B1220;
+  border-color: #0B1220;
+  color: #FFFFFF;
+  box-shadow: 0 2px 6px rgba(11, 18, 32, 0.25);
+}
+
+.admin-tab-badge {
+  background: rgba(255, 255, 255, 0.25);
+  color: #FFFFFF;
+  font-size: 0.72rem;
+  font-weight: 700;
+  padding: 0.1rem 0.45rem;
+  border-radius: 9999px;
+}
+
+.admin-nav-btn:not(.active) .admin-tab-badge {
+  background: #E2E8F0;
+  color: #475569;
+}
+
+/* Institutional Portal Header Banner (Used in Citizen & Manager Portals) */
+.portal-banner-header {
+  background: #FFFFFF;
+  border: 1px solid #CBD5E1;
+  border-top: 4px solid var(--color-accent, #16A34A);
+  border-radius: 8px;
+  padding: 1.5rem 2rem;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 1rem;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.04);
+  width: 100%;
+}
+
+/* Home Page Responsive Card Sections */
+.govt-verified-section {
+  background: #FFFFFF;
+  border: 1px solid #CBD5E1;
+  border-radius: 8px;
+  padding: 2.5rem 2.25rem;
+  width: 100%;
+}
+
+.govt-verified-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(min(280px, 100%), 1fr));
+  gap: 1.75rem;
+  width: 100%;
+}
+
+.govt-lifecycle-section {
+  background: #FFFFFF;
+  border: 1px solid #CBD5E1;
+  border-radius: 8px;
+  padding: 3rem 2.5rem;
+  width: 100%;
+}
+
+.govt-lifecycle-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(min(260px, 100%), 1fr));
+  gap: 2.5rem;
+  width: 100%;
+}
+
 .admin-panel-header {
   background: #ffffff;
   border: 1px solid var(--color-border);
@@ -3721,6 +4112,8 @@ button, input, select, textarea {
   .container {
     padding-left: 20px;
     padding-right: 20px;
+    width: 100%;
+    max-width: 100%;
   }
 
   .govt-top-bar-inner {
@@ -3730,52 +4123,113 @@ button, input, select, textarea {
     text-align: center;
   }
 
+  /* Tablet Navbar: All items fit horizontally on one bar */
   .govt-navbar-inner {
-    padding: 0.75rem 20px;
-    min-height: auto;
-    flex-wrap: wrap;
-    gap: 0.85rem;
+    padding: 0.65rem 20px;
+    min-height: 72px;
+    flex-wrap: nowrap;
+    justify-content: space-between;
+    align-items: center;
+    gap: 0.75rem;
   }
 
   .govt-brand-seal {
-    width: 42px;
-    height: 42px;
-    font-size: 1.35rem;
+    width: 40px;
+    height: 40px;
+    font-size: 1.3rem;
   }
 
   .govt-brand-title {
-    font-size: 1.45rem;
+    font-size: 1.35rem;
+  }
+
+  .govt-brand-about-pill {
+    padding: 0.15rem 0.5rem;
+    font-size: 0.7rem;
   }
 
   .govt-nav-wrap {
-    width: 100%;
-    margin-left: 0;
-    justify-content: flex-start;
-  }
-
-  .govt-nav-tabs {
-    overflow-x: auto;
-    width: 100%;
-    padding-bottom: 0.25rem;
-    -webkit-overflow-scrolling: touch;
-  }
-
-  .govt-nav-tab {
-    height: 40px;
-    padding: 0 1rem;
-    font-size: 0.88rem;
+    margin-left: auto;
+    width: auto;
     flex-shrink: 0;
   }
 
+  .govt-nav-auth-row {
+    gap: 0.45rem;
+    flex-wrap: nowrap;
+    align-items: center;
+  }
+
+  .govt-nav-tabs {
+    gap: 0.35rem;
+    overflow-x: visible;
+    width: auto;
+    padding-bottom: 0;
+  }
+
+  .govt-nav-tab {
+    height: 38px;
+    padding: 0 0.75rem;
+    font-size: 0.85rem;
+    flex-shrink: 0;
+    gap: 0.3rem;
+  }
+
+  .govt-nav-user-btn {
+    height: 38px;
+    padding: 0 0.75rem;
+    font-size: 0.84rem;
+    gap: 0.4rem;
+    flex-shrink: 0;
+  }
+
+  .govt-nav-signout-btn {
+    height: 38px;
+    padding: 0 0.85rem;
+    font-size: 0.85rem;
+    white-space: nowrap;
+    flex-shrink: 0;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+  }
+
   .govt-nav-guest-row {
-    width: 100%;
-    justify-content: space-between;
     gap: 0.85rem;
-    flex-wrap: wrap;
+    flex-wrap: nowrap;
+    align-items: center;
   }
 
   .govt-nav-guest-link {
-    font-size: 0.92rem;
+    font-size: 0.88rem;
+    white-space: nowrap;
+  }
+
+  .govt-nav-guest-login {
+    height: 38px;
+    padding: 0 1.15rem;
+    font-size: 0.86rem;
+    white-space: nowrap;
+  }
+
+  .portal-banner-header {
+    padding: 1.25rem 1.35rem;
+  }
+
+  .govt-verified-section {
+    padding: 1.75rem 1.35rem;
+  }
+
+  .govt-lifecycle-section {
+    padding: 2rem 1.35rem;
+  }
+
+  .govt-lifecycle-grid {
+    gap: 1.5rem;
+  }
+
+  .admin-header-banner {
+    padding: 1.5rem 1.35rem;
   }
 
   .govt-nav-guest-login {
@@ -3862,60 +4316,92 @@ button, input, select, textarea {
   }
 }
 
-/* --- 4. Mobile Devices (<= 576px) --- */
-@media (max-width: 576px) {
-  .container {
-    padding-left: 16px;
-    padding-right: 16px;
+/* --- 3b. Mobile Transition (<= 640px): Activate Hamburger Menu --- */
+@media (max-width: 640px) {
+  .govt-nav-wrap {
+    display: none;
+  }
+
+  .govt-hamburger-btn {
+    display: flex;
   }
 
   .govt-navbar-inner {
-    padding: 0.65rem 16px;
+    padding: 0.5rem 16px;
+    min-height: 64px;
+    flex-wrap: nowrap;
+    justify-content: space-between;
+    gap: 0.5rem;
+  }
+
+  .govt-brand-seal {
+    width: 38px;
+    height: 38px;
+    font-size: 1.25rem;
   }
 
   .govt-brand-title {
-    font-size: 1.3rem;
+    font-size: 1.25rem;
   }
 
-  .govt-nav-guest-row {
-    justify-content: flex-start;
-    gap: 0.65rem;
+  .portal-banner-header {
+    padding: 1rem 1rem;
   }
 
-  .govt-nav-guest-link {
-    font-size: 0.88rem;
+  .govt-verified-section,
+  .govt-lifecycle-section {
+    padding: 1.25rem 1rem;
   }
 
-  .govt-nav-guest-login {
-    height: 38px;
-    padding: 0 1.25rem;
-    font-size: 0.86rem;
-    margin-left: auto;
+  .govt-verified-grid,
+  .govt-lifecycle-grid {
+    grid-template-columns: 1fr;
+    gap: 1.25rem;
+  }
+
+  .admin-header-banner {
+    padding: 1.25rem 1rem;
+  }
+}
+
+/* --- 4. Mobile Devices (<= 576px) --- */
+@media (max-width: 576px) {
+  .container {
+    padding-left: 14px;
+    padding-right: 14px;
+  }
+
+  .govt-navbar-inner {
+    padding: 0.5rem 14px;
+  }
+
+  .govt-brand-title {
+    font-size: 1.2rem;
   }
 
   .civic-hero-tag {
-    font-size: 0.74rem;
-    letter-spacing: 0.05em;
-    margin-bottom: 0.85rem;
+    font-size: 0.72rem;
+    letter-spacing: 0.04em;
+    margin-bottom: 0.75rem;
   }
 
   .civic-hero-title {
-    font-size: 1.95rem;
+    font-size: clamp(1.75rem, 7.5vw, 2.15rem);
     line-height: 1.15;
-    margin-bottom: 1rem;
+    margin-bottom: 0.85rem;
   }
 
   .civic-hero-desc {
-    font-size: 0.95rem;
-    line-height: 1.55;
-    margin-bottom: 1.5rem;
+    font-size: 0.92rem;
+    line-height: 1.5;
+    margin-bottom: 1.25rem;
   }
 
   .civic-hero-actions {
     flex-direction: column;
     width: 100%;
-    gap: 0.85rem;
-    margin-bottom: 1.5rem;
+    gap: 0.75rem;
+    margin-bottom: 1.25rem;
   }
 
   .civicflow-btn-primary,
@@ -3925,45 +4411,102 @@ button, input, select, textarea {
     height: 48px;
     font-size: 0.95rem;
     padding: 0 1.25rem;
+    touch-action: manipulation;
   }
 
   .civic-hero-session {
     font-size: 0.82rem;
     padding: 0.5rem 0.85rem;
     width: 100%;
+    flex-wrap: wrap;
+    gap: 0.4rem;
   }
 
   .civic-hero-visual-card {
-    height: 240px;
+    height: 230px;
     border-radius: 10px;
+    max-width: 100%;
+    width: 100%;
   }
 
   .civic-hero-badge-overlay {
-    bottom: 10px;
-    left: 10px;
-    right: 10px;
-    padding: 0.6rem 0.85rem;
-    font-size: 0.75rem;
+    bottom: 8px;
+    left: 8px;
+    right: 8px;
+    padding: 0.5rem 0.75rem;
+    font-size: 0.72rem;
     border-radius: 6px;
   }
 
   .govt-home-section {
-    margin: 2.75rem 0;
+    margin: 2.25rem 0;
   }
 
   .govt-section-title {
-    font-size: 1.5rem;
+    font-size: 1.45rem;
   }
 
   .govt-stats-banner {
     grid-template-columns: 1fr;
-    padding: 1.75rem 1.25rem;
-    gap: 1.5rem;
-    margin: 2.75rem 0;
+    padding: 1.5rem 1.15rem;
+    gap: 1.25rem;
+    margin: 2.25rem 0;
   }
 
   .govt-stat-value {
-    font-size: 1.95rem;
+    font-size: 1.85rem;
+  }
+
+  .civic-filter-toolbar {
+    padding: 0.75rem;
+    flex-direction: column;
+    align-items: stretch;
+  }
+
+  .civic-filter-search-wrap {
+    min-width: 0;
+    width: 100%;
+    max-width: 100%;
+  }
+}
+
+/* --- 5. Small Mobile Screen Adjustments (<= 400px & 320px) --- */
+@media (max-width: 400px) {
+  .container {
+    padding-left: 12px;
+    padding-right: 12px;
+  }
+
+  .govt-navbar-inner {
+    padding: 0.45rem 12px;
+  }
+
+  .govt-brand-title {
+    font-size: 1.15rem;
+  }
+
+  .govt-brand-seal {
+    width: 34px;
+    height: 34px;
+    font-size: 1.1rem;
+  }
+
+  .govt-brand-about-pill {
+    padding: 0.12rem 0.45rem;
+    font-size: 0.68rem;
+  }
+
+  .civic-hero-visual-card {
+    height: 195px;
+  }
+
+  .field-stat-badge {
+    min-width: 90px;
+    padding: 0.5rem 0.75rem;
+  }
+
+  .field-stat-badge .stat-num {
+    font-size: 1.25rem;
   }
 }
 

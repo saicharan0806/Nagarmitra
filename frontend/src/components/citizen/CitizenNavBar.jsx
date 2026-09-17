@@ -17,21 +17,7 @@ export default function CitizenNavBar({
   return (
     <>
       {/* Top Portal Banner with Eco-Civic Identity */}
-      <div
-        style={{
-          background: '#ffffff',
-          border: '1px solid #CBD5E1',
-          borderTop: '4px solid #16A34A',
-          borderRadius: '6px',
-          padding: '1.5rem 2rem',
-          display: 'flex',
-          justifyContent: 'space-between',
-          alignItems: 'center',
-          flexWrap: 'wrap',
-          gap: '1rem',
-          boxShadow: '0 1px 3px rgba(0,0,0,0.05)',
-        }}
-      >
+      <div className="portal-banner-header">
         <div>
           <div
             style={{

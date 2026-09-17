@@ -350,7 +350,7 @@ export default function HomePage({ currentUser, onSwitchTab }) {
       </section>
 
       {/* Real-World Verified Resolutions & Transparency Showcase */}
-      <section className="govt-home-section" style={{ background: '#ffffff', border: '1px solid #cbd5e1', borderRadius: '8px', padding: '2.5rem 2.25rem' }}>
+      <section className="govt-home-section govt-verified-section">
         <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-end', flexWrap: 'wrap', gap: '1.25rem', marginBottom: '1.75rem' }}>
           <div>
             <div style={{ fontSize: '0.8rem', fontWeight: 700, color: '#16A34A', textTransform: 'uppercase', letterSpacing: '0.05em' }}>
@@ -381,7 +381,7 @@ export default function HomePage({ currentUser, onSwitchTab }) {
           </button>
         </div>
 
-        <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(300px, 1fr))', gap: '1.75rem' }}>
+        <div className="govt-verified-grid">
           <div style={{ border: '1px solid #e2e8f0', borderRadius: '6px', overflow: 'hidden', background: '#ffffff', boxShadow: '0 1px 3px rgba(0,0,0,0.04)' }}>
             <div style={{ height: '180px', position: 'relative', overflow: 'hidden' }}>
               <img
@@ -442,7 +442,7 @@ export default function HomePage({ currentUser, onSwitchTab }) {
       </section>
 
       {/* Official Government 3-Pillar Operational Workflow */}
-      <section id="how-it-works" className="govt-home-section" style={{ background: '#ffffff', border: '1px solid #cbd5e1', borderRadius: '8px', padding: '3rem 2.5rem' }}>
+      <section id="how-it-works" className="govt-home-section govt-lifecycle-section">
         <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-end', flexWrap: 'wrap', gap: '1.25rem', marginBottom: '2rem' }}>
           <div>
             <div style={{ fontSize: '0.8rem', fontWeight: 700, color: '#16A34A', textTransform: 'uppercase', letterSpacing: '0.05em' }}>
@@ -474,7 +474,7 @@ export default function HomePage({ currentUser, onSwitchTab }) {
           </button>
         </div>
 
-        <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(280px, 1fr))', gap: '2.5rem' }}>
+        <div className="govt-lifecycle-grid">
           <div style={{ borderLeft: '4px solid #16A34A', paddingLeft: '1.25rem' }}>
             <div style={{ fontSize: '0.85rem', fontWeight: 800, color: '#16A34A', textTransform: 'uppercase', letterSpacing: '0.04em' }}>
               Phase 1
