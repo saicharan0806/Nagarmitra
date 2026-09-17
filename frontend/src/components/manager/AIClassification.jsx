@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { getCategoryLabel, getDepartmentForCategory } from '../../utils/civicHelpers.js';
+import { getCategoryLabel, getDepartmentForCategory, CIVIC_CATEGORIES } from '../../utils/civicHelpers.js';
 
 /**
  * AIClassification Component
