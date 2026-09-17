@@ -10,7 +10,6 @@ import SplashScreen, { SPLASH_SESSION_KEY } from './components/SplashScreen.jsx'
 const CitizenDashboard = lazy(() => import('./components/CitizenDashboard.jsx'));
 const ManagerDashboard = lazy(() => import('./components/ManagerDashboard.jsx'));
 const WorkerDashboard = lazy(() => import('./components/WorkerDashboard.jsx'));
-const AdminDashboard = lazy(() => import('./components/AdminDashboard.jsx'));
 const SystemManagement = lazy(() => import('./components/admin/SystemManagement.jsx'));
 const AnalyticsDashboard = lazy(() => import('./components/admin/AnalyticsDashboard.jsx'));
 const AboutPage = lazy(() => import('./components/AboutPage.jsx'));
