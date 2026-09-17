@@ -163,8 +163,8 @@ export default function ComplaintHistory({
 
       {/* History Cards List */}
       <div style={{ display: 'flex', flexDirection: 'column', gap: '1rem' }}>
-        {filteredHistory.length > 0 ? (
-          filteredHistory.map((item) => (
+        {paginatedHistory.length > 0 ? (
+          paginatedHistory.map((item) => (
             <div key={item.id} className="history-card">
               <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-start', flexWrap: 'wrap', gap: '0.75rem', marginBottom: '0.65rem' }}>
                 <div style={{ display: 'flex', alignItems: 'center', gap: '0.65rem' }}>
@@ -230,6 +230,53 @@ export default function ComplaintHistory({
         ) : (
           <div style={{ padding: '3rem', background: '#ffffff', border: '1px solid #cbd5e1', borderRadius: '6px', textAlign: 'center', color: '#64748b' }}>
             No complaints found matching this filter.
+          </div>
+        )}
+
+        {/* Pagination Controls */}
+        {filteredHistory.length > pageSize && (
+          <div
+            style={{
+              display: 'flex',
+              justifyContent: 'space-between',
+              alignItems: 'center',
+              flexWrap: 'wrap',
+              gap: '1rem',
+              padding: '0.85rem 1.25rem',
+              background: '#ffffff',
+              border: '1px solid #cbd5e1',
+              borderRadius: '6px',
+              marginTop: '0.5rem',
+            }}
+          >
+            <div style={{ fontSize: '0.82rem', color: '#64748b' }}>
+              Showing <strong>{(currentPage - 1) * pageSize + 1}</strong> to{' '}
+              <strong>{Math.min(currentPage * pageSize, filteredHistory.length)}</strong> of{' '}
+              <strong>{filteredHistory.length}</strong> complaints
+            </div>
+            <div style={{ display: 'flex', gap: '0.5rem', alignItems: 'center' }}>
+              <button
+                type="button"
+                className="govt-btn-secondary"
+                style={{ padding: '0.35rem 0.75rem', fontSize: '0.82rem' }}
+                disabled={currentPage <= 1}
+                onClick={() => setCurrentPage((p) => Math.max(1, p - 1))}
+              >
+                ← Previous
+              </button>
+              <span style={{ fontSize: '0.82rem', fontWeight: 700, color: '#334155' }}>
+                Page {currentPage} of {totalPages}
+              </span>
+              <button
+                type="button"
+                className="govt-btn-secondary"
+                style={{ padding: '0.35rem 0.75rem', fontSize: '0.82rem' }}
+                disabled={currentPage >= totalPages}
+                onClick={() => setCurrentPage((p) => Math.min(totalPages, p + 1))}
+              >
+                Next →
+              </button>
+            </div>
           </div>
         )}
       </div>

@@ -41,7 +41,35 @@ export default function AnalyticsDashboard({
   ];
 
   const handleExport = () => {
-    if (onNotification) onNotification('Generating comprehensive Municipal Analytics CSV & PDF audit package...');
+    try {
+      const headers = ['Tracking ID', 'Title', 'Category', 'Severity', 'Department', 'Assigned Worker', 'Status', 'Address', 'Date Logged'];
+      const rows = complaints.map((c) => [
+        c.tracking_id || '',
+        `"${(c.title || '').replace(/"/g, '""')}"`,
+        c.category || '',
+        c.severity || '',
+        `"${(c.department_name || '').replace(/"/g, '""')}"`,
+        `"${(c.assigned_worker_name || 'Unassigned').replace(/"/g, '""')}"`,
+        c.status || '',
+        `"${(c.address || '').replace(/"/g, '""')}"`,
+        c.created_at || '',
+      ]);
+
+      const csvContent = [headers.join(','), ...rows.map((r) => r.join(','))].join('\r\n');
+      const blob = new Blob([csvContent], { type: 'text/csv;charset=utf-8;' });
+      const url = URL.createObjectURL(blob);
+      const link = document.createElement('a');
+      link.setAttribute('href', url);
+      link.setAttribute('download', `nagarmitra_municipal_audit_${new Date().toISOString().slice(0, 10)}.csv`);
+      document.body.appendChild(link);
+      link.click();
+      document.body.removeChild(link);
+      URL.revokeObjectURL(url);
+
+      if (onNotification) onNotification('📥 Municipal Audit CSV package generated and downloaded successfully.');
+    } catch {
+      if (onNotification) onNotification('⚠️ Error generating CSV audit export.');
+    }
   };
 
   return (
