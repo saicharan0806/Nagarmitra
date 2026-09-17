@@ -119,6 +119,7 @@ export default function CitizenFeedback({
                   className="star-btn"
                   onClick={() => setFeedbackForm({ ...feedbackForm, rating: star })}
                   title={`${star} Stars`}
+                  aria-label={`Rate ${star} out of 5 stars`}
                 >
                   {star <= feedbackForm.rating ? '⭐' : '☆'}
                 </button>
@@ -135,13 +136,15 @@ export default function CitizenFeedback({
               <div style={{ fontSize: '0.8rem', fontWeight: 700, color: '#64748B' }}>Resolution Speed</div>
               <div style={{ display: 'flex', gap: '0.2rem', marginTop: '0.25rem' }}>
                 {[1, 2, 3, 4, 5].map((s) => (
-                  <span
+                  <button
                     key={s}
-                    style={{ cursor: 'pointer', fontSize: '1rem' }}
+                    type="button"
+                    style={{ background: 'none', border: 'none', cursor: 'pointer', fontSize: '1rem', padding: '0.1rem', color: s <= feedbackForm.speed_rating ? '#EAB308' : '#CBD5E1' }}
                     onClick={() => setFeedbackForm({ ...feedbackForm, speed_rating: s })}
+                    aria-label={`Rate resolution speed ${s} of 5`}
                   >
                     {s <= feedbackForm.speed_rating ? '★' : '☆'}
-                  </span>
+                  </button>
                 ))}
               </div>
             </div>
@@ -150,13 +153,15 @@ export default function CitizenFeedback({
               <div style={{ fontSize: '0.8rem', fontWeight: 700, color: '#64748B' }}>Repair Quality</div>
               <div style={{ display: 'flex', gap: '0.2rem', marginTop: '0.25rem' }}>
                 {[1, 2, 3, 4, 5].map((s) => (
-                  <span
+                  <button
                     key={s}
-                    style={{ cursor: 'pointer', fontSize: '1rem' }}
+                    type="button"
+                    style={{ background: 'none', border: 'none', cursor: 'pointer', fontSize: '1rem', padding: '0.1rem', color: s <= feedbackForm.quality_rating ? '#EAB308' : '#CBD5E1' }}
                     onClick={() => setFeedbackForm({ ...feedbackForm, quality_rating: s })}
+                    aria-label={`Rate repair quality ${s} of 5`}
                   >
                     {s <= feedbackForm.quality_rating ? '★' : '☆'}
-                  </span>
+                  </button>
                 ))}
               </div>
             </div>
@@ -165,13 +170,15 @@ export default function CitizenFeedback({
               <div style={{ fontSize: '0.8rem', fontWeight: 700, color: '#64748B' }}>Staff Behavior</div>
               <div style={{ display: 'flex', gap: '0.2rem', marginTop: '0.25rem' }}>
                 {[1, 2, 3, 4, 5].map((s) => (
-                  <span
+                  <button
                     key={s}
-                    style={{ cursor: 'pointer', fontSize: '1rem' }}
+                    type="button"
+                    style={{ background: 'none', border: 'none', cursor: 'pointer', fontSize: '1rem', padding: '0.1rem', color: s <= feedbackForm.worker_rating ? '#EAB308' : '#CBD5E1' }}
                     onClick={() => setFeedbackForm({ ...feedbackForm, worker_rating: s })}
+                    aria-label={`Rate staff behavior ${s} of 5`}
                   >
                     {s <= feedbackForm.worker_rating ? '★' : '☆'}
-                  </span>
+                  </button>
                 ))}
               </div>
             </div>
