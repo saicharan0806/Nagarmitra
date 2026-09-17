@@ -1,5 +1,5 @@
 import React, { useState, useRef } from 'react';
-import { getCategoryLabel, getDepartmentForCategory } from '../../utils/civicHelpers.js';
+import { getCategoryLabel, getDepartmentForCategory, CIVIC_CATEGORIES } from '../../utils/civicHelpers.js';
 import CivicMapPicker from './CivicMapPicker.jsx';
 import VoiceDictation from './VoiceDictation.jsx';
 
@@ -71,62 +71,9 @@ async function classifyCivicImageClient(file, previewUrl, title = '', descriptio
   ];
   const hasNonCivicMarker = nonCivicMarkers.some((m) => filename.includes(m) || textHint.includes(m));
 
-  // 2. Check for civic keywords
-  const civicCategories = [
-    {
-      id: 'pothole',
-      label: 'Pothole & Road Damage',
-      dept: 'Roads & Infrastructure',
-      severity: 'high',
-      keywords: ['pothole', 'crater', 'asphalt', 'cracked road', 'tar', 'road damage', 'pit', 'street hole'],
-    },
-    {
-      id: 'garbage_dump',
-      label: 'Garbage Dump & Waste Overflow',
-      dept: 'Sanitation & Waste Management',
-      severity: 'medium',
-      keywords: ['garbage', 'trash', 'waste', 'dump', 'dustbin', 'bin', 'litter', 'filth', 'rubbish', 'dumpster'],
-    },
-    {
-      id: 'street_light',
-      label: 'Broken Street Light',
-      dept: 'Electrical & Energy',
-      severity: 'medium',
-      keywords: ['street light', 'light', 'lamp', 'pole', 'dark', 'bulb', 'wire', 'wiring', 'cable', 'transformer'],
-    },
-    {
-      id: 'water_leakage',
-      label: 'Water Pipe Leakage & Flooding',
-      dept: 'Water Supply & Sewerage',
-      severity: 'high',
-      keywords: ['water', 'pipe', 'leak', 'burst', 'flood', 'drain', 'sewage', 'drainage', 'manhole', 'gutter'],
-    },
-    {
-      id: 'fallen_tree',
-      label: 'Fallen Tree / Blocked Road',
-      dept: 'Parks & Horticulture',
-      severity: 'critical',
-      keywords: ['tree', 'branch', 'fallen', 'trunk', 'timber', 'horticulture', 'bush'],
-    },
-    {
-      id: 'broken_sidewalk',
-      label: 'Damaged Sidewalk & Pavers',
-      dept: 'Roads & Infrastructure',
-      severity: 'low',
-      keywords: ['sidewalk', 'paver', 'footpath', 'curb', 'pedestrian walk'],
-    },
-    {
-      id: 'illegal_parking',
-      label: 'Illegal Parking & Encroachment',
-      dept: 'Traffic & Enforcement',
-      severity: 'low',
-      keywords: ['parking', 'vehicle', 'car', 'bike', 'scooter', 'encroachment', 'blocked driveway'],
-    },
-  ];
-
-  // If a civic keyword is explicitly present in title/description or filename
-  for (const cat of civicCategories) {
-    if (cat.keywords.some((kw) => combined.includes(kw))) {
+  // 2. Check for civic keywords using canonical single source of truth
+  for (const cat of CIVIC_CATEGORIES) {
+    if (cat.keywords && cat.keywords.some((kw) => combined.includes(kw))) {
       return {
         status: 'success',
         is_civic_issue: true,
