@@ -155,7 +155,7 @@ export default function AdminDashboard({ complaints, onSwitchTab, onNotification
           <button
             className="btn btn-secondary"
             style={{ fontSize: '0.82rem' }}
-            onClick={() => onNotification('Exporting SLA summary report...')}
+            onClick={handleExportCsv}
           >
             📥 Export Audit Report
           </button>
