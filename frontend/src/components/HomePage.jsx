@@ -146,6 +146,7 @@ export default function HomePage({ currentUser, onSwitchTab }) {
 
           {/* Right Column (Approx 52%): Large Centered Hero Visual */}
           <div className="civic-hero-right">
+            <div className="civic-hero-visual-card">
               <picture>
                 <source srcSet="/smart_city_hero.webp" type="image/webp" />
                 <img
@@ -163,6 +164,7 @@ export default function HomePage({ currentUser, onSwitchTab }) {
                 <span style={{ opacity: 0.9 }}>• Environmental Welfare, Urban Greening & Sustainable Care</span>
               </div>
             </div>
+          </div>
           </div>
         </div>
       </section>
