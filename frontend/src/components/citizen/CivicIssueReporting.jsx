@@ -281,6 +281,12 @@ export default function CivicIssueReporting({
       if (onNotification) onNotification(`⚠️ ${msg}`);
       return;
     }
+    if (!formData.address.trim() && !formData.latitude) {
+      const msg = 'Please specify the incident location (enter street address or click 📍 Auto-GPS).';
+      setFormError(msg);
+      if (onNotification) onNotification(`⚠️ ${msg}`);
+      return;
+    }
     setFormError('');
 
     const randomNum = Math.floor(10000 + Math.random() * 90000);
@@ -301,7 +307,7 @@ export default function CivicIssueReporting({
       department_name: getDepartmentForCategory(formData.category),
       assigned_worker_id: null,
       assigned_worker_name: null,
-      address: formData.address || 'Central Municipal Ward, Zone 4',
+      address: formData.address || (formData.latitude ? `GPS: ${formData.latitude}° N, ${formData.longitude}° E` : 'Municipal Ward'),
       image_url: formData.imagePreview || 'https://images.unsplash.com/photo-1515162816999-a0c47dc192f7?w=600',
       proof_image_url: null,
       resolution_notes: null,
@@ -317,9 +323,9 @@ export default function CivicIssueReporting({
       title: '',
       category: 'pothole',
       description: '',
-      address: 'Plot 42, Hitec City Main Road, Madhapur, Ward 18, Hyderabad',
-      latitude: '17.3850',
-      longitude: '78.4867',
+      address: '',
+      latitude: '',
+      longitude: '',
       imageFile: null,
       imagePreview: null,
     });
