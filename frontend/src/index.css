@@ -10,7 +10,7 @@
   --color-primary: #0B1220;          /* Deep Navy: Primary structural color */
   --color-accent: #16A34A;           /* Emerald Green: Main brand/action color */
   --color-accent-hover: #15803D;     /* Darker emerald for hover states */
-  --color-warning: #F4B740;          /* Warm Amber: Highlights & attention indicators */
+  --color-warning: #D97706;          /* Accessible Amber: Highlights & attention indicators (WCAG AA compliant) */
 
   --color-bg: #F8F9F6;               /* Off-White: Main page background */
   --color-bg-secondary: #EEF1ED;     /* Secondary background */
