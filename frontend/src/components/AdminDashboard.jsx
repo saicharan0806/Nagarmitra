@@ -19,6 +19,38 @@ export default function AdminDashboard({ complaints, onSwitchTab, onNotification
     { name: 'Water & Sewerage', lead: 'Fatima Zaidi', open: 7, slaRate: '88%', budget: '₹1.5 Cr' },
   ];
 
+  const handleExportCsv = () => {
+    try {
+      const headers = ['Tracking ID', 'Title', 'Category', 'Severity', 'Department', 'Assigned Worker', 'Status', 'Address', 'Date Logged'];
+      const rows = (complaints || []).map((c) => [
+        c.tracking_id || '',
+        `"${(c.title || '').replace(/"/g, '""')}"`,
+        c.category || '',
+        c.severity || '',
+        `"${(c.department_name || '').replace(/"/g, '""')}"`,
+        `"${(c.assigned_worker_name || 'Unassigned').replace(/"/g, '""')}"`,
+        c.status || '',
+        `"${(c.address || '').replace(/"/g, '""')}"`,
+        c.created_at || '',
+      ]);
+
+      const csvContent = [headers.join(','), ...rows.map((r) => r.join(','))].join('\r\n');
+      const blob = new Blob([csvContent], { type: 'text/csv;charset=utf-8;' });
+      const url = URL.createObjectURL(blob);
+      const link = document.createElement('a');
+      link.setAttribute('href', url);
+      link.setAttribute('download', `nagarmitra_sla_audit_${new Date().toISOString().slice(0, 10)}.csv`);
+      document.body.appendChild(link);
+      link.click();
+      document.body.removeChild(link);
+      URL.revokeObjectURL(url);
+
+      if (onNotification) onNotification('📥 Municipal SLA Audit CSV report downloaded successfully.');
+    } catch {
+      if (onNotification) onNotification('⚠️ Error generating CSV audit export.');
+    }
+  };
+
   return (
     <div className="animate-fade-in" style={{ display: 'flex', flexDirection: 'column', gap: '2rem' }}>
       {/* Header Banner */}
