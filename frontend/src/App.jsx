@@ -1,19 +1,34 @@
-import React, { useState, useEffect, useRef } from 'react';
+import React, { useState, useEffect, useRef, Suspense, lazy } from 'react';
 import Navbar from './components/Navbar.jsx';
 import SignIn from './components/SignIn.jsx';
 import SignUp from './components/SignUp.jsx';
 import HomePage from './components/HomePage.jsx';
-import CitizenDashboard from './components/CitizenDashboard.jsx';
-import ManagerDashboard from './components/ManagerDashboard.jsx';
-import WorkerDashboard from './components/WorkerDashboard.jsx';
-import AdminDashboard from './components/AdminDashboard.jsx';
-import SystemManagement from './components/admin/SystemManagement.jsx';
-import AnalyticsDashboard from './components/admin/AnalyticsDashboard.jsx';
-import AboutPage from './components/AboutPage.jsx';
-import HowItWorksPage from './components/HowItWorksPage.jsx';
-import UserProfile from './components/UserProfile.jsx';
 import AccessDenied from './components/AccessDenied.jsx';
 import SplashScreen, { SPLASH_SESSION_KEY } from './components/SplashScreen.jsx';
+
+// Code-split dynamic routes via React.lazy() to keep initial bundle lightweight (< 110 KB)
+const CitizenDashboard = lazy(() => import('./components/CitizenDashboard.jsx'));
+const ManagerDashboard = lazy(() => import('./components/ManagerDashboard.jsx'));
+const WorkerDashboard = lazy(() => import('./components/WorkerDashboard.jsx'));
+const AdminDashboard = lazy(() => import('./components/AdminDashboard.jsx'));
+const SystemManagement = lazy(() => import('./components/admin/SystemManagement.jsx'));
+const AnalyticsDashboard = lazy(() => import('./components/admin/AnalyticsDashboard.jsx'));
+const AboutPage = lazy(() => import('./components/AboutPage.jsx'));
+const HowItWorksPage = lazy(() => import('./components/HowItWorksPage.jsx'));
+const UserProfile = lazy(() => import('./components/UserProfile.jsx'));
+
+// Institutional Civic Loading Skeleton for smooth Suspense transitions
+const PortalLoadingSkeleton = () => (
+  <div style={{ padding: '2rem 1.25rem', display: 'flex', flexDirection: 'column', gap: '1.25rem', width: '100%', maxWidth: '1440px', margin: '0 auto' }}>
+    <div style={{ height: '76px', background: '#E2E8F0', borderRadius: '8px', opacity: 0.7 }} />
+    <div style={{ height: '42px', width: '50%', background: '#F1F5F9', borderRadius: '6px' }} />
+    <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(240px, 1fr))', gap: '1rem', marginTop: '0.75rem' }}>
+      <div style={{ height: '120px', background: '#F8FAFC', border: '1px solid #E2E8F0', borderRadius: '8px' }} />
+      <div style={{ height: '120px', background: '#F8FAFC', border: '1px solid #E2E8F0', borderRadius: '8px' }} />
+      <div style={{ height: '120px', background: '#F8FAFC', border: '1px solid #E2E8F0', borderRadius: '8px' }} />
+    </div>
+  </div>
+);
 import { isRouteAllowed, getDefaultRedirectForRole } from './utils/roleConfig.js';
 import { parseUrlParams, getTabUrl } from './utils/navigation.js';
 import { recordUserRole } from './utils/authRoles.js';
@@ -439,6 +454,7 @@ export default function App() {
 
       {/* Main Viewport Router: Gated by Authentication */}
       <main style={{ flex: 1, display: 'flex', flexDirection: 'column' }}>
+        <Suspense fallback={<PortalLoadingSkeleton />}>
         {!currentUser ? (
           /* Unauthenticated View: Support About or How It Works page viewing or SignIn / SignUp */
           currentTab === 'about' ? (
@@ -613,6 +629,7 @@ export default function App() {
             )}
           </div>
         )}
+        </Suspense>
       </main>
 
       {/* Global Civic Footer with 'For Any Queries' Contact Support */}
