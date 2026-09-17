@@ -193,13 +193,11 @@ export default function AIClassification({
                   required
                 >
                   <option value="">Select Correct Category...</option>
-                  <option value="pothole">🕳️ Pothole & Road Damage (Roads)</option>
-                  <option value="garbage_dump">🗑️ Garbage Accumulation & Dump (Sanitation)</option>
-                  <option value="street_light">💡 Broken Street Light & Wire (Electrical)</option>
-                  <option value="water_leakage">🚰 Water Pipe Leakage & Flood (Water Supply)</option>
-                  <option value="broken_sidewalk">🧱 Damaged Footpath / Curb (Roads)</option>
-                  <option value="fallen_tree">🌳 Fallen Tree & Greenery (Parks)</option>
-                  <option value="illegal_parking">🚫 Illegal Dump & Encroachment (Sanitation)</option>
+                  {CIVIC_CATEGORIES.map((cat) => (
+                    <option key={cat.id} value={cat.id}>
+                      {cat.icon} {cat.label} ({cat.dept})
+                    </option>
+                  ))}
                 </select>
               </div>
 
