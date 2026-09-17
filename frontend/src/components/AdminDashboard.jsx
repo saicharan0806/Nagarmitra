@@ -50,20 +50,20 @@ export default function AdminDashboard({ complaints, onSwitchTab, onNotification
 
         <div style={{ display: 'flex', gap: '0.75rem', flexWrap: 'wrap' }}>
           <button
-            onClick={() => onSwitchTab('manager')}
+            onClick={() => onSwitchTab('system', 'workers')}
             className="btn btn-secondary"
             style={{ display: 'flex', alignItems: 'center', gap: '0.5rem' }}
           >
-            <span>👔</span>
-            <span>Jump to Manager Triage</span>
+            <span>👷</span>
+            <span>Manage Field Workforce</span>
           </button>
           <button
-            onClick={() => onSwitchTab('citizen')}
+            onClick={() => onSwitchTab('analytics')}
             className="btn btn-primary"
             style={{ display: 'flex', alignItems: 'center', gap: '0.5rem' }}
           >
-            <span>👤</span>
-            <span>View Citizen Portal</span>
+            <span>📊</span>
+            <span>Municipal Analytics</span>
           </button>
         </div>
       </div>
