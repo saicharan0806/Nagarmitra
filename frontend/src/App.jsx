@@ -707,8 +707,26 @@ export default function App() {
               >
                 How It Works
               </a>
-              <span className="govt-footer-link" style={{ cursor: 'pointer' }}>Privacy Policy</span>
-              <span className="govt-footer-link" style={{ cursor: 'pointer' }}>Terms of Service</span>
+              <span
+                className="govt-footer-link"
+                style={{ cursor: 'pointer' }}
+                onClick={() => setLegalModal('privacy')}
+                role="button"
+                tabIndex={0}
+                onKeyDown={(e) => (e.key === 'Enter' || e.key === ' ') && setLegalModal('privacy')}
+              >
+                Privacy Policy
+              </span>
+              <span
+                className="govt-footer-link"
+                style={{ cursor: 'pointer' }}
+                onClick={() => setLegalModal('terms')}
+                role="button"
+                tabIndex={0}
+                onKeyDown={(e) => (e.key === 'Enter' || e.key === ' ') && setLegalModal('terms')}
+              >
+                Terms of Service
+              </span>
               <a
                 href="tel:1800112026"
                 className="govt-footer-link"
@@ -720,6 +738,112 @@ export default function App() {
           </div>
         </div>
       </footer>
+
+      {/* Statutory Civic Legal & Privacy Disclosure Modal */}
+      {legalModal && (
+        <div
+          role="dialog"
+          aria-modal="true"
+          aria-labelledby="legal-modal-title"
+          style={{
+            position: 'fixed',
+            inset: 0,
+            backgroundColor: 'rgba(11, 18, 32, 0.72)',
+            backdropFilter: 'blur(4px)',
+            zIndex: 9999,
+            display: 'flex',
+            alignItems: 'center',
+            justifyContent: 'center',
+            padding: '1.25rem',
+          }}
+          onClick={() => setLegalModal(null)}
+        >
+          <div
+            style={{
+              backgroundColor: '#FFFFFF',
+              borderRadius: '8px',
+              maxWidth: '620px',
+              width: '100%',
+              border: '1px solid #CBD5E1',
+              boxShadow: '0 20px 25px -5px rgba(0, 0, 0, 0.25)',
+              padding: '2rem',
+              position: 'relative',
+              maxHeight: '85vh',
+              overflowY: 'auto',
+            }}
+            onClick={(e) => e.stopPropagation()}
+          >
+            <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-start', marginBottom: '1.25rem', borderBottom: '1px solid #E2E8F0', paddingBottom: '0.75rem' }}>
+              <div>
+                <span style={{ fontSize: '0.75rem', fontWeight: 800, color: '#16A34A', textTransform: 'uppercase', letterSpacing: '0.04em' }}>
+                  🏛️ Municipal Governance Disclosure
+                </span>
+                <h2 id="legal-modal-title" style={{ fontSize: '1.25rem', fontWeight: 800, color: '#0F172A', margin: '0.25rem 0 0 0' }}>
+                  {legalModal === 'privacy' ? 'Municipal Privacy & Data Protection Charter' : 'Terms of Municipal Civic Public Service'}
+                </h2>
+              </div>
+              <button
+                type="button"
+                onClick={() => setLegalModal(null)}
+                style={{
+                  background: '#F1F5F9',
+                  border: 'none',
+                  borderRadius: '4px',
+                  width: '32px',
+                  height: '32px',
+                  display: 'flex',
+                  alignItems: 'center',
+                  justifyContent: 'center',
+                  cursor: 'pointer',
+                  fontWeight: 700,
+                  fontSize: '1rem',
+                  color: '#475569',
+                }}
+                aria-label="Close modal"
+              >
+                ✕
+              </button>
+            </div>
+
+            {legalModal === 'privacy' ? (
+              <div style={{ fontSize: '0.88rem', color: '#334155', lineHeight: 1.6, display: 'flex', flexDirection: 'column', gap: '0.85rem' }}>
+                <p>
+                  <strong>1. Data Confidentiality:</strong> Nagarmitra collects resident contact information, ward details, and photographic GPS coordinates strictly for public grievance rectification and municipal service tracking under official Urban Local Body guidelines.
+                </p>
+                <p>
+                  <strong>2. Identity Safeguards:</strong> Citizens may file reports with verified municipal privacy protections. Resident mobile numbers are protected and shared exclusively with authorized department superintendents and dispatched field operatives.
+                </p>
+                <p>
+                  <strong>3. Photographic Evidence:</strong> Images uploaded are archived strictly for verifiable before-and-after resolution audits and statutory Service Level Agreement (SLA) verification.
+                </p>
+              </div>
+            ) : (
+              <div style={{ fontSize: '0.88rem', color: '#334155', lineHeight: 1.6, display: 'flex', flexDirection: 'column', gap: '0.85rem' }}>
+                <p>
+                  <strong>1. Bona Fide Public Grievances:</strong> Citizens agree to report legitimate public infrastructure defects (road potholes, garbage dumps, streetlight outages, water supply leaks).
+                </p>
+                <p>
+                  <strong>2. Statutory Redressal SLA:</strong> Department work orders are processed according to municipal turnaround commitments (Critical: 4–12h, High: 24h, Medium: 48h, Low: 72h).
+                </p>
+                <p>
+                  <strong>3. Role Separation Integrity:</strong> Citizen accounts are exclusively for resident reporting. Impersonation of municipal staff, intentional false claims, or unauthorized system access is prohibited under municipal bylaws.
+                </p>
+              </div>
+            )}
+
+            <div style={{ marginTop: '1.5rem', display: 'flex', justifyContent: 'flex-end' }}>
+              <button
+                type="button"
+                className="govt-btn-primary"
+                onClick={() => setLegalModal(null)}
+                style={{ padding: '0.5rem 1.25rem', fontSize: '0.88rem' }}
+              >
+                I Understand
+              </button>
+            </div>
+          </div>
+        </div>
+      )}
     </div>
   );
 }
