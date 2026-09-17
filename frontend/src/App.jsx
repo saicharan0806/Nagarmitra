@@ -242,9 +242,12 @@ export default function App() {
   // Check Backend Flask API connectivity
   useEffect(() => {
     fetch('/api/health')
-      .then((res) => res.json())
+      .then((res) => {
+        if (!res.ok) throw new Error(`HTTP ${res.status}`);
+        return res.json();
+      })
       .then((data) => {
-        if (data.status === 'healthy') {
+        if (data && data.status === 'healthy') {
           setBackendHealth('online');
         } else {
           setBackendHealth('simulated');
