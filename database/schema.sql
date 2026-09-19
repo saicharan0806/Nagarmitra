@@ -39,6 +39,7 @@ CREATE TABLE `users` (
     `email` VARCHAR(150) NOT NULL UNIQUE,
     `password_hash` VARCHAR(255) NOT NULL,
     `phone` VARCHAR(25) NULL,
+    `preferred_language` VARCHAR(50) DEFAULT 'English',
     `role` ENUM('citizen', 'manager', 'worker', 'admin') NOT NULL DEFAULT 'citizen',
     `is_active` BOOLEAN NOT NULL DEFAULT TRUE,
     `created_at` TIMESTAMP DEFAULT CURRENT_TIMESTAMP,

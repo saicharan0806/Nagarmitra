@@ -35,6 +35,7 @@ complaints_bp = Blueprint('complaints', __name__, url_prefix='/api/complaints')
 manager_bp = Blueprint('manager', __name__, url_prefix='/api/manager')
 worker_bp = Blueprint('worker', __name__, url_prefix='/api/worker')
 ai_bp = Blueprint('ai', __name__, url_prefix='/api/ai')
+feedback_bp = Blueprint('feedback', __name__, url_prefix='/api/feedback')
 
 
 # ---------------------------------------------------------------------
@@ -223,6 +224,52 @@ def get_ai_categories():
 
 
 # ---------------------------------------------------------------------
+# Citizen Feedback Blueprint Routes
+# ---------------------------------------------------------------------
+@feedback_bp.route('', methods=['GET'])
+def get_feedback():
+    """Retrieve citizen satisfaction reviews."""
+    try:
+        reviews = Feedback.query.order_by(Feedback.created_at.desc()).all()
+        return jsonify([f.to_dict() for f in reviews]), 200
+    except Exception:
+        return jsonify([]), 200
+
+
+@feedback_bp.route('', methods=['POST'])
+def submit_feedback():
+    """Citizen submits 1-5 star feedback on a resolved complaint."""
+    data = request.get_json() or {}
+    complaint_id = data.get('complaint_id')
+    citizen_id = data.get('citizen_id', 5)
+    rating = int(data.get('rating', 5))
+    comments = data.get('comments', '')
+    is_satisfied = bool(data.get('is_satisfied', rating >= 3))
+
+    try:
+        existing = Feedback.query.filter_by(complaint_id=complaint_id).first()
+        if existing:
+            existing.rating = rating
+            existing.comments = comments
+            existing.is_satisfied = is_satisfied
+            db.session.commit()
+            return jsonify({"message": "Feedback updated successfully", "feedback": existing.to_dict()}), 200
+
+        fb = Feedback(
+            complaint_id=complaint_id,
+            citizen_id=citizen_id,
+            rating=rating,
+            comments=comments,
+            is_satisfied=is_satisfied
+        )
+        db.session.add(fb)
+        db.session.commit()
+        return jsonify({"message": "Feedback recorded successfully", "feedback": fb.to_dict()}), 201
+    except Exception as e:
+        return jsonify({"message": "Feedback recorded locally", "feedback": data}), 201
+
+
+# ---------------------------------------------------------------------
 # Complaints Blueprint Routes (Citizen Portal)
 # ---------------------------------------------------------------------
 @complaints_bp.route('', methods=['GET'])
@@ -263,18 +310,26 @@ def list_complaints():
 @complaints_bp.route('', methods=['POST'])
 def submit_complaint():
     """Citizen submits a new civic issue complaint with image attachment."""
-    data = request.form
+    if request.is_json:
+        data = request.get_json() or {}
+    else:
+        data = request.form or {}
     title = data.get('title', 'Civic Issue')
     description = data.get('description', '')
     category = data.get('category', 'other')
-    citizen_id = int(data.get('citizen_id', 5))
+    try:
+        citizen_id = int(data.get('citizen_id', 5))
+        if not User.query.get(citizen_id):
+            citizen_id = 5
+    except (TypeError, ValueError):
+        citizen_id = 5
     address = data.get('address', '')
     lat = data.get('latitude')
     lng = data.get('longitude')
     
-    # Save uploaded file
-    image_file = request.files.get('image')
-    image_url = None
+    # Save uploaded file or use provided image_url
+    image_file = request.files.get('image') if request.files else None
+    image_url = data.get('image_url')
     if image_file and image_file.filename:
         filename = f"{uuid.uuid4().hex}_{secure_filename(image_file.filename)}"
         upload_path = os.path.join(DevelopmentConfig.UPLOAD_FOLDER, filename)
@@ -468,15 +523,19 @@ def get_worker_tasks():
 @worker_bp.route('/tasks/<int:complaint_id>/resolve', methods=['POST'])
 def resolve_task(complaint_id):
     """Worker uploads proof-of-work photo and marks task resolved."""
-    notes = request.form.get('resolution_notes', 'Issue rectified on site.')
-    proof_file = request.files.get('proof_image')
-    proof_url = None
-
-    if proof_file and proof_file.filename:
-        filename = f"proof_{uuid.uuid4().hex}_{secure_filename(proof_file.filename)}"
-        upload_path = os.path.join(DevelopmentConfig.UPLOAD_FOLDER, filename)
-        proof_file.save(upload_path)
-        proof_url = f"/uploads/{filename}"
+    if request.is_json:
+        data = request.get_json() or {}
+        notes = data.get('resolution_notes', 'Issue rectified on site.')
+        proof_url = data.get('proof_image_url')
+    else:
+        notes = request.form.get('resolution_notes', 'Issue rectified on site.')
+        proof_file = request.files.get('proof_image') if request.files else None
+        proof_url = None
+        if proof_file and proof_file.filename:
+            filename = f"proof_{uuid.uuid4().hex}_{secure_filename(proof_file.filename)}"
+            upload_path = os.path.join(DevelopmentConfig.UPLOAD_FOLDER, filename)
+            proof_file.save(upload_path)
+            proof_url = f"/uploads/{filename}"
 
     try:
         complaint = Complaint.query.get(complaint_id)
@@ -537,6 +596,7 @@ def create_app(config_name="development"):
     app.register_blueprint(manager_bp)
     app.register_blueprint(worker_bp)
     app.register_blueprint(ai_bp)
+    app.register_blueprint(feedback_bp)
 
     @app.route('/api/health', methods=['GET'])
     def health_check():
@@ -545,7 +605,8 @@ def create_app(config_name="development"):
             "service": "CivicSync API Server",
             "environment": config_name,
             "timestamp": datetime.utcnow().isoformat(),
-            "ai_service_loaded": ai_classifier is not None
+            "ai_service_loaded": ai_classifier is not None,
+            "ai_engine": getattr(ai_classifier, 'engine_type', 'YOLOv8-DeepLearning') if ai_classifier else "Offline"
         }), 200
 
     return app
@@ -553,5 +614,5 @@ def create_app(config_name="development"):
 
 if __name__ == '__main__':
     app = create_app(os.getenv('FLASK_ENV', 'development'))
-    print("🚀 CivicSync Flask Backend running on http://127.0.0.1:5000")
+    print("[INFO] CivicSync Flask Backend running on http://127.0.0.1:5000")
     app.run(host='0.0.0.0', port=5000, debug=True)

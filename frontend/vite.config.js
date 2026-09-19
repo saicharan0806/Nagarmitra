@@ -3,27 +3,7 @@ import react from '@vitejs/plugin-react';
 
 // https://vitejs.dev/config/
 export default defineConfig({
-  plugins: [
-    react(),
-    {
-      name: 'civicsync-api-mock',
-      configureServer(server) {
-        server.middlewares.use((req, res, next) => {
-          if (req.url === '/api/health') {
-            res.setHeader('Content-Type', 'application/json');
-            res.statusCode = 200;
-            res.end(JSON.stringify({
-              status: 'healthy',
-              service: 'Nagarmitra Integrated Dev Server',
-              environment: 'development'
-            }));
-            return;
-          }
-          next();
-        });
-      }
-    }
-  ],
+  plugins: [react()],
   server: {
     host: true,
     port: 5173,

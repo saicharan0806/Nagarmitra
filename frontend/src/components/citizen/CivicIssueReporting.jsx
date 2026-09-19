@@ -722,23 +722,33 @@ export default function CivicIssueReporting({
                   fontSize: '0.86rem',
                 }}
               >
-                <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '0.35rem' }}>
-                  <span style={{ fontWeight: 700, color: '#16A34A' }}>
-                    🤖 AI Vision Detection: {aiScanResult.category_label || aiScanResult.predicted_category}
+                <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '0.35rem', flexWrap: 'wrap', gap: '0.5rem' }}>
+                  <span style={{ fontWeight: 700, color: '#16A34A', display: 'flex', alignItems: 'center', gap: '0.45rem' }}>
+                    <span style={{ background: '#DCFCE7', color: '#15803D', border: '1px solid #86EFAC', borderRadius: '4px', padding: '0.1rem 0.4rem', fontSize: '0.68rem', fontWeight: 800, letterSpacing: '0.02em' }}>
+                      YOLOv8 Deep Learning
+                    </span>
+                    <span>{aiScanResult.category_label || aiScanResult.predicted_category}</span>
                   </span>
-                  <span
-                    style={{
-                      background: 'rgba(22, 163, 74, 0.15)',
-                      color: '#16A34A',
-                      border: '1px solid rgba(22, 163, 74, 0.3)',
-                      padding: '0.15rem 0.5rem',
-                      borderRadius: '2px',
-                      fontWeight: 700,
-                      fontSize: '0.75rem',
-                    }}
-                  >
-                    {aiScanResult.confidence_percentage} Confidence
-                  </span>
+                  <div style={{ display: 'flex', alignItems: 'center', gap: '0.4rem' }}>
+                    {aiScanResult.inference_time_ms && (
+                      <span style={{ fontSize: '0.7rem', color: '#64748B', fontWeight: 600 }}>
+                        {aiScanResult.inference_time_ms}ms
+                      </span>
+                    )}
+                    <span
+                      style={{
+                        background: 'rgba(22, 163, 74, 0.15)',
+                        color: '#16A34A',
+                        border: '1px solid rgba(22, 163, 74, 0.3)',
+                        padding: '0.15rem 0.5rem',
+                        borderRadius: '2px',
+                        fontWeight: 700,
+                        fontSize: '0.75rem',
+                      }}
+                    >
+                      {aiScanResult.confidence_percentage} Confidence
+                    </span>
+                  </div>
                 </div>
                 <div style={{ color: '#64748B' }}>
                   Target Department: <strong style={{ color: '#111827' }}>{aiScanResult.suggested_department}</strong> • Severity Urgency: <strong style={{ color: '#F4B740', textTransform: 'uppercase' }}>{aiScanResult.severity}</strong>

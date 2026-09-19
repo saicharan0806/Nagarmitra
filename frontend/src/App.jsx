@@ -264,6 +264,15 @@ export default function App() {
       .then((data) => {
         if (data && data.status === 'healthy') {
           setBackendHealth('online');
+          fetch('/api/complaints')
+            .then((r) => (r.ok ? r.json() : null))
+            .then((serverComplaints) => {
+              if (Array.isArray(serverComplaints) && serverComplaints.length > 0) {
+                setComplaints(serverComplaints);
+                persistComplaints(serverComplaints);
+              }
+            })
+            .catch(() => {});
         } else {
           setBackendHealth('simulated');
         }
@@ -384,6 +393,36 @@ export default function App() {
       return next;
     });
     broadcastTabEvent(SYNC_EVENTS.COMPLAINT_ADDED, newTicket);
+
+    // Save live to Flask & MySQL backend if online
+    if (backendHealth === 'online') {
+      fetch('/api/complaints', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          title: newTicket.title,
+          description: newTicket.description,
+          category: newTicket.category,
+          citizen_id: currentUser?.id || 5,
+          address: newTicket.address,
+          latitude: newTicket.latitude,
+          longitude: newTicket.longitude,
+          image_url: newTicket.image_url,
+          ai_predicted_category: newTicket.ai_predicted_category,
+          ai_confidence: newTicket.ai_confidence,
+          severity: newTicket.severity,
+        }),
+      })
+        .then((r) => (r.ok ? r.json() : null))
+        .then((resData) => {
+          if (resData?.complaint) {
+            setComplaints((prev) =>
+              prev.map((c) => (c.id === newTicket.id ? { ...c, ...resData.complaint } : c))
+            );
+          }
+        })
+        .catch(() => {});
+    }
   };
 
   // Update Complaint State & broadcast to all open tabs
@@ -394,6 +433,30 @@ export default function App() {
       return next;
     });
     broadcastTabEvent(SYNC_EVENTS.COMPLAINT_UPDATED, updatedTicket);
+
+    // Sync status changes to Flask & MySQL backend if online
+    if (backendHealth === 'online') {
+      if (updatedTicket.status === 'assigned' && updatedTicket.assigned_worker_id) {
+        fetch('/api/manager/assign', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({
+            complaint_id: updatedTicket.id,
+            worker_id: updatedTicket.assigned_worker_id,
+            department_id: updatedTicket.department_id,
+          }),
+        }).catch(() => {});
+      } else if (updatedTicket.status === 'resolved') {
+        fetch(`/api/worker/tasks/${updatedTicket.id}/resolve`, {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({
+            resolution_notes: updatedTicket.resolution_notes || 'Task resolved by field operations.',
+            proof_image_url: updatedTicket.proof_image_url,
+          }),
+        }).catch(() => {});
+      }
+    }
   };
 
   // Reset Complaints to Demo Defaults

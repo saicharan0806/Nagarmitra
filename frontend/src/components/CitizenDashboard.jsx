@@ -161,8 +161,33 @@ export default function CitizenDashboard({
     }
   };
 
+  // Fetch persistent feedbacks from MySQL
+  useEffect(() => {
+    fetch('/api/feedback')
+      .then((res) => (res.ok ? res.json() : null))
+      .then((serverFeedbacks) => {
+        if (Array.isArray(serverFeedbacks) && serverFeedbacks.length > 0) {
+          setFeedbacks(serverFeedbacks);
+        }
+      })
+      .catch(() => {});
+  }, []);
+
   const handleAddFeedback = (newFeedback) => {
     setFeedbacks((prev) => [newFeedback, ...prev]);
+
+    // Persist to MySQL database
+    fetch('/api/feedback', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({
+        complaint_id: newFeedback.complaint_id,
+        citizen_id: currentUser?.id || 5,
+        rating: newFeedback.rating,
+        comments: newFeedback.comments,
+        is_satisfied: newFeedback.rating >= 3,
+      }),
+    }).catch(() => {});
   };
 
   const handleNotificationClick = (notif) => {

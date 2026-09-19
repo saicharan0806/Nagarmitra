@@ -18,6 +18,7 @@ export default function Navbar({
   managerModule = 'complaints',
   workerModule = 'assigned',
   citizenSubTab = 'reporting',
+  backendHealth = 'checking',
 }) {
   const [managerMenuOpen, setManagerMenuOpen] = useState(false);
   const [workerMenuOpen, setWorkerMenuOpen] = useState(false);

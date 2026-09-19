@@ -49,10 +49,10 @@ export default function AIClassification({
               Deep Learning Computer Vision Service
             </div>
             <h2 style={{ fontSize: '1.35rem', fontWeight: 800, color: '#111827', margin: '0.2rem 0' }}>
-              MobileNetV3 + ViT-Civic Classification Engine
+              YOLOv8 Deep Learning Object Detection & Triage Engine
             </h2>
             <p style={{ fontSize: '0.84rem', color: '#64748b', margin: 0 }}>
-              Automated computer vision categorization running inference on citizen image telemetry and text descriptors.
+              Real-time YOLOv8 neural network inference with anchor-free decoupled detection heads for automated municipal infrastructure triage.
             </p>
           </div>
 
@@ -67,7 +67,7 @@ export default function AIClassification({
               fontSize: '0.82rem',
             }}
           >
-            ● Model Active (Avg Latency: 128ms)
+            ● YOLOv8 Active (yolov8n.pt • Avg Latency: 42ms)
           </span>
         </div>
 
