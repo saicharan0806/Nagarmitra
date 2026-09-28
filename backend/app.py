@@ -11,19 +11,23 @@ import uuid
 from datetime import datetime
 from pathlib import Path
 # pyrefly: ignore [missing-import]
-from flask import Flask, request, jsonify, Blueprint, send_from_directory
-from flask_cors import CORS
+from flask import Flask, request, jsonify, Blueprint, send_from_directory, current_app  # type: ignore
 # pyrefly: ignore [missing-import]
-from werkzeug.utils import secure_filename
+from flask_cors import CORS  # type: ignore
+# pyrefly: ignore [missing-import]
+from werkzeug.utils import secure_filename  # type: ignore
 
 # Add project root to sys.path for ai_service imports
 sys.path.insert(0, str(Path(__file__).resolve().parent.parent))
 
-from backend.config import config_by_name, DevelopmentConfig
-from backend.models import db, User, Department, Worker, Complaint, ComplaintLog, Feedback
+# pyrefly: ignore [missing-import]
+from backend.config import config_by_name, DevelopmentConfig  # type: ignore
+# pyrefly: ignore [missing-import]
+from backend.models import db, User, Department, Worker, Complaint, ComplaintLog, Feedback  # type: ignore
 
 try:
-    from ai_service.model import classifier as ai_classifier
+    # pyrefly: ignore [missing-import]
+    from ai_service.model import classifier as ai_classifier  # type: ignore
 except ImportError:
     ai_classifier = None
 
@@ -78,7 +82,8 @@ def register():
             "user": user.to_dict(),
             "token": f"live-jwt-{user.id}-{uuid.uuid4().hex[:8]}"
         }), 201
-    except Exception as e:
+    except Exception:
+        db.session.rollback()
         # Fallback response if DB is in mock mode
         return jsonify({
             "message": "Simulated registration complete",
@@ -138,10 +143,8 @@ def login():
                 "role": user.role,
                 "token": f"live-jwt-{user.id}-{uuid.uuid4().hex[:8]}"
             }), 200
-        elif user:
-            return jsonify({"message": "Invalid password"}), 401
     except Exception:
-        pass
+        db.session.rollback()
 
     # Demo fallback accounts enforcement
     bound_role = DEMO_ROLE_MAP.get(email)
@@ -265,7 +268,8 @@ def submit_feedback():
         db.session.add(fb)
         db.session.commit()
         return jsonify({"message": "Feedback recorded successfully", "feedback": fb.to_dict()}), 201
-    except Exception as e:
+    except Exception:
+        db.session.rollback()
         return jsonify({"message": "Feedback recorded locally", "feedback": data}), 201
 
 
@@ -287,7 +291,8 @@ def list_complaints():
 
         complaints = query.order_by(Complaint.created_at.desc()).all()
         return jsonify([c.to_dict() for c in complaints]), 200
-    except Exception as e:
+    except Exception:
+        db.session.rollback()
         # Fallback sample data if DB is offline
         return jsonify([
             {
@@ -332,7 +337,8 @@ def submit_complaint():
     image_url = data.get('image_url')
     if image_file and image_file.filename:
         filename = f"{uuid.uuid4().hex}_{secure_filename(image_file.filename)}"
-        upload_path = os.path.join(DevelopmentConfig.UPLOAD_FOLDER, filename)
+        upload_folder = current_app.config.get('UPLOAD_FOLDER', DevelopmentConfig.UPLOAD_FOLDER)
+        upload_path = os.path.join(upload_folder, filename)
         image_file.save(upload_path)
         image_url = f"/uploads/{filename}"
 
@@ -375,7 +381,8 @@ def submit_complaint():
         db.session.commit()
 
         return jsonify({"message": "Complaint submitted successfully", "complaint": new_complaint.to_dict()}), 201
-    except Exception as err:
+    except Exception:
+        db.session.rollback()
         return jsonify({
             "message": "Complaint registered (Mock DB mode)",
             "complaint": {
@@ -446,8 +453,8 @@ def assign_worker():
             ))
             db.session.commit()
             return jsonify({"status": "success", "message": "Worker assigned successfully"}), 200
-    except Exception as err:
-        pass
+    except Exception:
+        db.session.rollback()
 
     return jsonify({"status": "simulated", "message": f"Assigned worker {worker_id} to complaint {complaint_id}"}), 200
 
@@ -476,7 +483,7 @@ def override_category():
             db.session.commit()
             return jsonify({"status": "success", "complaint": complaint.to_dict()}), 200
     except Exception:
-        pass
+        db.session.rollback()
 
     return jsonify({"status": "simulated", "message": f"Overrode category to {new_category}"}), 200
 
@@ -533,7 +540,8 @@ def resolve_task(complaint_id):
         proof_url = None
         if proof_file and proof_file.filename:
             filename = f"proof_{uuid.uuid4().hex}_{secure_filename(proof_file.filename)}"
-            upload_path = os.path.join(DevelopmentConfig.UPLOAD_FOLDER, filename)
+            upload_folder = current_app.config.get('UPLOAD_FOLDER', DevelopmentConfig.UPLOAD_FOLDER)
+            upload_path = os.path.join(upload_folder, filename)
             proof_file.save(upload_path)
             proof_url = f"/uploads/{filename}"
 
@@ -557,7 +565,7 @@ def resolve_task(complaint_id):
             db.session.commit()
             return jsonify({"status": "success", "message": "Complaint marked as resolved"}), 200
     except Exception:
-        pass
+        db.session.rollback()
 
     return jsonify({
         "status": "simulated",
@@ -572,7 +580,8 @@ def resolve_task(complaint_id):
 @complaints_bp.route('/uploads/<path:filename>', methods=['GET'])
 def serve_upload(filename):
     """Serve uploaded images from the storage folder."""
-    return send_from_directory(DevelopmentConfig.UPLOAD_FOLDER, filename)
+    upload_folder = current_app.config.get('UPLOAD_FOLDER', DevelopmentConfig.UPLOAD_FOLDER)
+    return send_from_directory(upload_folder, filename)
 
 
 def create_app(config_name="development"):
@@ -597,6 +606,11 @@ def create_app(config_name="development"):
     app.register_blueprint(worker_bp)
     app.register_blueprint(ai_bp)
     app.register_blueprint(feedback_bp)
+
+    @app.route('/uploads/<path:filename>', methods=['GET'])
+    @app.route('/api/uploads/<path:filename>', methods=['GET'])
+    def root_serve_upload(filename):
+        return send_from_directory(app.config['UPLOAD_FOLDER'], filename)
 
     @app.route('/api/health', methods=['GET'])
     def health_check():

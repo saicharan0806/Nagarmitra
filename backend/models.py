@@ -7,9 +7,9 @@ Matches the MySQL schema and provides dictionary serialization methods for REST 
 
 from datetime import datetime
 # pyrefly: ignore [missing-import]
-from flask_sqlalchemy import SQLAlchemy
+from flask_sqlalchemy import SQLAlchemy  # type: ignore
 # pyrefly: ignore [missing-import]
-from werkzeug.security import generate_password_hash, check_password_hash
+from werkzeug.security import generate_password_hash, check_password_hash  # type: ignore
 
 db = SQLAlchemy()
 
@@ -38,6 +38,10 @@ class User(db.Model):
     complaints = db.relationship('Complaint', backref='citizen', lazy='dynamic', foreign_keys='Complaint.citizen_id')
     worker_profile = db.relationship('Worker', backref='user', uselist=False, cascade="all, delete-orphan")
     feedbacks = db.relationship('Feedback', backref='citizen', lazy='dynamic')
+
+    def __init__(self, **kwargs):
+        for key, value in kwargs.items():
+            setattr(self, key, value)
 
     def set_password(self, password: str):
         self.password_hash = generate_password_hash(password)
@@ -74,6 +78,10 @@ class Department(db.Model):
     workers = db.relationship('Worker', backref='department', lazy='dynamic')
     complaints = db.relationship('Complaint', backref='department', lazy='dynamic')
 
+    def __init__(self, **kwargs):
+        for key, value in kwargs.items():
+            setattr(self, key, value)
+
     def to_dict(self) -> dict:
         return {
             'id': self.id,
@@ -106,6 +114,10 @@ class Worker(db.Model):
 
     # Relationships
     assigned_complaints = db.relationship('Complaint', backref='assigned_worker', lazy='dynamic')
+
+    def __init__(self, **kwargs):
+        for key, value in kwargs.items():
+            setattr(self, key, value)
 
     def to_dict(self) -> dict:
         return {
@@ -164,6 +176,10 @@ class Complaint(db.Model):
     timeline_logs = db.relationship('ComplaintLog', backref='complaint', lazy='dynamic', cascade="all, delete-orphan")
     feedback = db.relationship('Feedback', backref='complaint', uselist=False, cascade="all, delete-orphan")
 
+    def __init__(self, **kwargs):
+        for key, value in kwargs.items():
+            setattr(self, key, value)
+
     def to_dict(self) -> dict:
         return {
             'id': self.id,
@@ -209,6 +225,10 @@ class ComplaintLog(db.Model):
     # Relationships
     actor = db.relationship('User', foreign_keys=[actor_id])
 
+    def __init__(self, **kwargs):
+        for key, value in kwargs.items():
+            setattr(self, key, value)
+
     def to_dict(self) -> dict:
         return {
             'id': self.id,
@@ -232,6 +252,10 @@ class Feedback(db.Model):
     comments = db.Column(db.Text, nullable=True)
     is_satisfied = db.Column(db.Boolean, default=True, nullable=False)
     created_at = db.Column(db.DateTime, default=datetime.utcnow)
+
+    def __init__(self, **kwargs):
+        for key, value in kwargs.items():
+            setattr(self, key, value)
 
     def to_dict(self) -> dict:
         return {

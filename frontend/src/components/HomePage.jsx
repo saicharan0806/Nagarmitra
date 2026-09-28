@@ -147,18 +147,15 @@ export default function HomePage({ currentUser, onSwitchTab }) {
           {/* Right Column (Approx 52%): Large Centered Hero Visual */}
           <div className="civic-hero-right">
             <div className="civic-hero-visual-card">
-              <picture>
-                <source srcSet="/smart_city_hero.webp" type="image/webp" />
-                <img
-                  src="/smart_city_hero.jpg"
-                  alt="Smart City Civic Issue Reporting & Resolution"
-                  className="civic-hero-img"
-                  width="650"
-                  height="480"
-                  fetchPriority="high"
-                  decoding="async"
-                />
-              </picture>
+              <img
+                src="/smart_city_hero.webp"
+                alt="Smart City Civic Issue Reporting & Resolution"
+                className="civic-hero-img"
+                width="650"
+                height="480"
+                fetchPriority="high"
+                decoding="async"
+              />
               <div className="civic-hero-badge-overlay">
                 <span style={{ fontWeight: 700 }}>🌱 Eco-Friendly Community Initiative</span>
                 <span style={{ opacity: 0.9 }}>• Environmental Welfare, Urban Greening & Sustainable Care</span>

@@ -348,7 +348,7 @@ export default function CivicIssueReporting({
           <span>←</span>
           <span>Back to Home</span>
         </button>
-        <div style={{ fontSize: '0.82rem', color: '#64748B' }}>
+        <div style={{ fontSize: '0.82rem', color: '#475569' }}>
           Municipal Citizen Services • Public Grievance Registration
         </div>
       </div>
@@ -362,7 +362,7 @@ export default function CivicIssueReporting({
             <h2 style={{ fontSize: '1.3rem', fontWeight: 800, color: '#111827', margin: 0 }}>
               File a Public Grievance
             </h2>
-            <p style={{ fontSize: '0.82rem', color: '#64748B', margin: 0 }}>
+            <p style={{ fontSize: '0.82rem', color: '#475569', margin: 0 }}>
               Submit photographic proof and street address. The AI engine evaluates urgency and dispatches the municipal department.
             </p>
           </div>
@@ -370,10 +370,11 @@ export default function CivicIssueReporting({
 
         <form onSubmit={handleSubmit}>
           <div className="govt-form-group">
-            <label className="form-label" style={{ fontWeight: 700, fontSize: '0.88rem', color: '#111827' }}>
+            <label htmlFor="civic-issue-title" className="form-label" style={{ fontWeight: 700, fontSize: '0.88rem', color: '#111827' }}>
               Issue Title <span style={{ color: '#DC2626' }}>*</span>
             </label>
             <input
+              id="civic-issue-title"
               type="text"
               className="form-input"
               placeholder="e.g., Deep hazardous pothole near South Ave pedestrian crossing"
@@ -385,10 +386,12 @@ export default function CivicIssueReporting({
 
           <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '1rem' }}>
             <div className="govt-form-group">
-              <label className="form-label" style={{ fontWeight: 700, fontSize: '0.88rem', color: '#111827' }}>
+              <label htmlFor="civic-issue-category" className="form-label" style={{ fontWeight: 700, fontSize: '0.88rem', color: '#111827' }}>
                 Civic Category <span style={{ color: '#DC2626' }}>*</span>
               </label>
               <select
+                id="civic-issue-category"
+                aria-label="Civic Category"
                 className="form-select"
                 value={formData.category}
                 onChange={(e) => setFormData({ ...formData, category: e.target.value })}
@@ -404,22 +407,23 @@ export default function CivicIssueReporting({
             </div>
 
             <div className="govt-form-group">
-              <label className="form-label" style={{ fontWeight: 700, fontSize: '0.88rem', color: '#111827' }}>
+              <label htmlFor="civic-responsible-department" className="form-label" style={{ fontWeight: 700, fontSize: '0.88rem', color: '#111827' }}>
                 Responsible Department
               </label>
               <input
+                id="civic-responsible-department"
                 type="text"
                 className="form-input"
                 value={getDepartmentForCategory(formData.category)}
                 readOnly
-                style={{ background: '#F8F9F6', color: '#64748B', fontWeight: 600 }}
+                style={{ background: '#F8F9F6', color: '#334155', fontWeight: 600 }}
               />
             </div>
           </div>
 
           <div className="govt-form-group">
             <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', flexWrap: 'wrap', gap: '0.5rem', marginBottom: '0.35rem' }}>
-              <label className="form-label" style={{ fontWeight: 700, fontSize: '0.88rem', color: '#111827', margin: 0 }}>
+              <label htmlFor="civic-issue-description" className="form-label" style={{ fontWeight: 700, fontSize: '0.88rem', color: '#111827', margin: 0 }}>
                 Detailed Description & Hazards <span style={{ color: '#DC2626' }}>*</span>
               </label>
               {/* Native Multilingual Voice-to-Text Complaint Dictation */}
@@ -430,6 +434,7 @@ export default function CivicIssueReporting({
               />
             </div>
             <textarea
+              id="civic-issue-description"
               className="form-textarea"
               rows="3"
               placeholder="Describe severity, approximate dimensions, water accumulation, traffic obstruction, or speak using the Voice Dictate button above..."
@@ -441,7 +446,7 @@ export default function CivicIssueReporting({
 
           <div className="govt-form-group">
             <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '0.35rem' }}>
-              <label className="form-label" style={{ fontWeight: 700, fontSize: '0.88rem', color: '#111827', margin: 0 }}>
+              <label htmlFor="civic-incident-location" className="form-label" style={{ fontWeight: 700, fontSize: '0.88rem', color: '#111827', margin: 0 }}>
                 Incident Location & Landmark <span style={{ color: '#DC2626' }}>*</span>
               </label>
               {/* Interactive Map Toggle Button */}
@@ -449,9 +454,9 @@ export default function CivicIssueReporting({
                 type="button"
                 onClick={() => setShowMapPicker((prev) => !prev)}
                 style={{
-                  background: showMapPicker ? 'rgba(22, 163, 74, 0.1)' : '#FFFFFF',
-                  border: `1px solid ${showMapPicker ? 'var(--color-accent, #16A34A)' : '#CBD5E1'}`,
-                  color: showMapPicker ? 'var(--color-accent, #16A34A)' : '#111827',
+                  background: showMapPicker ? 'rgba(21, 128, 61, 0.1)' : '#FFFFFF',
+                  border: `1px solid ${showMapPicker ? '#15803D' : '#CBD5E1'}`,
+                  color: showMapPicker ? '#15803D' : '#111827',
                   fontSize: '0.78rem',
                   fontWeight: 600,
                   padding: '0.22rem 0.65rem',
@@ -471,6 +476,7 @@ export default function CivicIssueReporting({
 
             <div style={{ display: 'flex', gap: '0.5rem' }}>
               <input
+                id="civic-incident-location"
                 type="text"
                 className="form-input"
                 placeholder="Street name, landmark, ward or building number"
@@ -521,7 +527,7 @@ export default function CivicIssueReporting({
           {/* Photo Evidence & AI Vision Pre-scan */}
           <div className="govt-form-group">
             <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '0.35rem' }}>
-              <label className="form-label" style={{ fontWeight: 700, fontSize: '0.88rem', color: '#111827', margin: 0 }}>
+              <label htmlFor="civic-issue-photo" className="form-label" style={{ fontWeight: 700, fontSize: '0.88rem', color: '#111827', margin: 0 }}>
                 Attach Photographic Proof
               </label>
               {formData.imagePreview && (
@@ -550,9 +556,11 @@ export default function CivicIssueReporting({
             </div>
 
             <input
+              id="civic-issue-photo"
               ref={fileInputRef}
               type="file"
               accept="image/*"
+              aria-label="Attach photographic proof of civic issue"
               className="form-input"
               style={{ padding: '0.45rem' }}
               onChange={handleImageChange}
@@ -713,9 +721,9 @@ export default function CivicIssueReporting({
             ) : (
               <div
                 style={{
-                  background: 'rgba(22, 163, 74, 0.08)',
-                  border: '1px solid rgba(22, 163, 74, 0.25)',
-                  borderLeft: '4px solid #16A34A',
+                  background: 'rgba(21, 128, 61, 0.08)',
+                  border: '1px solid rgba(21, 128, 61, 0.25)',
+                  borderLeft: '4px solid #15803D',
                   padding: '1rem',
                   borderRadius: '4px',
                   marginBottom: '1.5rem',
@@ -723,7 +731,7 @@ export default function CivicIssueReporting({
                 }}
               >
                 <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '0.35rem', flexWrap: 'wrap', gap: '0.5rem' }}>
-                  <span style={{ fontWeight: 700, color: '#16A34A', display: 'flex', alignItems: 'center', gap: '0.45rem' }}>
+                  <span style={{ fontWeight: 700, color: '#15803D', display: 'flex', alignItems: 'center', gap: '0.45rem' }}>
                     <span style={{ background: '#DCFCE7', color: '#15803D', border: '1px solid #86EFAC', borderRadius: '4px', padding: '0.1rem 0.4rem', fontSize: '0.68rem', fontWeight: 800, letterSpacing: '0.02em' }}>
                       YOLOv8 Deep Learning
                     </span>
@@ -731,15 +739,15 @@ export default function CivicIssueReporting({
                   </span>
                   <div style={{ display: 'flex', alignItems: 'center', gap: '0.4rem' }}>
                     {aiScanResult.inference_time_ms && (
-                      <span style={{ fontSize: '0.7rem', color: '#64748B', fontWeight: 600 }}>
+                      <span style={{ fontSize: '0.7rem', color: '#475569', fontWeight: 600 }}>
                         {aiScanResult.inference_time_ms}ms
                       </span>
                     )}
                     <span
                       style={{
-                        background: 'rgba(22, 163, 74, 0.15)',
-                        color: '#16A34A',
-                        border: '1px solid rgba(22, 163, 74, 0.3)',
+                        background: 'rgba(21, 128, 61, 0.15)',
+                        color: '#15803D',
+                        border: '1px solid rgba(21, 128, 61, 0.3)',
                         padding: '0.15rem 0.5rem',
                         borderRadius: '2px',
                         fontWeight: 700,
@@ -750,8 +758,8 @@ export default function CivicIssueReporting({
                     </span>
                   </div>
                 </div>
-                <div style={{ color: '#64748B' }}>
-                  Target Department: <strong style={{ color: '#111827' }}>{aiScanResult.suggested_department}</strong> • Severity Urgency: <strong style={{ color: '#F4B740', textTransform: 'uppercase' }}>{aiScanResult.severity}</strong>
+                <div style={{ color: '#475569' }}>
+                  Target Department: <strong style={{ color: '#111827' }}>{aiScanResult.suggested_department}</strong> • Severity Urgency: <strong style={{ color: '#B45309', textTransform: 'uppercase' }}>{aiScanResult.severity}</strong>
                 </div>
               </div>
             )
@@ -795,7 +803,7 @@ export default function CivicIssueReporting({
           <h3 style={{ fontSize: '1.1rem', fontWeight: 700, color: '#111827', marginBottom: '0.75rem' }}>
             📋 Municipal Reporting Standards
           </h3>
-          <ul style={{ paddingLeft: '1.2rem', color: '#64748B', fontSize: '0.85rem', lineHeight: 1.6, display: 'flex', flexDirection: 'column', gap: '0.5rem' }}>
+          <ul style={{ paddingLeft: '1.2rem', color: '#475569', fontSize: '0.85rem', lineHeight: 1.6, display: 'flex', flexDirection: 'column', gap: '0.5rem' }}>
             <li><strong>Clear Photography:</strong> Take wide-angle photos showing the defect alongside recognizable street landmarks.</li>
             <li><strong>Precise Address:</strong> Use the auto-GPS button to attach satellite coordinates for field workers.</li>
             <li><strong>Duplicate Detection:</strong> The AI vision model automatically links reports in the same 50m radius.</li>
@@ -804,11 +812,11 @@ export default function CivicIssueReporting({
         </div>
 
         {/* Quick Link to History */}
-        <div style={{ background: 'rgba(22, 163, 74, 0.06)', border: '1px solid rgba(22, 163, 74, 0.2)', borderRadius: '6px', padding: '1.5rem' }}>
-          <div style={{ fontSize: '0.85rem', fontWeight: 700, color: '#16A34A', marginBottom: '0.35rem' }}>
+        <div style={{ background: 'rgba(21, 128, 61, 0.06)', border: '1px solid rgba(21, 128, 61, 0.2)', borderRadius: '6px', padding: '1.5rem' }}>
+          <div style={{ fontSize: '0.85rem', fontWeight: 700, color: '#15803D', marginBottom: '0.35rem' }}>
             Already filed a complaint?
           </div>
-          <p style={{ fontSize: '0.82rem', color: '#64748B', margin: '0 0 1rem 0' }}>
+          <p style={{ fontSize: '0.82rem', color: '#475569', margin: '0 0 1rem 0' }}>
             You have {complaintsCount} tickets recorded in the municipal registry. Track live ground progress anytime.
           </p>
           <div style={{ display: 'flex', gap: '0.65rem' }}>

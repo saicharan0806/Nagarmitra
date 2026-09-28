@@ -11,18 +11,15 @@ export default function CivicInfoPanel() {
       <div>
         {/* Realistic Smart City Hero Banner */}
         <div className="govt-hero-img-wrap">
-          <picture>
-            <source srcSet="/smart_city_hero.webp" type="image/webp" />
-            <img
-              src="/smart_city_hero.jpg"
-              alt="Nagarmitra Municipal Civic Complaint Redressal: Citizen reporting defect while worker restores roadway"
-              className="govt-hero-img"
-              loading="lazy"
-              decoding="async"
-              width="600"
-              height="280"
-            />
-          </picture>
+          <img
+            src="/smart_city_hero.webp"
+            alt="Nagarmitra Municipal Civic Complaint Redressal: Citizen reporting defect while worker restores roadway"
+            className="govt-hero-img"
+            loading="lazy"
+            decoding="async"
+            width="600"
+            height="280"
+          />
         </div>
 
         {/* Section Heading */}

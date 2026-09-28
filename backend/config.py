@@ -7,7 +7,7 @@ file upload paths, and application security settings.
 
 import os
 from pathlib import Path
-from dotenv import load_dotenv
+from dotenv import load_dotenv  # type: ignore
 
 # Load .env file from project root or backend folder
 env_path = Path(__file__).resolve().parent.parent / '.env'

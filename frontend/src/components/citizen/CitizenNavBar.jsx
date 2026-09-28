@@ -26,7 +26,7 @@ export default function CitizenNavBar({
               gap: '0.45rem',
               fontSize: '0.78rem',
               fontWeight: 700,
-              color: '#16A34A',
+              color: '#15803D',
               textTransform: 'uppercase',
               letterSpacing: '0.04em',
             }}
@@ -37,7 +37,7 @@ export default function CitizenNavBar({
           <h1 style={{ fontSize: '1.75rem', fontWeight: 800, color: '#0B1220', margin: '0.25rem 0 0.2rem 0' }}>
             Report & Track Portal
           </h1>
-          <p style={{ color: '#64748B', fontSize: '0.9rem', margin: 0 }}>
+          <p style={{ color: '#475569', fontSize: '0.9rem', margin: 0 }}>
             Unified citizen interface for registering civic issues, tracking real-time ground resolution, inspecting ticket history, sharing feedback, and receiving alerts.
           </p>
         </div>
@@ -48,9 +48,9 @@ export default function CitizenNavBar({
               display: 'inline-flex',
               alignItems: 'center',
               gap: '0.4rem',
-              background: 'rgba(22, 163, 74, 0.1)',
-              color: '#16A34A',
-              border: '1px solid rgba(22, 163, 74, 0.25)',
+              background: 'rgba(21, 128, 61, 0.1)',
+              color: '#15803D',
+              border: '1px solid rgba(21, 128, 61, 0.25)',
               padding: '0.35rem 0.8rem',
               borderRadius: '9999px',
               fontSize: '0.8rem',
@@ -65,9 +65,9 @@ export default function CitizenNavBar({
               display: 'inline-flex',
               alignItems: 'center',
               gap: '0.4rem',
-              background: 'rgba(22, 163, 74, 0.08)',
-              color: '#16A34A',
-              border: '1px solid rgba(22, 163, 74, 0.2)',
+              background: 'rgba(21, 128, 61, 0.08)',
+              color: '#15803D',
+              border: '1px solid rgba(21, 128, 61, 0.2)',
               padding: '0.35rem 0.8rem',
               borderRadius: '9999px',
               fontSize: '0.8rem',

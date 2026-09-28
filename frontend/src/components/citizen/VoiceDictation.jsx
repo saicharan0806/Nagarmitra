@@ -156,6 +156,7 @@ export default function VoiceDictation({
             className={`civic-voice-lang-pill ${selectedLang === lang.code ? 'active' : ''}`}
             onClick={() => handleLangChange(lang.code)}
             title={`Dictate in ${lang.label}`}
+            aria-label={`Dictate in ${lang.label}`}
           >
             {lang.label}
           </button>
@@ -168,6 +169,7 @@ export default function VoiceDictation({
         onClick={toggleListening}
         className={`civic-voice-mic-btn ${isListening ? 'listening' : ''}`}
         title={isListening ? 'Click to stop recording' : 'Click to dictate description by voice'}
+        aria-label={isListening ? 'Stop voice recording' : 'Click to dictate description by voice'}
       >
         <span className="civic-voice-mic-icon">{isListening ? '⏹️' : '🎙️'}</span>
         <span className="civic-voice-mic-label">
