@@ -612,6 +612,20 @@ def create_app(config_name="development"):
     def root_serve_upload(filename):
         return send_from_directory(app.config['UPLOAD_FOLDER'], filename)
 
+    @app.route('/', methods=['GET'])
+    def root_status():
+        return jsonify({
+            "status": "healthy",
+            "message": "CivicSync / Nagarmitra Backend API Server is running!",
+            "ai_engine": getattr(ai_classifier, 'engine_type', 'YOLOv8-DeepLearning') if ai_classifier else "Offline",
+            "frontend_url": "http://localhost:5173",
+            "endpoints": {
+                "health": "/api/health",
+                "complaints": "/api/complaints",
+                "analytics": "/api/admin/analytics"
+            }
+        }), 200
+
     @app.route('/api/health', methods=['GET'])
     def health_check():
         return jsonify({
