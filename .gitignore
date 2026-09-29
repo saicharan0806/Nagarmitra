@@ -1,4 +1,4 @@
-﻿# Node dependencies & build artifacts
+# Node dependencies & build artifacts
 node_modules/
 frontend/node_modules/
 dist/
@@ -43,3 +43,13 @@ desktop.ini
 *.swp
 *.swo
 *~
+
+# Project Documentation & Scratch
+*.docx
+*.doc
+*.pdf
+scratch/
+*documentation*
+*Documentation*
+doc_content/
+
