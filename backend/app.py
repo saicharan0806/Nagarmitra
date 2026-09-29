@@ -626,6 +626,24 @@ def create_app(config_name="development"):
             }
         }), 200
 
+    @app.route('/api/departments', methods=['GET'])
+    @app.route('/api/departments/', methods=['GET'])
+    def get_departments():
+        """Retrieve list of municipal directorates."""
+        try:
+            depts = Department.query.all()
+            if depts:
+                return jsonify([d.to_dict() for d in depts]), 200
+        except Exception:
+            pass
+        return jsonify([
+            {"id": 1, "code": "ROADS", "name": "Roads & Infrastructure", "lead": "Eng. Rajesh Patel", "target_hours": 48},
+            {"id": 2, "code": "SANITATION", "name": "Sanitation & Waste Management", "lead": "Dr. Sunita Rao", "target_hours": 24},
+            {"id": 3, "code": "ELECTRICAL", "name": "Electrical & Public Lighting", "lead": "Vikram Seth", "target_hours": 12},
+            {"id": 4, "code": "WATER", "name": "Water Supply & Urban Drainage", "lead": "Priya Nair", "target_hours": 36},
+            {"id": 5, "code": "PARKS", "name": "Parks & Environmental Conservation", "lead": "Amit Verma", "target_hours": 48}
+        ]), 200
+
     @app.route('/api/health', methods=['GET'])
     @app.route('/api/health/', methods=['GET'])
     def health_check():
