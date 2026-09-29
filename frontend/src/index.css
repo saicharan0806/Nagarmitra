@@ -6438,5 +6438,784 @@ button, input, select, textarea {
   transform: translateY(-1px);
 }
 
+/* ==========================================================================
+   MUNICIPAL COMMISSIONER MONTHLY SLA RESOLUTION REPORT & PRINTABLE PDF STYLES
+   ========================================================================== */
 
+/* Modal Backdrop & Outer Scaffolding */
+.sla-modal-overlay {
+  position: fixed;
+  inset: 0;
+  z-index: 9999;
+  background: rgba(11, 18, 32, 0.82);
+  backdrop-filter: blur(8px);
+  -webkit-backdrop-filter: blur(8px);
+  display: flex;
+  flex-direction: column;
+  overflow-y: auto;
+  animation: fadeInModal 0.2s ease-out forwards;
+}
 
+@keyframes fadeInModal {
+  from { opacity: 0; transform: scale(0.98); }
+  to { opacity: 1; transform: scale(1); }
+}
+
+/* Modal Top Action Toolbar */
+.sla-modal-toolbar {
+  position: sticky;
+  top: 0;
+  z-index: 100;
+  background: #0B1220;
+  border-bottom: 1px solid #1E293B;
+  padding: 0.85rem 1.75rem;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 1.25rem;
+  flex-wrap: wrap;
+  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.35);
+}
+
+.sla-toolbar-left {
+  display: flex;
+  align-items: center;
+  gap: 0.85rem;
+}
+
+.sla-toolbar-emblem {
+  font-size: 1.75rem;
+  background: rgba(255, 255, 255, 0.08);
+  padding: 0.4rem 0.55rem;
+  border-radius: 8px;
+  border: 1px solid rgba(255, 255, 255, 0.12);
+  line-height: 1;
+}
+
+.sla-toolbar-title {
+  font-size: 1.05rem;
+  font-weight: 700;
+  color: #FFFFFF;
+  margin: 0;
+  letter-spacing: -0.01em;
+}
+
+.sla-toolbar-sub {
+  font-size: 0.78rem;
+  color: #94A3B8;
+  margin: 0.2rem 0 0 0;
+}
+
+.sla-toolbar-actions {
+  display: flex;
+  align-items: center;
+  gap: 0.65rem;
+  flex-wrap: wrap;
+}
+
+.sla-toolbar-period {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  margin-right: 0.25rem;
+}
+
+.sla-period-label {
+  color: #CBD5E1;
+  font-size: 0.82rem;
+  font-weight: 600;
+  white-space: nowrap;
+}
+
+.sla-period-select {
+  background: #1E293B;
+  color: #F8FAFC;
+  border: 1px solid #334155;
+  border-radius: 6px;
+  padding: 0.42rem 0.75rem;
+  font-size: 0.82rem;
+  font-weight: 600;
+  outline: none;
+  cursor: pointer;
+  transition: all 0.15s ease;
+}
+
+.sla-period-select:focus {
+  border-color: #16A34A;
+  box-shadow: 0 0 0 2px rgba(22, 163, 74, 0.25);
+}
+
+.sla-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.45rem;
+  padding: 0.45rem 0.95rem;
+  border-radius: 6px;
+  font-size: 0.82rem;
+  font-weight: 700;
+  cursor: pointer;
+  transition: all 0.15s ease;
+  border: none;
+  text-decoration: none;
+  white-space: nowrap;
+}
+
+.sla-btn-primary {
+  background: #16A34A;
+  color: #FFFFFF;
+  box-shadow: 0 2px 6px rgba(22, 163, 74, 0.35);
+}
+
+.sla-btn-primary:hover {
+  background: #15803D;
+  transform: translateY(-1px);
+}
+
+.sla-btn-secondary {
+  background: #334155;
+  color: #F8FAFC;
+  border: 1px solid #475569;
+}
+
+.sla-btn-secondary:hover {
+  background: #475569;
+  color: #FFFFFF;
+  transform: translateY(-1px);
+}
+
+.sla-btn-close {
+  background: transparent;
+  color: #94A3B8;
+  border: 1px solid #334155;
+  border-radius: 6px;
+  width: 32px;
+  height: 32px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 1rem;
+  cursor: pointer;
+  transition: all 0.15s ease;
+}
+
+.sla-btn-close:hover {
+  background: #DC2626;
+  color: #FFFFFF;
+  border-color: #DC2626;
+}
+
+/* Modal Body & Paper Document Sheet */
+.sla-modal-body {
+  flex: 1;
+  padding: 2rem 1.25rem 3.5rem 1.25rem;
+  display: flex;
+  justify-content: center;
+}
+
+.commissioner-pdf-document {
+  width: 100%;
+  max-width: 880px;
+  background: #FFFFFF;
+  color: #0F172A;
+  padding: 2.75rem 3.25rem;
+  border-radius: 8px;
+  box-shadow: 0 12px 35px rgba(0, 0, 0, 0.4);
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+  font-size: 0.86rem;
+  line-height: 1.5;
+  border: 1px solid #E2E8F0;
+}
+
+/* Official Civic Header */
+.pdf-header {
+  display: flex;
+  align-items: center;
+  gap: 1.5rem;
+  padding-bottom: 1.25rem;
+  border-bottom: 2px solid #0F172A;
+  margin-bottom: 1.25rem;
+}
+
+.pdf-coat-of-arms {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+  width: 80px;
+  text-align: center;
+}
+
+.pdf-emblem-icon {
+  font-size: 2.8rem;
+  line-height: 1;
+  filter: drop-shadow(0 2px 4px rgba(0,0,0,0.15));
+}
+
+.pdf-emblem-badge {
+  font-size: 0.58rem;
+  font-weight: 800;
+  letter-spacing: 0.08em;
+  color: #475569;
+  margin-top: 0.3rem;
+}
+
+.pdf-header-titles {
+  flex: 1;
+}
+
+.pdf-govt-sub {
+  font-size: 0.72rem;
+  font-weight: 800;
+  letter-spacing: 0.06em;
+  color: #475569;
+  text-transform: uppercase;
+}
+
+.pdf-civic-title {
+  font-size: 1.45rem;
+  font-weight: 900;
+  color: #0F172A;
+  letter-spacing: -0.02em;
+  margin: 0.2rem 0;
+  line-height: 1.2;
+}
+
+.pdf-office-title {
+  font-size: 0.88rem;
+  font-weight: 700;
+  color: #1E293B;
+  letter-spacing: -0.01em;
+  margin-bottom: 0.5rem;
+}
+
+.pdf-report-banner {
+  background: #0F172A;
+  color: #FFFFFF;
+  font-size: 0.8rem;
+  font-weight: 800;
+  letter-spacing: 0.04em;
+  padding: 0.35rem 0.75rem;
+  border-radius: 4px;
+  display: inline-block;
+  text-transform: uppercase;
+}
+
+.pdf-act-reference {
+  font-size: 0.68rem;
+  color: #64748B;
+  font-style: italic;
+  margin-top: 0.35rem;
+}
+
+/* Metadata Strip */
+.pdf-meta-strip {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 0.75rem;
+  background: #F8FAFC;
+  border: 1px solid #E2E8F0;
+  border-radius: 6px;
+  padding: 0.75rem 1rem;
+  margin-bottom: 1.25rem;
+}
+
+.pdf-meta-item {
+  display: flex;
+  flex-direction: column;
+  gap: 0.15rem;
+}
+
+.pdf-meta-label {
+  font-size: 0.68rem;
+  font-weight: 700;
+  color: #64748B;
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+}
+
+.pdf-meta-val {
+  font-size: 0.82rem;
+  font-weight: 700;
+  color: #0F172A;
+  word-break: break-all;
+}
+
+.badge-statutory {
+  background: #E0E7FF;
+  color: #3730A3;
+  padding: 0.15rem 0.5rem;
+  border-radius: 4px;
+  font-size: 0.68rem;
+  font-weight: 800;
+  display: inline-block;
+  width: fit-content;
+}
+
+/* Preamble */
+.pdf-preamble {
+  font-size: 0.8rem;
+  line-height: 1.55;
+  color: #334155;
+  margin-bottom: 1.25rem;
+  padding: 0.75rem 1rem;
+  background: rgba(22, 163, 74, 0.05);
+  border-left: 3px solid #16A34A;
+  border-radius: 0 4px 4px 0;
+}
+
+/* Executive Telemetry Scorecard */
+.pdf-scorecard {
+  display: grid;
+  grid-template-columns: repeat(5, 1fr);
+  gap: 0.75rem;
+  margin-bottom: 1.5rem;
+}
+
+.pdf-kpi-card {
+  background: #FFFFFF;
+  border: 1px solid #E2E8F0;
+  border-radius: 6px;
+  padding: 0.75rem;
+  display: flex;
+  flex-direction: column;
+}
+
+.pdf-kpi-highlight {
+  border-color: #16A34A;
+  background: #F0FDF4;
+}
+
+.pdf-kpi-label {
+  font-size: 0.68rem;
+  font-weight: 700;
+  color: #64748B;
+  text-transform: uppercase;
+}
+
+.pdf-kpi-val {
+  font-size: 1.35rem;
+  font-weight: 800;
+  color: #0F172A;
+  margin: 0.2rem 0;
+}
+
+.pdf-kpi-sub {
+  font-size: 0.66rem;
+  color: #64748B;
+}
+
+/* PDF Section */
+.pdf-section {
+  margin-bottom: 1.5rem;
+}
+
+.pdf-section-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  border-bottom: 1px solid #E2E8F0;
+  padding-bottom: 0.4rem;
+  margin-bottom: 0.65rem;
+}
+
+.pdf-section-title {
+  font-size: 0.95rem;
+  font-weight: 800;
+  color: #0F172A;
+  margin: 0;
+}
+
+.pdf-section-tag {
+  font-size: 0.7rem;
+  font-weight: 700;
+  color: #64748B;
+  text-transform: uppercase;
+}
+
+/* PDF Table */
+.pdf-table {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 0.8rem;
+  text-align: left;
+}
+
+.pdf-table th {
+  background: #F1F5F9;
+  color: #334155;
+  font-weight: 700;
+  font-size: 0.72rem;
+  text-transform: uppercase;
+  letter-spacing: 0.03em;
+  padding: 0.55rem 0.65rem;
+  border-bottom: 2px solid #CBDE1;
+}
+
+.pdf-table td {
+  padding: 0.55rem 0.65rem;
+  border-bottom: 1px solid #E2E8F0;
+  vertical-align: middle;
+}
+
+.pdf-table-compact th, .pdf-table-compact td {
+  padding: 0.45rem 0.55rem;
+  font-size: 0.76rem;
+}
+
+.pdf-dept-name {
+  font-weight: 700;
+  color: #0F172A;
+}
+
+.pdf-dept-lead {
+  font-size: 0.68rem;
+  color: #64748B;
+  margin-top: 0.1rem;
+}
+
+.pdf-code-badge {
+  background: #F1F5F9;
+  color: #475569;
+  padding: 0.15rem 0.4rem;
+  border-radius: 4px;
+  font-size: 0.68rem;
+  font-weight: 700;
+}
+
+.pdf-status-badge {
+  display: inline-block;
+  padding: 0.2rem 0.55rem;
+  border-radius: 4px;
+  font-size: 0.72rem;
+  font-weight: 800;
+  text-align: center;
+}
+
+.badge-exemplary {
+  background: #DCFCE7;
+  color: #166534;
+}
+
+.badge-compliant {
+  background: #FEF3C7;
+  color: #92400E;
+}
+
+.badge-attention {
+  background: #FEE2E2;
+  color: #991B1B;
+}
+
+.text-center {
+  text-align: center;
+}
+
+/* Two Column Layout */
+.pdf-grid-two-col {
+  display: flex;
+  gap: 1.25rem;
+  margin-bottom: 1.25rem;
+}
+
+.pdf-findings-list {
+  margin: 0;
+  padding-left: 1.15rem;
+  font-size: 0.78rem;
+  line-height: 1.6;
+  color: #334155;
+}
+
+.pdf-findings-list li {
+  margin-bottom: 0.45rem;
+}
+
+/* Signatures & Seal Section */
+.pdf-sign-section {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-end;
+  margin-top: 2rem;
+  padding-top: 1.5rem;
+  border-top: 1.5px solid #0F172A;
+  gap: 1rem;
+}
+
+.pdf-sign-box {
+  width: 230px;
+  display: flex;
+  flex-direction: column;
+}
+
+.pdf-signature-line {
+  height: 48px;
+  border-bottom: 1px dashed #64748B;
+  display: flex;
+  align-items: flex-end;
+  padding-bottom: 0.25rem;
+}
+
+.pdf-sign-placeholder {
+  font-family: 'Brush Script MT', 'Dancing Script', cursive, sans-serif;
+  font-size: 1.4rem;
+  color: #1E3A8A;
+  transform: rotate(-3deg);
+  display: inline-block;
+}
+
+.pdf-sign-name {
+  font-size: 0.82rem;
+  font-weight: 800;
+  color: #0F172A;
+  margin-top: 0.35rem;
+}
+
+.pdf-sign-role {
+  font-size: 0.72rem;
+  font-weight: 600;
+  color: #334155;
+}
+
+.pdf-sign-dept {
+  font-size: 0.66rem;
+  color: #64748B;
+}
+
+.pdf-seal-box {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.pdf-seal-circle {
+  width: 84px;
+  height: 84px;
+  border: 2px dashed #94A3B8;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 4px;
+}
+
+.pdf-seal-inner {
+  width: 100%;
+  height: 100%;
+  border: 1px solid #16A34A;
+  border-radius: 50%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  background: rgba(22, 163, 74, 0.05);
+}
+
+.pdf-seal-inner span {
+  font-size: 1.1rem;
+  line-height: 1;
+}
+
+.pdf-seal-inner strong {
+  font-size: 0.48rem;
+  font-weight: 900;
+  color: #16A34A;
+  letter-spacing: 0.04em;
+  margin-top: 2px;
+}
+
+.pdf-seal-inner small {
+  font-size: 0.42rem;
+  color: #64748B;
+  font-weight: 700;
+}
+
+.pdf-seal-caption {
+  font-size: 0.58rem;
+  font-weight: 800;
+  color: #64748B;
+  letter-spacing: 0.06em;
+  margin-top: 0.35rem;
+}
+
+/* Footer Strip */
+.pdf-footer {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  font-size: 0.68rem;
+  color: #64748B;
+  border-top: 1px solid #E2E8F0;
+  margin-top: 1.5rem;
+  padding-top: 0.65rem;
+}
+
+.pdf-footer-left {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+/* Executive Control Card in Analytics Dashboard */
+.executive-sla-report-card {
+  background: #FFFFFF;
+  border: 1px solid #E2E8F0;
+  border-radius: 12px;
+  padding: 1.35rem 1.65rem;
+  box-shadow: 0 2px 8px rgba(11, 18, 32, 0.06);
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 1.25rem;
+  border-left: 5px solid #16A34A;
+}
+
+.executive-sla-title-area {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+}
+
+.executive-sla-icon {
+  font-size: 2.2rem;
+  background: rgba(22, 163, 74, 0.1);
+  padding: 0.6rem;
+  border-radius: 10px;
+  line-height: 1;
+}
+
+.executive-sla-heading {
+  font-size: 1.15rem;
+  font-weight: 800;
+  color: #0F172A;
+  margin: 0;
+}
+
+.executive-sla-desc {
+  font-size: 0.82rem;
+  color: #64748B;
+  margin: 0.2rem 0 0 0;
+}
+
+.executive-sla-controls {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  flex-wrap: wrap;
+}
+
+/* ==========================================================================
+   PRINT STYLESHEET (@media print)
+   Hides all interactive chrome, navbars, and buttons; ensures pristine PDF.
+   ========================================================================== */
+@media print {
+  @page {
+    size: A4 portrait;
+    margin: 10mm 12mm 12mm 12mm;
+  }
+
+  /* Universal reset for print */
+  *, *::before, *::after {
+    background: transparent !important;
+    color: #000000 !important;
+    box-shadow: none !important;
+    text-shadow: none !important;
+  }
+
+  html, body {
+    width: 100% !important;
+    height: auto !important;
+    margin: 0 !important;
+    padding: 0 !important;
+    background: #FFFFFF !important;
+    color: #000000 !important;
+    font-size: 10pt !important;
+  }
+
+  /* Hide UI elements that must not print */
+  nav,
+  header:not(.pdf-header),
+  footer:not(.pdf-footer),
+  .no-print,
+  .admin-header-banner,
+  .admin-nav-tabs,
+  .sla-modal-toolbar,
+  .field-metrics-grid,
+  .analytics-grid,
+  .analytics-performance-grid,
+  .executive-sla-report-card,
+  button,
+  .btn,
+  .app-nav-container,
+  .civic-floating-btn,
+  .modal-backdrop,
+  .skip-link,
+  .about-contact-grid {
+    display: none !important;
+  }
+
+  /* Ensure modal backdrop does not obscure or offset */
+  .sla-modal-overlay {
+    position: static !important;
+    inset: auto !important;
+    background: transparent !important;
+    backdrop-filter: none !important;
+    display: block !important;
+    overflow: visible !important;
+    padding: 0 !important;
+    margin: 0 !important;
+    width: 100% !important;
+    height: auto !important;
+  }
+
+  .sla-modal-body {
+    padding: 0 !important;
+    margin: 0 !important;
+    display: block !important;
+    width: 100% !important;
+  }
+
+  .commissioner-pdf-document {
+    position: static !important;
+    max-width: 100% !important;
+    width: 100% !important;
+    padding: 0 !important;
+    margin: 0 !important;
+    border: none !important;
+    box-shadow: none !important;
+    background: #FFFFFF !important;
+    page-break-after: avoid !important;
+  }
+
+  .pdf-report-banner {
+    background: #000000 !important;
+    color: #FFFFFF !important;
+    -webkit-print-color-adjust: exact !important;
+    print-color-adjust: exact !important;
+  }
+
+  .pdf-kpi-card,
+  .pdf-section,
+  .pdf-table,
+  .pdf-sign-section,
+  .pdf-grid-two-col {
+    page-break-inside: avoid !important;
+  }
+
+  .pdf-table th {
+    background: #F1F5F9 !important;
+    -webkit-print-color-adjust: exact !important;
+    print-color-adjust: exact !important;
+  }
+
+  .pdf-status-badge {
+    border: 1px solid #000000 !important;
+  }
+
+  .pdf-sign-placeholder {
+    color: #1E3A8A !important;
+    -webkit-print-color-adjust: exact !important;
+    print-color-adjust: exact !important;
+  }
+}

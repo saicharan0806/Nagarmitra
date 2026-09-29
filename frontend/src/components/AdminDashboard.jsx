@@ -1,23 +1,43 @@
-import React from 'react';
+import React, { useState, useMemo } from 'react';
+import { calculateSLAMetrics, downloadSLACSV } from '../utils/slaReportGenerator.js';
+import SLAReportModal from './admin/SLAReportModal.jsx';
 
 /**
  * Nagarmitra Municipal Executive & Administrative Dashboard
  * Displays cross-department metrics, SLA compliance, worker dispatch readiness,
  * and quick-access links to citizen and manager triage views.
  */
-export default function AdminDashboard({ complaints, onSwitchTab, onNotification }) {
-  const totalTickets = complaints.length;
-  const pendingTickets = complaints.filter((c) => c.status === 'pending').length;
-  const inProgressTickets = complaints.filter((c) => c.status === 'in_progress' || c.status === 'assigned').length;
-  const resolvedTickets = complaints.filter((c) => c.status === 'resolved').length;
-  const resolutionRate = totalTickets > 0 ? Math.round((resolvedTickets / totalTickets) * 100) : 0;
+export default function AdminDashboard({ complaints = [], onSwitchTab, onNotification }) {
+  const [selectedPeriodKey, setSelectedPeriodKey] = useState('2026-09');
+  const [isPrintModalOpen, setIsPrintModalOpen] = useState(false);
 
-  const departments = [
-    { name: 'Roads & Infrastructure', lead: 'Deepak Kumar', open: 8, slaRate: '94%', budget: '₹1.8 Cr' },
-    { name: 'Sanitation & Waste', lead: 'Ananya Reddy', open: 12, slaRate: '91%', budget: '₹2.4 Cr' },
-    { name: 'Electrical & Lighting', lead: 'Rajesh Mishra', open: 4, slaRate: '97%', budget: '₹95 L' },
-    { name: 'Water & Sewerage', lead: 'Fatima Zaidi', open: 7, slaRate: '88%', budget: '₹1.5 Cr' },
-  ];
+  const slaData = useMemo(() => {
+    return calculateSLAMetrics(complaints, selectedPeriodKey);
+  }, [complaints, selectedPeriodKey]);
+
+  const totalTickets = slaData.executive.totalVolume;
+  const pendingTickets = slaData.executive.totalPending;
+  const inProgressTickets = slaData.executive.totalInProgress;
+  const resolvedTickets = slaData.executive.totalResolved;
+  const resolutionRate = slaData.executive.resolutionRate;
+
+  const departments = slaData.departments.map((dept) => {
+    const budgets = {
+      roads: '₹4.8 Cr',
+      sanitation: '₹6.2 Cr',
+      electrical: '₹2.9 Cr',
+      water: '₹5.5 Cr',
+      parks: '₹1.8 Cr',
+    };
+    return {
+      name: dept.name,
+      lead: dept.lead,
+      open: dept.totalVolume - dept.resolvedCount,
+      slaRate: `${dept.complianceRate}%`,
+      budget: budgets[dept.id] || '₹2.5 Cr',
+      rating: dept.rating,
+    };
+  });
 
   const handleExportCsv = () => {
     try {
@@ -49,6 +69,10 @@ export default function AdminDashboard({ complaints, onSwitchTab, onNotification
     } catch {
       if (onNotification) onNotification('⚠️ Error generating CSV audit export.');
     }
+  };
+
+  const handleExportSLACSV = () => {
+    downloadSLACSV(slaData, onNotification);
   };
 
   return (
@@ -101,64 +125,65 @@ export default function AdminDashboard({ complaints, onSwitchTab, onNotification
       </div>
 
       {/* KPI Stats Grid */}
-      <div className="grid-3" style={{ gridTemplateColumns: 'repeat(auto-fit, minmax(220px, 1fr))' }}>
-        <div className="card" style={{ display: 'flex', alignItems: 'center', gap: '1.25rem' }}>
-          <div style={{ width: '50px', height: '50px', borderRadius: 'var(--radius-md)', background: 'rgba(37, 99, 235, 0.1)', display: 'flex', alignItems: 'center', justifyContent: 'center', fontSize: '1.5rem', color: '#2563EB' }}>
-            📋
-          </div>
-          <div>
-            <div style={{ fontSize: '0.8rem', color: 'var(--text-muted)', fontWeight: 600, textTransform: 'uppercase' }}>Total Issues Logged</div>
-            <div style={{ fontSize: '1.8rem', fontWeight: 800, color: 'var(--color-primary)' }}>{totalTickets}</div>
-          </div>
+      <div
+        style={{
+          display: 'grid',
+          gridTemplateColumns: 'repeat(auto-fit, minmax(220px, 1fr))',
+          gap: '1.25rem',
+        }}
+      >
+        <div className="card" style={{ borderLeft: '4px solid var(--color-primary)' }}>
+          <div style={{ color: 'var(--text-muted)', fontSize: '0.85rem', fontWeight: 600 }}>Total Complaints</div>
+          <div style={{ fontSize: '2rem', fontWeight: 800, color: 'var(--text-primary)', margin: '0.25rem 0' }}>{totalTickets}</div>
+          <div style={{ color: '#16A34A', fontSize: '0.78rem', fontWeight: 600 }}>Citywide civic load in {slaData.period.month}</div>
         </div>
 
-        <div className="card" style={{ display: 'flex', alignItems: 'center', gap: '1.25rem' }}>
-          <div style={{ width: '50px', height: '50px', borderRadius: 'var(--radius-md)', background: 'rgba(244, 183, 64, 0.15)', display: 'flex', alignItems: 'center', justifyContent: 'center', fontSize: '1.5rem', color: '#F4B740' }}>
-            ⏳
-          </div>
-          <div>
-            <div style={{ fontSize: '0.8rem', color: 'var(--text-muted)', fontWeight: 600, textTransform: 'uppercase' }}>Pending Triage</div>
-            <div style={{ fontSize: '1.8rem', fontWeight: 800, color: '#F4B740' }}>{pendingTickets}</div>
-          </div>
+        <div className="card" style={{ borderLeft: '4px solid #F59E0B' }}>
+          <div style={{ color: 'var(--text-muted)', fontSize: '0.85rem', fontWeight: 600 }}>Pending Triage</div>
+          <div style={{ fontSize: '2rem', fontWeight: 800, color: '#D97706', margin: '0.25rem 0' }}>{pendingTickets}</div>
+          <div style={{ color: 'var(--text-muted)', fontSize: '0.78rem' }}>Requires department dispatch</div>
         </div>
 
-        <div className="card" style={{ display: 'flex', alignItems: 'center', gap: '1.25rem' }}>
-          <div style={{ width: '50px', height: '50px', borderRadius: 'var(--radius-md)', background: 'rgba(37, 99, 235, 0.1)', display: 'flex', alignItems: 'center', justifyContent: 'center', fontSize: '1.5rem', color: '#2563EB' }}>
-            🚀
-          </div>
-          <div>
-            <div style={{ fontSize: '0.8rem', color: 'var(--text-muted)', fontWeight: 600, textTransform: 'uppercase' }}>In Progress / Dispatched</div>
-            <div style={{ fontSize: '1.8rem', fontWeight: 800, color: '#2563EB' }}>{inProgressTickets}</div>
-          </div>
+        <div className="card" style={{ borderLeft: '4px solid #2563EB' }}>
+          <div style={{ color: 'var(--text-muted)', fontSize: '0.85rem', fontWeight: 600 }}>In Progress</div>
+          <div style={{ fontSize: '2rem', fontWeight: 800, color: '#2563EB', margin: '0.25rem 0' }}>{inProgressTickets}</div>
+          <div style={{ color: 'var(--text-muted)', fontSize: '0.78rem' }}>Work crew assigned & deployed</div>
         </div>
 
-        <div className="card" style={{ display: 'flex', alignItems: 'center', gap: '1.25rem' }}>
-          <div style={{ width: '50px', height: '50px', borderRadius: 'var(--radius-md)', background: 'rgba(22, 163, 74, 0.15)', display: 'flex', alignItems: 'center', justifyContent: 'center', fontSize: '1.5rem', color: '#16A34A' }}>
-            🏆
-          </div>
-          <div>
-            <div style={{ fontSize: '0.8rem', color: 'var(--text-muted)', fontWeight: 600, textTransform: 'uppercase' }}>Overall SLA Adherence</div>
-            <div style={{ fontSize: '1.8rem', fontWeight: 800, color: '#16A34A' }}>{resolutionRate}%</div>
-          </div>
+        <div className="card" style={{ borderLeft: '4px solid #16A34A' }}>
+          <div style={{ color: 'var(--text-muted)', fontSize: '0.85rem', fontWeight: 600 }}>Citywide SLA Adherence</div>
+          <div style={{ fontSize: '2rem', fontWeight: 800, color: '#16A34A', margin: '0.25rem 0' }}>{slaData.executive.citywideComplianceRate}%</div>
+          <div style={{ color: '#16A34A', fontSize: '0.78rem', fontWeight: 600 }}>{resolutionRate}% resolved rate</div>
         </div>
       </div>
 
       {/* Department Oversight Table */}
       <div className="card">
-        <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '1.25rem' }}>
+        <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '1.25rem', flexWrap: 'wrap', gap: '0.75rem' }}>
           <div>
             <h2 style={{ fontSize: '1.25rem', fontWeight: 800, color: 'var(--color-primary)' }}>Municipal Department Health & SLA Status</h2>
             <p style={{ color: 'var(--text-muted)', fontSize: '0.82rem', marginTop: '0.2rem' }}>
-              Real-time response metrics across key urban administration clusters
+              Real-time response metrics across key urban administration clusters • {slaData.period.label}
             </p>
           </div>
-          <button
-            className="btn btn-secondary"
-            style={{ fontSize: '0.82rem' }}
-            onClick={handleExportCsv}
-          >
-            📥 Export Audit Report
-          </button>
+          <div style={{ display: 'flex', gap: '0.5rem', flexWrap: 'wrap' }}>
+            <button
+              className="sla-btn sla-btn-secondary"
+              style={{ fontSize: '0.82rem' }}
+              onClick={handleExportSLACSV}
+              title="Export official Municipal Commissioner Monthly SLA Resolution Report (CSV)"
+            >
+              📊 Export SLA CSV
+            </button>
+            <button
+              className="sla-btn sla-btn-primary"
+              style={{ fontSize: '0.82rem' }}
+              onClick={() => setIsPrintModalOpen(true)}
+              title="Open printable official Municipal Commissioner SLA audit dossier"
+            >
+              🖨️ Commissioner Report (PDF)
+            </button>
+          </div>
         </div>
 
         <div style={{ overflowX: 'auto' }}>
@@ -187,7 +212,7 @@ export default function AdminDashboard({ complaints, onSwitchTab, onNotification
                   <td style={{ padding: '1rem', color: 'var(--text-muted)' }}>{dept.budget}</td>
                   <td style={{ padding: '1rem' }}>
                     <span style={{ color: '#16A34A', display: 'flex', alignItems: 'center', gap: '0.35rem', fontSize: '0.82rem' }}>
-                      <span>●</span> Operational
+                      <span>●</span> {dept.rating}
                     </span>
                   </td>
                 </tr>
@@ -196,6 +221,16 @@ export default function AdminDashboard({ complaints, onSwitchTab, onNotification
           </table>
         </div>
       </div>
+
+      {/* Printable PDF Dossier Modal */}
+      <SLAReportModal
+        isOpen={isPrintModalOpen}
+        onClose={() => setIsPrintModalOpen(false)}
+        slaData={slaData}
+        selectedPeriodKey={selectedPeriodKey}
+        onPeriodChange={setSelectedPeriodKey}
+        onNotification={onNotification}
+      />
     </div>
   );
 }
