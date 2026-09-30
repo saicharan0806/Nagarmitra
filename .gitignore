@@ -54,5 +54,14 @@ scratch/
 doc_content/
 *diagram*
 *Diagram*
+implementation_plan.md
+walkthrough.md
+*plan*.md
+*walkthrough*.md
+auto_sync.bat
+scripts/auto_push.ps1
+frontend/scripts/port_bridge.cjs
+*Postman*.json
+*postman*.json
 
 
