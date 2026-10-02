@@ -7,24 +7,38 @@
   /* ====================================================================
      Nagarmitra Official Design Tokens
      ==================================================================== */
-  --color-primary: #0B1220;          /* Deep Navy: Primary structural color */
-  --color-accent: #16A34A;           /* Emerald Green: Main brand/action color */
-  --color-accent-hover: #15803D;     /* Darker emerald for hover states */
-  --color-warning: #D97706;          /* Accessible Amber: Highlights & attention indicators (WCAG AA compliant) */
+  --color-primary: #0B1220;
+  /* Deep Navy: Primary structural color */
+  --color-accent: #16A34A;
+  /* Emerald Green: Main brand/action color */
+  --color-accent-hover: #15803D;
+  /* Darker emerald for hover states */
+  --color-warning: #D97706;
+  /* Accessible Amber: Highlights & attention indicators (WCAG AA compliant) */
 
-  --color-bg: #F8F9F6;               /* Off-White: Main page background */
-  --color-bg-secondary: #EEF1ED;     /* Secondary background */
-  --color-surface: #FFFFFF;          /* Pure White: Cards & surfaces */
+  --color-bg: #F8F9F6;
+  /* Off-White: Main page background */
+  --color-bg-secondary: #EEF1ED;
+  /* Secondary background */
+  --color-surface: #FFFFFF;
+  /* Pure White: Cards & surfaces */
 
-  --color-text: #111827;             /* Primary text */
-  --color-text-secondary: #64748B;   /* Slate Gray: Secondary text */
-  --color-text-muted: #94A3B8;       /* Muted text */
+  --color-text: #111827;
+  /* Primary text */
+  --color-text-secondary: #64748B;
+  /* Slate Gray: Secondary text */
+  --color-text-muted: #94A3B8;
+  /* Muted text */
 
-  --color-info: #2563EB;             /* Information Blue */
-  --color-error: #DC2626;            /* Error / Danger Red */
+  --color-info: #2563EB;
+  /* Information Blue */
+  --color-error: #DC2626;
+  /* Error / Danger Red */
 
-  --color-border: #E2E8F0;           /* Clean subtle border */
-  --color-border-input: #CBD5E1;     /* Form input border */
+  --color-border: #E2E8F0;
+  /* Clean subtle border */
+  --color-border-input: #CBD5E1;
+  /* Form input border */
 
   /* Backward-compatible aliases for existing component references */
   --eco-primary: var(--color-accent);
@@ -77,7 +91,9 @@
 /* ====================================================================
    Reset & Base Setup
    ==================================================================== */
-*, *::before, *::after {
+*,
+*::before,
+*::after {
   box-sizing: border-box;
   margin: 0;
   padding: 0;
@@ -93,7 +109,12 @@ body {
   -webkit-font-smoothing: antialiased;
 }
 
-h1, h2, h3, h4, h5, h6 {
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
   font-family: var(--font-heading);
   color: var(--text-primary);
   font-weight: 700;
@@ -105,7 +126,10 @@ a {
   text-decoration: none;
 }
 
-button, input, select, textarea {
+button,
+input,
+select,
+textarea {
   font-family: inherit;
 }
 
@@ -505,6 +529,7 @@ button, input, select, textarea {
     opacity: 0;
     transform: translateY(-10px);
   }
+
   to {
     opacity: 1;
     transform: translateY(0);
@@ -697,7 +722,8 @@ button, input, select, textarea {
 /* ====================================================================
    Standard Institutional Buttons (Distinct Green & Outlines)
    ==================================================================== */
-.btn, .govt-btn-primary {
+.btn,
+.govt-btn-primary {
   display: inline-flex;
   align-items: center;
   justify-content: center;
@@ -712,28 +738,33 @@ button, input, select, textarea {
   text-decoration: none;
 }
 
-.btn-primary, .govt-btn-primary {
+.btn-primary,
+.govt-btn-primary {
   background-color: var(--color-accent);
   color: #ffffff;
   box-shadow: var(--shadow-sm);
 }
 
-.btn-primary:hover:not(:disabled), .govt-btn-primary:hover:not(:disabled) {
+.btn-primary:hover:not(:disabled),
+.govt-btn-primary:hover:not(:disabled) {
   background-color: var(--color-accent-hover);
 }
 
-.btn-primary:disabled, .govt-btn-primary:disabled {
+.btn-primary:disabled,
+.govt-btn-primary:disabled {
   background-color: #94a3b8;
   cursor: not-allowed;
 }
 
-.btn-secondary, .govt-btn-secondary {
+.btn-secondary,
+.govt-btn-secondary {
   background-color: #ffffff;
   color: var(--color-primary);
   border: 1px solid var(--color-border-input);
 }
 
-.btn-secondary:hover, .govt-btn-secondary:hover {
+.btn-secondary:hover,
+.govt-btn-secondary:hover {
   background-color: var(--color-bg-secondary);
   border-color: var(--color-accent);
   color: var(--color-primary);
@@ -742,7 +773,8 @@ button, input, select, textarea {
 /* ====================================================================
    Cards & Panels (Clean White, Subtle Borders)
    ==================================================================== */
-.card, .glass-panel {
+.card,
+.glass-panel {
   background: var(--color-surface);
   border: 1px solid var(--color-border);
   border-radius: var(--radius-sm);
@@ -753,13 +785,15 @@ button, input, select, textarea {
 /* ====================================================================
    Standard Clean Form Controls
    ==================================================================== */
-.form-group, .govt-form-group {
+.form-group,
+.govt-form-group {
   margin-bottom: 1.25rem;
   display: flex;
   flex-direction: column;
 }
 
-.form-label, .govt-label {
+.form-label,
+.govt-label {
   font-size: 0.88rem;
   font-weight: 600;
   color: var(--color-text);
@@ -774,7 +808,11 @@ button, input, select, textarea {
   margin-left: 0.2rem;
 }
 
-.form-input, .form-select, .form-textarea, .govt-input, .govt-select {
+.form-input,
+.form-select,
+.form-textarea,
+.govt-input,
+.govt-select {
   width: 100%;
   height: 42px;
   padding: 0 0.85rem;
@@ -787,7 +825,9 @@ button, input, select, textarea {
   outline: none;
 }
 
-.form-input::placeholder, .form-textarea::placeholder, .govt-input::placeholder {
+.form-input::placeholder,
+.form-textarea::placeholder,
+.govt-input::placeholder {
   color: var(--color-text-muted);
 }
 
@@ -797,8 +837,11 @@ button, input, select, textarea {
   padding: 0.65rem 0.85rem;
 }
 
-.form-input:focus, .form-select:focus, .form-textarea:focus,
-.govt-input:focus, .govt-select:focus {
+.form-input:focus,
+.form-select:focus,
+.form-textarea:focus,
+.govt-input:focus,
+.govt-select:focus {
   border-color: var(--color-accent);
   box-shadow: 0 0 0 3px rgba(22, 163, 74, 0.2);
 }
@@ -858,7 +901,8 @@ button, input, select, textarea {
   border: 1px solid var(--color-border-input);
 }
 
-.badge-rejected, .badge-error {
+.badge-rejected,
+.badge-error {
   background: var(--status-rejected-bg);
   color: var(--status-rejected-text);
   border: 1px solid #fecaca;
@@ -1825,8 +1869,15 @@ button, input, select, textarea {
 
 /* Animations */
 @keyframes fadeIn {
-  from { opacity: 0; transform: translateY(4px); }
-  to { opacity: 1; transform: translateY(0); }
+  from {
+    opacity: 0;
+    transform: translateY(4px);
+  }
+
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
 }
 
 .animate-fade-in {
@@ -4593,6 +4644,7 @@ button, input, select, textarea {
     opacity: 0;
     transform: translateY(12px) scale(0.88);
   }
+
   100% {
     opacity: 1;
     transform: translateY(0) scale(1);
@@ -4604,6 +4656,7 @@ button, input, select, textarea {
     opacity: 0;
     transform: translateY(10px);
   }
+
   100% {
     opacity: 1;
     transform: translateY(0);
@@ -4618,15 +4671,18 @@ button, input, select, textarea {
     border-radius: 14px;
     margin-bottom: 1rem;
   }
+
   .nagarmitra-splash-title {
     font-size: 2rem;
   }
+
   .nagarmitra-splash-tagline {
     font-size: 0.88rem;
   }
 }
 
 @media (prefers-reduced-motion: reduce) {
+
   .nagarmitra-splash-seal,
   .nagarmitra-splash-title,
   .nagarmitra-splash-tagline {
@@ -4634,6 +4690,7 @@ button, input, select, textarea {
     opacity: 1 !important;
     transform: none !important;
   }
+
   .nagarmitra-splash-overlay {
     transition: opacity 0.2s ease, visibility 0.2s ease !important;
   }
@@ -4775,10 +4832,12 @@ button, input, select, textarea {
     transform: translateX(-50%) scale(1);
     opacity: 0.8;
   }
+
   70% {
     transform: translateX(-50%) scale(2.6);
     opacity: 0;
   }
+
   100% {
     transform: translateX(-50%) scale(1);
     opacity: 0;
@@ -4860,9 +4919,11 @@ button, input, select, textarea {
   0% {
     box-shadow: 0 0 0 0 rgba(220, 38, 38, 0.4);
   }
+
   70% {
     box-shadow: 0 0 0 8px rgba(220, 38, 38, 0);
   }
+
   100% {
     box-shadow: 0 0 0 0 rgba(220, 38, 38, 0);
   }
@@ -5070,6 +5131,7 @@ button, input, select, textarea {
     opacity: 0;
     transform: translateY(-6px);
   }
+
   to {
     opacity: 1;
     transform: translateY(0);
@@ -6457,8 +6519,15 @@ button, input, select, textarea {
 }
 
 @keyframes fadeInModal {
-  from { opacity: 0; transform: scale(0.98); }
-  to { opacity: 1; transform: scale(1); }
+  from {
+    opacity: 0;
+    transform: scale(0.98);
+  }
+
+  to {
+    opacity: 1;
+    transform: scale(1);
+  }
 }
 
 /* Modal Top Action Toolbar */
@@ -6649,7 +6718,7 @@ button, input, select, textarea {
 .pdf-emblem-icon {
   font-size: 2.8rem;
   line-height: 1;
-  filter: drop-shadow(0 2px 4px rgba(0,0,0,0.15));
+  filter: drop-shadow(0 2px 4px rgba(0, 0, 0, 0.15));
 }
 
 .pdf-emblem-badge {
@@ -6858,7 +6927,8 @@ button, input, select, textarea {
   vertical-align: middle;
 }
 
-.pdf-table-compact th, .pdf-table-compact td {
+.pdf-table-compact th,
+.pdf-table-compact td {
   padding: 0.45rem 0.55rem;
   font-size: 0.76rem;
 }
@@ -7116,14 +7186,17 @@ button, input, select, textarea {
   }
 
   /* Universal reset for print */
-  *, *::before, *::after {
+  *,
+  *::before,
+  *::after {
     background: transparent !important;
     color: #000000 !important;
     box-shadow: none !important;
     text-shadow: none !important;
   }
 
-  html, body {
+  html,
+  body {
     width: 100% !important;
     height: auto !important;
     margin: 0 !important;
